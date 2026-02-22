@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>관리자 대시보드 – TORCH</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    .admin-layout { display: grid; grid-template-columns: 220px 1fr; gap: 24px; align-items: start; }
+    @media (max-width: 768px) { .admin-layout { grid-template-columns: 1fr; } }
+    .reg-status-toggle { display: flex; align-items: center; gap: 16px; padding: 16px; background: var(--light); border-radius: var(--radius); border: 1.5px solid var(--border); }
+    .toggle-pill { position: relative; width: 52px; height: 28px; cursor: pointer; }
+    .toggle-pill input { opacity: 0; width: 0; height: 0; }
+    .toggle-track { position: absolute; inset: 0; border-radius: 14px; background: #ccc; transition: background .25s; }
+    .toggle-knob  { position: absolute; top: 4px; left: 4px; width: 20px; height: 20px; background: #fff; border-radius: 50%; box-shadow: 0 1px 4px rgba(0,0,0,.25); transition: transform .25s; }
+    .toggle-pill input:checked ~ .toggle-track { background: var(--primary); }
+    .toggle-pill input:checked ~ .toggle-knob  { transform: translateX(24px); }
+    .status-badge { font-size: .88rem; font-weight: 600; }
+    .reg-open  .status-badge { color: var(--success); }
+    .reg-close .status-badge { color: var(--text-muted); }
+    .table-actions { display: flex; gap: 6px; }
+    .table-actions button { padding: 4px 8px; font-size: .78rem; border-radius: 4px; border: 1px solid var(--border); background: var(--white); cursor: pointer; }
+    .table-actions button:hover { background: var(--light); }
+    .filter-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
+    .filter-row select { padding: 6px 10px; border: 1px solid var(--border); border-radius: 6px; font-size: .85rem; background: var(--white); color: var(--text); }
+    .setting-row { display: flex; align-items: center; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid var(--border); }
+    .setting-row:last-child { border-bottom: none; }
+    .setting-row input { max-width: 260px; }
+    .setting-row select { max-width: 260px; }
+    #toast { position: fixed; bottom: 24px; right: 24px; background: #1a1a2e; color: #fff; padding: 12px 20px; border-radius: 8px; font-size: .88rem; opacity: 0; transform: translateY(8px); transition: all .25s; pointer-events: none; z-index: 9999; }
+    #toast.show { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar">
+  <div class="nav-inner">
+    <a href="../index.html" class="nav-logo"><div class="logo-icon">🔥</div>TORCH</a>
+    <div class="nav-links">
+      <div class="nav-item"><a href="../index.html" class="nav-link">사이트</a></div>
+      <div class="nav-item"><a href="/admin/" class="nav-link active">Admin</a></div>
+    </div>
+    <div class="nav-cta">
+      <button class="btn btn-outline btn-sm" id="logout-btn">로그아웃</button>
+    </div>
+    <div class="hamburger"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+
+<div class="page-header">
+  <div class="container">
+    <span class="eyebrow">Administration</span>
+    <h1>관리자 대시보드</h1>
+    <p>신청 현황, 회원 정보, 사이트 설정을 관리합니다.</p>
+  </div>
+</div>
+
+<section class="section section-light">
+  <div class="container">
+
+    <!-- KPI -->
+    <div class="kpi-grid" style="margin-bottom:28px" id="kpi-grid">
+      <div class="kpi-card"><div class="kpi-label">총 신청</div><div class="kpi-value" id="kpi-total">—</div></div>
+      <div class="kpi-card"><div class="kpi-label">스터디</div><div class="kpi-value" id="kpi-study">—</div></div>
+      <div class="kpi-card"><div class="kpi-label">심포지엄</div><div class="kpi-value" id="kpi-symposium">—</div></div>
+      <div class="kpi-card"><div class="kpi-label">워크샵</div><div class="kpi-value" id="kpi-workshop">—</div></div>
+    </div>
+
+    <div class="admin-layout">
+      <!-- Sidebar -->
+      <div class="sidebar">
+        <div class="sidebar-title">대시보드</div>
+        <div class="sidebar-link active" data-panel="panel-registrations">📋 신청 관리</div>
+        <div class="sidebar-title" style="margin-top:12px">설정</div>
+        <div class="sidebar-link" data-panel="panel-settings">⚙️ 사이트 설정</div>
+      </div>
+
+      <!-- Main -->
+      <div class="main-panel">
+
+        <!-- Registrations Panel -->
+        <div id="panel-registrations" class="admin-panel">
+          <div class="panel">
+            <div class="panel-header">
+              <h3>신청 목록</h3>
+              <div style="display:flex;gap:8px">
+                <button class="btn btn-primary btn-sm" onclick="exportCSV()">📥 CSV</button>
+              </div>
+            </div>
+
+            <div class="filter-row">
+              <select id="filter-type" onchange="loadRegistrations()">
+                <option value="all">전체 유형</option>
+                <option value="study">스터디</option>
+                <option value="symposium">심포지엄</option>
+                <option value="workshop">워크샵</option>
+              </select>
+              <select id="filter-status" onchange="loadRegistrations()">
+                <option value="all">전체 상태</option>
+                <option value="pending">검토 중</option>
+                <option value="approved">승인됨</option>
+                <option value="rejected">거절됨</option>
+              </select>
+              <input class="form-control" id="reg-search" placeholder="이름/이메일 검색…"
+                     style="max-width:200px;font-size:.85rem;padding:7px 12px"
+                     oninput="filterTable()">
+            </div>
+
+            <div class="table-wrap">
+              <table id="reg-table">
+                <thead>
+                  <tr><th>#</th><th>유형</th><th>이름</th><th>이메일</th><th>소속</th><th>날짜</th><th>상태</th><th>관리</th></tr>
+                </thead>
+                <tbody id="reg-tbody">
+                  <tr><td colspan="8" style="text-align:center;padding:32px;color:var(--text-muted)">불러오는 중…</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Settings Panel -->
+        <div id="panel-settings" class="admin-panel" style="display:none">
+          <div class="panel">
+            <div class="panel-header"><h3>사이트 설정</h3></div>
+
+            <!-- Registration Open/Close -->
+            <div style="margin-bottom:24px">
+              <h4 style="margin-bottom:12px">신청(Registration) 활성화</h4>
+              <div class="reg-status-toggle" id="reg-toggle-wrap">
+                <label class="toggle-pill">
+                  <input type="checkbox" id="reg-open-toggle">
+                  <span class="toggle-track"></span>
+                  <span class="toggle-knob"></span>
+                </label>
+                <div>
+                  <div class="status-badge" id="reg-status-label"></div>
+                  <div style="font-size:.8rem;color:var(--text-muted);margin-top:2px">비활성화 시 Registration 페이지에 "모집 기간 아님" 안내가 표시됩니다.</div>
+                </div>
+              </div>
+            </div>
+
+            <hr class="form-divider">
+
+            <!-- Other settings -->
+            <div id="settings-form">
+              <div class="setting-row">
+                <label style="font-weight:500">사이트 이름</label>
+                <input class="form-control" id="s-site_name">
+              </div>
+              <div class="setting-row">
+                <label style="font-weight:500">연락처 이메일</label>
+                <input class="form-control" id="s-contact_email" type="email">
+              </div>
+              <div class="setting-row">
+                <label style="font-weight:500">스터디 최대 정원</label>
+                <input class="form-control" id="s-max_capacity" type="number">
+              </div>
+            </div>
+
+            <div style="margin-top:20px;display:flex;gap:10px">
+              <button class="btn btn-primary" onclick="saveSettings()">설정 저장</button>
+              <button class="btn btn-dark" onclick="loadSettings()">초기화</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<div id="toast"></div>
+
+<script src="../js/theme.js"></script>
+<script>
+/* ── Auth check ─────────────────────────────── */
+async function authCheck() {
+  const res = await fetch('/api/admin/settings').catch(() => null);
+  if (!res || res.status === 401) {
+    window.location.href = '/admin/login.html';
+  }
+}
+
+/* ── Sidebar nav ────────────────────────────── */
+document.querySelectorAll('.sidebar-link[data-panel]').forEach(link => {
+  link.addEventListener('click', () => {
+    document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
+    document.querySelectorAll('.admin-panel').forEach(p => p.style.display = 'none');
+    link.classList.add('active');
+    document.getElementById(link.dataset.panel).style.display = '';
+    if (link.dataset.panel === 'panel-settings') loadSettings();
+    if (link.dataset.panel === 'panel-registrations') loadRegistrations();
+  });
+});
+
+/* ── Toast ──────────────────────────────────── */
+function toast(msg, type = 'success') {
+  const el = document.getElementById('toast');
+  el.textContent = (type === 'success' ? '✅ ' : '❌ ') + msg;
+  el.className = 'show';
+  setTimeout(() => el.className = '', 2800);
+}
+
+/* ── Logout ─────────────────────────────────── */
+document.getElementById('logout-btn').addEventListener('click', async () => {
+  await fetch('/api/auth/logout', { method: 'POST' });
+  window.location.href = '/admin/login.html';
+});
+
+/* ── KPI ────────────────────────────────────── */
+async function loadKPI() {
+  const res = await fetch('/api/admin/registrations').catch(() => null);
+  if (!res || !res.ok) return;
+  const { kpi } = await res.json();
+
+  let total = 0;
+  const map = {};
+  (kpi || []).forEach(k => { map[k.type] = k.cnt; total += k.cnt; });
+
+  document.getElementById('kpi-total').textContent     = total;
+  document.getElementById('kpi-study').textContent     = map.study     || 0;
+  document.getElementById('kpi-symposium').textContent = map.symposium || 0;
+  document.getElementById('kpi-workshop').textContent  = map.workshop  || 0;
+}
+
+/* ── Registrations table ────────────────────── */
+let allRows = [];
+
+async function loadRegistrations() {
+  const type   = document.getElementById('filter-type').value;
+  const status = document.getElementById('filter-status').value;
+  const params = new URLSearchParams({ type, status });
+
+  document.getElementById('reg-tbody').innerHTML =
+    '<tr><td colspan="8" style="text-align:center;padding:24px;color:var(--text-muted)">불러오는 중…</td></tr>';
+
+  const res = await fetch('/api/admin/registrations?' + params).catch(() => null);
+  if (!res || !res.ok) {
+    document.getElementById('reg-tbody').innerHTML =
+      '<tr><td colspan="8" style="text-align:center;padding:24px;color:var(--danger)">로드 실패</td></tr>';
+    return;
+  }
+  const { registrations } = await res.json();
+  allRows = registrations || [];
+  renderTable(allRows);
+}
+
+function filterTable() {
+  const q = document.getElementById('reg-search').value.toLowerCase();
+  const filtered = allRows.filter(r =>
+    (r.name  || '').toLowerCase().includes(q) ||
+    (r.email || '').toLowerCase().includes(q)
+  );
+  renderTable(filtered);
+}
+
+const typeLabel  = { study: '스터디', symposium: '심포지엄', workshop: '워크샵' };
+const statusBadge = {
+  pending:  '<span class="badge badge-warning">검토 중</span>',
+  approved: '<span class="badge badge-success">승인됨</span>',
+  rejected: '<span class="badge badge-danger">거절됨</span>'
+};
+
+function renderTable(rows) {
+  const tbody = document.getElementById('reg-tbody');
+  if (!rows.length) {
+    tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;padding:24px;color:var(--text-muted)">신청 내역이 없습니다.</td></tr>';
+    return;
+  }
+  tbody.innerHTML = rows.map((r, i) => `
+    <tr>
+      <td>${i + 1}</td>
+      <td><span class="badge badge-info">${typeLabel[r.type] || r.type}</span></td>
+      <td>${esc(r.name)}</td>
+      <td style="font-size:.82rem">${esc(r.email)}</td>
+      <td style="font-size:.82rem">${esc(r.affiliation)}</td>
+      <td style="font-size:.82rem">${(r.created_at || '').slice(0,10)}</td>
+      <td>${statusBadge[r.status] || r.status}</td>
+      <td>
+        <div class="table-actions">
+          <button onclick="setStatus(${r.id},'approved')" title="승인">✅</button>
+          <button onclick="setStatus(${r.id},'rejected')" title="거절">❌</button>
+          <button onclick="setStatus(${r.id},'pending')"  title="검토중">⏳</button>
+          <button onclick="delReg(${r.id})" title="삭제" style="color:var(--danger)">🗑</button>
+        </div>
+      </td>
+    </tr>
+  `).join('');
+}
+
+function esc(str) {
+  return (str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+async function setStatus(id, status) {
+  const res = await fetch('/api/admin/registrations', {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ id, status })
+  });
+  if (res.ok) { toast('상태가 변경되었습니다.'); loadRegistrations(); loadKPI(); }
+  else toast('변경 실패', 'error');
+}
+
+async function delReg(id) {
+  if (!confirm('이 신청을 삭제하시겠습니까?')) return;
+  const res = await fetch('/api/admin/registrations?id=' + id, { method: 'DELETE' });
+  if (res.ok) { toast('삭제되었습니다.'); loadRegistrations(); loadKPI(); }
+  else toast('삭제 실패', 'error');
+}
+
+/* ── CSV Export ─────────────────────────────── */
+function exportCSV() {
+  if (!allRows.length) { toast('내보낼 데이터가 없습니다.', 'error'); return; }
+  const header = ['ID', '유형', '이름', '이메일', '소속', '날짜', '상태'];
+  const rows = allRows.map(r => [
+    r.id, typeLabel[r.type] || r.type,
+    r.name, r.email, r.affiliation,
+    (r.created_at || '').slice(0,10), r.status
+  ].map(v => `"${String(v || '').replace(/"/g, '""')}"`).join(','));
+  const csv = [header.join(','), ...rows].join('\n');
+  const a = document.createElement('a');
+  a.href = 'data:text/csv;charset=utf-8,\uFEFF' + encodeURIComponent(csv);
+  a.download = `registrations_${new Date().toISOString().slice(0,10)}.csv`;
+  a.click();
+}
+
+/* ── Settings ───────────────────────────────── */
+async function loadSettings() {
+  const res = await fetch('/api/admin/settings').catch(() => null);
+  if (!res || !res.ok) return;
+  const { settings } = await res.json();
+  const map = {};
+  (settings || []).forEach(s => map[s.key] = s.value);
+
+  // Registration toggle
+  const isOpen = map.reg_open === 'true';
+  const toggle = document.getElementById('reg-open-toggle');
+  toggle.checked = isOpen;
+  updateToggleLabel(isOpen);
+
+  // Other fields
+  ['site_name', 'contact_email', 'max_capacity'].forEach(k => {
+    const el = document.getElementById('s-' + k);
+    if (el) el.value = map[k] || '';
+  });
+}
+
+function updateToggleLabel(isOpen) {
+  const lbl  = document.getElementById('reg-status-label');
+  const wrap = document.getElementById('reg-toggle-wrap');
+  lbl.textContent = isOpen ? '✅ 신청 활성화 (모집 중)' : '🔒 신청 비활성화 (모집 종료)';
+  wrap.className  = 'reg-status-toggle ' + (isOpen ? 'reg-open' : 'reg-close');
+}
+
+document.getElementById('reg-open-toggle').addEventListener('change', async function() {
+  const open = this.checked;
+  updateToggleLabel(open);
+  const res = await fetch('/api/admin/settings', {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ reg_open: open ? 'true' : 'false' })
+  });
+  if (res.ok) toast(open ? '신청이 활성화되었습니다.' : '신청이 비활성화되었습니다.');
+  else { toast('저장 실패', 'error'); this.checked = !open; updateToggleLabel(!open); }
+});
+
+async function saveSettings() {
+  const body = {};
+  ['site_name', 'contact_email', 'max_capacity'].forEach(k => {
+    const el = document.getElementById('s-' + k);
+    if (el) body[k] = el.value;
+  });
+  const res = await fetch('/api/admin/settings', {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body)
+  });
+  if (res.ok) toast('설정이 저장되었습니다.');
+  else toast('저장 실패', 'error');
+}
+
+/* ── Init ───────────────────────────────────── */
+(async () => {
+  await authCheck();
+  loadKPI();
+  loadRegistrations();
+})();
+</script>
+</body>
+</html>

@@ -178,10 +178,6 @@
     document.getElementById('abstract-section').style.display =
       this.value.startsWith('presenter') ? 'block' : 'none';
   });
-  if (localStorage.getItem('ts_reg_open') !== 'true') {
-    document.getElementById('reg-section').style.display = 'none';
-    document.getElementById('reg-closed-msg').style.display = '';
-  }
 </script>
 </body>
 </html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>관리자 로그인 – TORCH</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    body { background: var(--light); min-height: 100vh; display: flex; flex-direction: column; }
+    .login-wrap { flex: 1; display: flex; align-items: center; justify-content: center; padding: 40px 16px; }
+    .login-box { width: 100%; max-width: 400px; }
+    .admin-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(232,65,24,.1); color: var(--primary); border: 1px solid rgba(232,65,24,.2); border-radius: 20px; padding: 4px 12px; font-size: .78rem; font-weight: 700; letter-spacing: .05em; margin-bottom: 24px; }
+  </style>
+</head>
+<body>
+<nav class="navbar">
+  <div class="nav-inner">
+    <a href="../index.html" class="nav-logo"><div class="logo-icon">🔥</div>TORCH</a>
+    <div class="hamburger"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+
+<div class="login-wrap">
+  <div class="login-box">
+    <div style="text-align:center;margin-bottom:28px">
+      <a href="../index.html" class="nav-logo" style="justify-content:center;margin-bottom:16px;font-size:1.4rem">
+        <div class="logo-icon" style="width:44px;height:44px;font-size:1.3rem">🔥</div>TORCH
+      </a>
+      <div class="admin-badge">🔐 Admin Access</div>
+      <h2 style="margin:12px 0 4px">관리자 로그인</h2>
+      <p style="font-size:.9rem;color:var(--text-muted)">관리자 비밀번호를 입력하세요</p>
+    </div>
+
+    <div class="form-card" style="max-width:100%">
+      <div id="alert" class="alert"><span class="alert-msg"></span></div>
+
+      <form id="login-form">
+        <div class="form-group">
+          <label class="required">비밀번호</label>
+          <div style="position:relative">
+            <input class="form-control" type="password" id="password" placeholder="••••••••" required style="padding-right:44px">
+            <button type="button" id="toggle-pw" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:1rem;color:var(--text-muted)">👁</button>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block btn-lg" id="submit-btn">로그인</button>
+      </form>
+
+      <div style="margin-top:20px;text-align:center">
+        <a href="../index.html" style="font-size:.85rem;color:var(--text-muted)">← 사이트로 돌아가기</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="../js/theme.js"></script>
+<script>
+  // If already logged in, go to dashboard
+  (async () => {
+    try {
+      const res = await fetch('/api/admin/settings');
+      if (res.ok) window.location.href = '/admin/';
+    } catch {}
+  })();
+
+  document.getElementById('toggle-pw').addEventListener('click', function() {
+    const pw = document.getElementById('password');
+    pw.type = pw.type === 'password' ? 'text' : 'password';
+  });
+
+  document.getElementById('login-form').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const btn = document.getElementById('submit-btn');
+    btn.disabled = true;
+    btn.textContent = '로그인 중…';
+
+    const alertEl  = document.getElementById('alert');
+    const alertMsg = alertEl.querySelector('.alert-msg');
+
+    try {
+      const res = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password: document.getElementById('password').value })
+      });
+      const data = await res.json();
+
+      if (res.ok && data.ok) {
+        alertEl.className = 'alert alert-success show';
+        alertMsg.textContent = '✅ 로그인 성공! 대시보드로 이동 중…';
+        setTimeout(() => window.location.href = '/admin/', 800);
+      } else {
+        alertEl.className = 'alert alert-danger show';
+        alertMsg.textContent = data.error || '로그인 실패';
+        btn.disabled = false;
+        btn.textContent = '로그인';
+      }
+    } catch {
+      alertEl.className = 'alert alert-danger show';
+      alertMsg.textContent = '서버 오류가 발생했습니다.';
+      btn.disabled = false;
+      btn.textContent = '로그인';
+    }
+  });
+</script>
+</body>
+</html>
