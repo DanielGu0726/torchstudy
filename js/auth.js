@@ -6,9 +6,9 @@ const Auth = (() => {
   const KEY = 'ts_user';
 
   const DEMO_USERS = [
-    { id: 1, email: 'admin@torchstudy.org', password: 'admin1234', name: 'Admin',       role: 'admin',  department: 'Management',      joined: '2023-01-01' },
-    { id: 2, email: 'user@torchstudy.org',  password: 'user1234',  name: 'John Doe',    role: 'member', department: 'Computer Science', joined: '2024-03-15' },
-    { id: 3, email: 'test@example.com',     password: 'test1234',  name: 'Jane Smith',  role: 'member', department: 'Electrical Eng.',  joined: '2024-06-01' },
+    { id: 1, email: 'admin@torchstudy.kr', password: 'admin1234', name: '관리자',       role: 'admin',  department: '운영진',           joined: '2023-01-01' },
+    { id: 2, email: 'user@torchstudy.kr',  password: 'user1234',  name: '김치기',       role: 'member', department: '서울치과기공소',    joined: '2024-03-15' },
+    { id: 3, email: 'test@example.com',    password: 'test1234',  name: '이기공',       role: 'member', department: '한국치기공대학교',  joined: '2024-06-01' },
   ];
 
   function login(email, password) {

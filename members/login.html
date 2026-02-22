@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login – TorchStudy</title>
+  <title>로그인 – TORCH</title>
   <link rel="stylesheet" href="../css/style.css">
 </head>
 <body style="background:var(--light);min-height:100vh;display:flex;flex-direction:column">
 <nav class="navbar">
   <div class="nav-inner">
-    <a href="../index.html" class="nav-logo"><div class="logo-icon">🔥</div>TorchStudy</a>
+    <a href="../index.html" class="nav-logo"><div class="logo-icon">🔥</div>TORCH</a>
     <div class="nav-links">
       <div class="nav-item"><a href="../index.html" class="nav-link">Home</a></div>
       <div class="nav-item"><a href="../about.html" class="nav-link">About</a></div>
@@ -29,10 +29,10 @@
     <div style="text-align:center;margin-bottom:32px">
       <a href="../index.html" class="nav-logo" style="justify-content:center;margin-bottom:16px;font-size:1.5rem">
         <div class="logo-icon" style="width:44px;height:44px;font-size:1.3rem">🔥</div>
-        TorchStudy
+        TORCH
       </a>
-      <h2>Welcome back</h2>
-      <p style="font-size:.9rem">Sign in to your member account</p>
+      <h2>다시 만나요</h2>
+      <p style="font-size:.9rem">회원 계정으로 로그인하세요</p>
     </div>
 
     <div class="form-card" style="max-width:100%">
@@ -40,12 +40,12 @@
 
       <form id="login-form">
         <div class="form-group">
-          <label class="required">Email Address</label>
-          <input class="form-control" type="email" id="login-email" placeholder="you@example.com" required>
+          <label class="required">이메일</label>
+          <input class="form-control" type="email" id="login-email" placeholder="example@email.com" required>
           <div class="error-msg"></div>
         </div>
         <div class="form-group">
-          <label class="required">Password</label>
+          <label class="required">비밀번호</label>
           <div style="position:relative">
             <input class="form-control" type="password" id="login-password" placeholder="••••••••" required style="padding-right:44px">
             <button type="button" id="toggle-pw" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:1rem;color:var(--text-muted)">👁</button>
@@ -53,21 +53,21 @@
           <div class="error-msg"></div>
         </div>
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px">
-          <label class="check-item"><input type="checkbox" id="remember"> <label style="font-size:.85rem">Remember me</label></label>
-          <a href="#" style="font-size:.85rem">Forgot password?</a>
+          <label class="check-item"><input type="checkbox" id="remember"> <label style="font-size:.85rem">로그인 유지</label></label>
+          <a href="#" style="font-size:.85rem">비밀번호 찾기</a>
         </div>
-        <button type="submit" class="btn btn-primary btn-block btn-lg">Sign In</button>
+        <button type="submit" class="btn btn-primary btn-block btn-lg">로그인</button>
       </form>
 
       <hr class="form-divider">
       <div style="text-align:center">
-        <p style="font-size:.88rem">Don't have an account? <a href="../registration/study.html">Apply to join</a></p>
+        <p style="font-size:.88rem">계정이 없으신가요? <a href="../registration/study.html">스터디 참가 신청</a></p>
       </div>
 
       <div style="margin-top:20px;padding:14px;background:var(--light);border-radius:var(--radius);font-size:.82rem;color:var(--text-muted)">
-        <strong>Demo accounts:</strong><br>
-        Admin: admin@torchstudy.org / admin1234<br>
-        Member: user@torchstudy.org / user1234
+        <strong>데모 계정:</strong><br>
+        관리자: admin@torchstudy.kr / admin1234<br>
+        회원: user@torchstudy.kr / user1234
       </div>
     </div>
   </div>
@@ -75,7 +75,7 @@
 
 <script src="../js/auth.js"></script>
 <script>
-  // Redirect if already logged in
+  // 이미 로그인된 경우 프로필로 이동
   if (Auth.isLoggedIn()) window.location.href = '../members/profile.html';
 
   document.getElementById('login-form').addEventListener('submit', function(e) {
@@ -87,7 +87,7 @@
 
     if (result.ok) {
       alert.className = 'alert alert-success show';
-      alert.querySelector('.alert-msg').textContent = `Welcome back, ${result.user.name}! Redirecting…`;
+      alert.querySelector('.alert-msg').textContent = `환영합니다, ${result.user.name}님! 이동 중…`;
       setTimeout(() => window.location.href = '../members/profile.html', 1000);
     } else {
       alert.className = 'alert alert-danger show';

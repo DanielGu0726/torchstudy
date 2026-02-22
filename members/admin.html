@@ -1,38 +1,38 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin Dashboard – TorchStudy</title>
+  <title>관리자 대시보드 – TORCH</title>
   <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
 <nav class="navbar">
   <div class="nav-inner">
-    <a href="../index.html" class="nav-logo"><div class="logo-icon">🔥</div>TorchStudy</a>
+    <a href="../index.html" class="nav-logo"><div class="logo-icon">🔥</div>TORCH</a>
     <div class="nav-links">
       <div class="nav-item"><a href="../index.html" class="nav-link">Home</a></div>
-      <div class="nav-item"><a href="profile.html" class="nav-link">My Profile</a></div>
+      <div class="nav-item"><a href="profile.html" class="nav-link">내 프로필</a></div>
       <div class="nav-item"><a href="admin.html" class="nav-link active">Admin</a></div>
     </div>
     <div class="nav-cta" style="display:flex;gap:8px;align-items:center">
       <span style="font-size:.85rem;color:rgba(255,255,255,.6)" data-auth="name"></span>
-      <a href="#" class="btn btn-outline btn-sm" data-auth="logout">Logout</a>
+      <a href="#" class="btn btn-outline btn-sm" data-auth="logout">로그아웃</a>
     </div>
     <div class="hamburger"><span></span><span></span><span></span></div>
   </div>
 </nav>
 <div class="mobile-menu">
   <a href="../index.html" class="mobile-link">Home</a>
-  <a href="profile.html" class="mobile-link">My Profile</a>
-  <a href="#" class="mobile-link" data-auth="logout">Logout</a>
+  <a href="profile.html" class="mobile-link">내 프로필</a>
+  <a href="#" class="mobile-link" data-auth="logout">로그아웃</a>
 </div>
 
 <div class="page-header">
   <div class="container">
     <span class="eyebrow">Administration</span>
-    <h1>Admin Dashboard</h1>
-    <p>Manage registrations, members, and site content.</p>
+    <h1>관리자 대시보드</h1>
+    <p>신청 현황, 회원 정보, 사이트 콘텐츠를 관리합니다.</p>
   </div>
 </div>
 
@@ -41,24 +41,24 @@
     <!-- KPI Row -->
     <div class="kpi-grid" style="margin-bottom:24px">
       <div class="kpi-card">
-        <div class="kpi-label">Total Registrations</div>
+        <div class="kpi-label">총 신청 건수</div>
         <div class="kpi-value" id="kpi-total">—</div>
-        <div class="kpi-delta">↑ 12% this month</div>
+        <div class="kpi-delta">↑ 이번 달 12% 증가</div>
       </div>
       <div class="kpi-card">
-        <div class="kpi-label">Study Group</div>
+        <div class="kpi-label">스터디 그룹</div>
         <div class="kpi-value" id="kpi-study">—</div>
-        <div class="kpi-delta">↑ 8 new this week</div>
+        <div class="kpi-delta">↑ 이번 주 8명 신규</div>
       </div>
       <div class="kpi-card">
-        <div class="kpi-label">Symposium</div>
+        <div class="kpi-label">심포지엄</div>
         <div class="kpi-value" id="kpi-symposium">—</div>
-        <div class="kpi-delta">↑ 5 new this week</div>
+        <div class="kpi-delta">↑ 이번 주 5명 신규</div>
       </div>
       <div class="kpi-card">
-        <div class="kpi-label">Workshop</div>
+        <div class="kpi-label">워크샵</div>
         <div class="kpi-value" id="kpi-workshop">—</div>
-        <div class="kpi-delta">→ Stable</div>
+        <div class="kpi-delta">→ 안정적</div>
       </div>
     </div>
 
@@ -66,15 +66,15 @@
     <div class="dashboard-grid">
       <!-- Sidebar -->
       <div class="sidebar">
-        <div class="sidebar-title">Dashboard</div>
-        <div class="sidebar-link active" data-panel="panel-overview"><span>📊</span> Overview</div>
-        <div class="sidebar-title" style="margin-top:12px">Registrations</div>
-        <div class="sidebar-link" data-panel="panel-study"><span>📚</span> Study Group</div>
-        <div class="sidebar-link" data-panel="panel-symposium"><span>🎤</span> Symposium</div>
-        <div class="sidebar-link" data-panel="panel-workshop"><span>🛠</span> Workshop</div>
-        <div class="sidebar-title" style="margin-top:12px">Content</div>
-        <div class="sidebar-link" data-panel="panel-news"><span>📰</span> News</div>
-        <div class="sidebar-link" data-panel="panel-settings"><span>⚙️</span> Settings</div>
+        <div class="sidebar-title">대시보드</div>
+        <div class="sidebar-link active" data-panel="panel-overview"><span>📊</span> 개요</div>
+        <div class="sidebar-title" style="margin-top:12px">신청 관리</div>
+        <div class="sidebar-link" data-panel="panel-study"><span>📚</span> 스터디 그룹</div>
+        <div class="sidebar-link" data-panel="panel-symposium"><span>🎤</span> 심포지엄</div>
+        <div class="sidebar-link" data-panel="panel-workshop"><span>🛠</span> 워크샵</div>
+        <div class="sidebar-title" style="margin-top:12px">콘텐츠</div>
+        <div class="sidebar-link" data-panel="panel-news"><span>📰</span> 뉴스</div>
+        <div class="sidebar-link" data-panel="panel-settings"><span>⚙️</span> 설정</div>
       </div>
 
       <!-- Main -->
@@ -83,27 +83,27 @@
         <!-- Overview -->
         <div id="panel-overview" class="admin-panel">
           <div class="panel">
-            <div class="panel-header"><h3>Recent Activity</h3><span class="badge badge-info">Live</span></div>
+            <div class="panel-header"><h3>최근 활동</h3><span class="badge badge-info">실시간</span></div>
             <div class="table-wrap">
               <table>
-                <thead><tr><th>Type</th><th>Name</th><th>Date</th><th>Status</th></tr></thead>
+                <thead><tr><th>유형</th><th>이름</th><th>날짜</th><th>상태</th></tr></thead>
                 <tbody>
-                  <tr><td><span class="badge badge-info">Study</span></td><td>Alice Kim</td><td>2025-02-20</td><td><span class="badge badge-warning">Pending</span></td></tr>
-                  <tr><td><span class="badge badge-info">Symposium</span></td><td>Bob Park</td><td>2025-02-19</td><td><span class="badge badge-success">Approved</span></td></tr>
-                  <tr><td><span class="badge badge-info">Workshop</span></td><td>Carol Lee</td><td>2025-02-18</td><td><span class="badge badge-success">Approved</span></td></tr>
-                  <tr><td><span class="badge badge-info">Study</span></td><td>David Cho</td><td>2025-02-18</td><td><span class="badge badge-warning">Pending</span></td></tr>
-                  <tr><td><span class="badge badge-info">Workshop</span></td><td>Eva Jung</td><td>2025-02-17</td><td><span class="badge badge-danger">Rejected</span></td></tr>
+                  <tr><td><span class="badge badge-info">스터디</span></td><td>김민지</td><td>2025-02-20</td><td><span class="badge badge-warning">검토 중</span></td></tr>
+                  <tr><td><span class="badge badge-info">심포지엄</span></td><td>박성호</td><td>2025-02-19</td><td><span class="badge badge-success">승인됨</span></td></tr>
+                  <tr><td><span class="badge badge-info">워크샵</span></td><td>이수진</td><td>2025-02-18</td><td><span class="badge badge-success">승인됨</span></td></tr>
+                  <tr><td><span class="badge badge-info">스터디</span></td><td>조현우</td><td>2025-02-18</td><td><span class="badge badge-warning">검토 중</span></td></tr>
+                  <tr><td><span class="badge badge-info">워크샵</span></td><td>정유나</td><td>2025-02-17</td><td><span class="badge badge-danger">거절됨</span></td></tr>
                 </tbody>
               </table>
             </div>
           </div>
 
           <div class="panel">
-            <div class="panel-header"><h3>Quick Actions</h3></div>
+            <div class="panel-header"><h3>빠른 실행</h3></div>
             <div style="display:flex;gap:12px;flex-wrap:wrap">
-              <button class="btn btn-primary btn-sm" onclick="alert('Export feature (demo)')">📥 Export CSV</button>
-              <button class="btn btn-dark btn-sm" onclick="alert('Email feature (demo)')">✉ Send Newsletter</button>
-              <button class="btn btn-dark btn-sm" onclick="alert('Backup feature (demo)')">💾 Backup Data</button>
+              <button class="btn btn-primary btn-sm" onclick="alert('CSV 내보내기 (데모)')">📥 CSV 내보내기</button>
+              <button class="btn btn-dark btn-sm" onclick="alert('뉴스레터 발송 (데모)')">✉ 뉴스레터 발송</button>
+              <button class="btn btn-dark btn-sm" onclick="alert('백업 (데모)')">💾 데이터 백업</button>
             </div>
           </div>
         </div>
@@ -112,13 +112,13 @@
         <div id="panel-study" class="admin-panel" style="display:none">
           <div class="panel">
             <div class="panel-header">
-              <h3>Study Group Registrations</h3>
-              <input class="form-control" style="width:200px;font-size:.85rem;padding:7px 12px" placeholder="Search…" data-table="table-study" class="table-search">
+              <h3>스터디 그룹 신청 목록</h3>
+              <input class="form-control table-search" style="width:200px;font-size:.85rem;padding:7px 12px" placeholder="검색…" data-table="table-study">
             </div>
             <div class="table-wrap">
               <table id="table-study">
-                <thead><tr><th>#</th><th>Name</th><th>Email</th><th>Department</th><th>Date</th><th>Status</th><th>Actions</th></tr></thead>
-                <tbody><tr><td colspan="7" style="text-align:center;padding:32px;color:var(--text-muted)">Loading…</td></tr></tbody>
+                <thead><tr><th>#</th><th>이름</th><th>이메일</th><th>소속</th><th>날짜</th><th>상태</th><th>관리</th></tr></thead>
+                <tbody><tr><td colspan="7" style="text-align:center;padding:32px;color:var(--text-muted)">불러오는 중…</td></tr></tbody>
               </table>
             </div>
           </div>
@@ -128,13 +128,13 @@
         <div id="panel-symposium" class="admin-panel" style="display:none">
           <div class="panel">
             <div class="panel-header">
-              <h3>Symposium Registrations</h3>
-              <input class="form-control" style="width:200px;font-size:.85rem;padding:7px 12px" placeholder="Search…" data-table="table-symposium" class="table-search">
+              <h3>심포지엄 신청 목록</h3>
+              <input class="form-control table-search" style="width:200px;font-size:.85rem;padding:7px 12px" placeholder="검색…" data-table="table-symposium">
             </div>
             <div class="table-wrap">
               <table id="table-symposium">
-                <thead><tr><th>#</th><th>Name</th><th>Email</th><th>Affiliation</th><th>Date</th><th>Status</th><th>Actions</th></tr></thead>
-                <tbody><tr><td colspan="7" style="text-align:center;padding:32px;color:var(--text-muted)">Loading…</td></tr></tbody>
+                <thead><tr><th>#</th><th>이름</th><th>이메일</th><th>소속</th><th>날짜</th><th>상태</th><th>관리</th></tr></thead>
+                <tbody><tr><td colspan="7" style="text-align:center;padding:32px;color:var(--text-muted)">불러오는 중…</td></tr></tbody>
               </table>
             </div>
           </div>
@@ -144,13 +144,13 @@
         <div id="panel-workshop" class="admin-panel" style="display:none">
           <div class="panel">
             <div class="panel-header">
-              <h3>Workshop Registrations</h3>
-              <input class="form-control" style="width:200px;font-size:.85rem;padding:7px 12px" placeholder="Search…" data-table="table-workshop" class="table-search">
+              <h3>워크샵 신청 목록</h3>
+              <input class="form-control table-search" style="width:200px;font-size:.85rem;padding:7px 12px" placeholder="검색…" data-table="table-workshop">
             </div>
             <div class="table-wrap">
               <table id="table-workshop">
-                <thead><tr><th>#</th><th>Name</th><th>Email</th><th>Topic</th><th>Date</th><th>Status</th><th>Actions</th></tr></thead>
-                <tbody><tr><td colspan="7" style="text-align:center;padding:32px;color:var(--text-muted)">Loading…</td></tr></tbody>
+                <thead><tr><th>#</th><th>이름</th><th>이메일</th><th>워크샵</th><th>날짜</th><th>상태</th><th>관리</th></tr></thead>
+                <tbody><tr><td colspan="7" style="text-align:center;padding:32px;color:var(--text-muted)">불러오는 중…</td></tr></tbody>
               </table>
             </div>
           </div>
@@ -159,14 +159,14 @@
         <!-- News -->
         <div id="panel-news" class="admin-panel" style="display:none">
           <div class="panel">
-            <div class="panel-header"><h3>News Management</h3><button class="btn btn-primary btn-sm" onclick="alert('Add news (demo)')">+ Add Post</button></div>
+            <div class="panel-header"><h3>뉴스 관리</h3><button class="btn btn-primary btn-sm" onclick="alert('게시물 추가 (데모)')">+ 게시물 추가</button></div>
             <div class="table-wrap">
               <table>
-                <thead><tr><th>#</th><th>Title</th><th>Category</th><th>Date</th><th>Status</th><th>Actions</th></tr></thead>
+                <thead><tr><th>#</th><th>제목</th><th>카테고리</th><th>날짜</th><th>상태</th><th>관리</th></tr></thead>
                 <tbody>
-                  <tr><td>1</td><td>TorchStudy Symposium 2025 Announced</td><td>Event</td><td>2025-01-15</td><td><span class="badge badge-success">Published</span></td><td><button class="btn btn-sm btn-dark">Edit</button></td></tr>
-                  <tr><td>2</td><td>New Workshop Series: LLM Fine-Tuning</td><td>Workshop</td><td>2025-02-01</td><td><span class="badge badge-success">Published</span></td><td><button class="btn btn-sm btn-dark">Edit</button></td></tr>
-                  <tr><td>3</td><td>Spring 2025 Study Group Open</td><td>General</td><td>2025-02-10</td><td><span class="badge badge-warning">Draft</span></td><td><button class="btn btn-sm btn-dark">Edit</button></td></tr>
+                  <tr><td>1</td><td>TORCH Symposium 2025 개최 확정</td><td>행사</td><td>2025-02-15</td><td><span class="badge badge-success">게시됨</span></td><td><button class="btn btn-sm btn-dark">수정</button></td></tr>
+                  <tr><td>2</td><td>CAD/CAM 실습 워크샵 모집 시작</td><td>워크샵</td><td>2025-02-01</td><td><span class="badge badge-success">게시됨</span></td><td><button class="btn btn-sm btn-dark">수정</button></td></tr>
+                  <tr><td>3</td><td>2025년 상반기 스터디 일정 공개</td><td>공지</td><td>2025-01-20</td><td><span class="badge badge-warning">초안</span></td><td><button class="btn btn-sm btn-dark">수정</button></td></tr>
                 </tbody>
               </table>
             </div>
@@ -176,18 +176,18 @@
         <!-- Settings -->
         <div id="panel-settings" class="admin-panel" style="display:none">
           <div class="panel">
-            <div class="panel-header"><h3>Site Settings</h3></div>
-            <div class="form-group"><label>Site Title</label><input class="form-control" value="TorchStudy"></div>
-            <div class="form-group"><label>Contact Email</label><input class="form-control" value="contact@torchstudy.org" type="email"></div>
-            <div class="form-group"><label>Registration Status</label>
+            <div class="panel-header"><h3>사이트 설정</h3></div>
+            <div class="form-group"><label>사이트 이름</label><input class="form-control" value="TORCH – Korea Young Dental Technician Study"></div>
+            <div class="form-group"><label>연락처 이메일</label><input class="form-control" value="contact@torchstudy.kr" type="email"></div>
+            <div class="form-group"><label>신청 상태</label>
               <select class="form-control">
-                <option>Open</option>
-                <option>Closed</option>
-                <option>Waitlist Only</option>
+                <option>모집 중</option>
+                <option>마감</option>
+                <option>대기자 접수 중</option>
               </select>
             </div>
-            <div class="form-group"><label>Max Study Group Size</label><input class="form-control" type="number" value="30"></div>
-            <button class="btn btn-primary" onclick="alert('Settings saved (demo)')">Save Settings</button>
+            <div class="form-group"><label>스터디 최대 정원</label><input class="form-control" type="number" value="30"></div>
+            <button class="btn btn-primary" onclick="alert('설정이 저장되었습니다 (데모)')">저장하기</button>
           </div>
         </div>
 
@@ -198,7 +198,7 @@
 
 <footer class="footer">
   <div class="container">
-    <div class="footer-bottom" style="border-top:1px solid rgba(255,255,255,.08);padding-top:20px"><span>© 2025 TorchStudy Admin Panel</span></div>
+    <div class="footer-bottom" style="border-top:1px solid rgba(255,255,255,.08);padding-top:20px"><span>© 2025 TORCH – Korea Young Dental Technician Study. All rights reserved.</span></div>
   </div>
 </footer>
 <script src="../js/auth.js"></script>

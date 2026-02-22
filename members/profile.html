@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Profile – TorchStudy</title>
+  <title>내 프로필 – TORCH</title>
   <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
 <nav class="navbar">
   <div class="nav-inner">
-    <a href="../index.html" class="nav-logo"><div class="logo-icon">🔥</div>TorchStudy</a>
+    <a href="../index.html" class="nav-logo"><div class="logo-icon">🔥</div>TORCH</a>
     <div class="nav-links">
       <div class="nav-item"><a href="../index.html" class="nav-link">Home</a></div>
       <div class="nav-item"><a href="../about.html" class="nav-link">About</a></div>
@@ -18,7 +18,7 @@
       <div class="nav-item"><a href="../members/admin.html" class="nav-link" data-auth="admin">Admin</a></div>
     </div>
     <div class="nav-cta" style="display:flex;gap:8px">
-      <a href="#" class="btn btn-outline btn-sm" data-auth="logout">Logout</a>
+      <a href="#" class="btn btn-outline btn-sm" data-auth="logout">로그아웃</a>
     </div>
     <div class="hamburger"><span></span><span></span><span></span></div>
   </div>
@@ -27,14 +27,14 @@
   <a href="../index.html" class="mobile-link">Home</a>
   <a href="../activity/index.html" class="mobile-link">Activity</a>
   <a href="admin.html" class="mobile-link" data-auth="admin">Admin</a>
-  <a href="#" class="mobile-link" data-auth="logout">Logout</a>
+  <a href="#" class="mobile-link" data-auth="logout">로그아웃</a>
 </div>
 
 <div class="page-header">
   <div class="container">
     <span class="eyebrow">Members</span>
-    <h1>My Profile</h1>
-    <p>View and update your TorchStudy member profile.</p>
+    <h1>내 프로필</h1>
+    <p>TORCH 회원 프로필을 확인하고 수정하세요.</p>
   </div>
 </div>
 
@@ -44,82 +44,82 @@
       <!-- Profile Card -->
       <div class="profile-card">
         <div class="avatar"><span id="avatar-initial">?</span></div>
-        <div class="profile-name" id="profile-name">Loading…</div>
+        <div class="profile-name" id="profile-name">불러오는 중…</div>
         <div class="profile-role" id="profile-role"></div>
         <hr class="form-divider">
         <div class="profile-meta">
           <div class="profile-meta-item"><span>✉</span><span id="profile-email">—</span></div>
           <div class="profile-meta-item"><span>🏛</span><span id="profile-dept">—</span></div>
-          <div class="profile-meta-item"><span>📅</span><span>Joined: <span id="profile-joined">—</span></span></div>
-          <div class="profile-meta-item"><span>📝</span><span>Registrations: <strong id="reg-count">0</strong></span></div>
+          <div class="profile-meta-item"><span>📅</span><span>가입일: <span id="profile-joined">—</span></span></div>
+          <div class="profile-meta-item"><span>📝</span><span>신청 건수: <strong id="reg-count">0</strong></span></div>
         </div>
         <hr class="form-divider">
-        <a href="admin.html" class="btn btn-dark btn-sm btn-block" data-auth="admin" style="display:none">⚙ Admin Dashboard</a>
-        <a href="#" class="btn btn-outline btn-sm btn-block" data-auth="logout" style="margin-top:8px;color:var(--danger);border-color:var(--danger)">Logout</a>
+        <a href="admin.html" class="btn btn-dark btn-sm btn-block" data-auth="admin" style="display:none">⚙ 관리자 대시보드</a>
+        <a href="#" class="btn btn-outline btn-sm btn-block" data-auth="logout" style="margin-top:8px;color:var(--danger);border-color:var(--danger)">로그아웃</a>
       </div>
 
       <!-- Edit Panel -->
       <div>
         <div class="panel">
           <div class="panel-header">
-            <h3>Edit Profile</h3>
+            <h3>프로필 수정</h3>
           </div>
-          <div id="profile-alert" class="alert alert-success"><span class="alert-msg">Profile updated successfully!</span></div>
+          <div id="profile-alert" class="alert alert-success"><span class="alert-msg">프로필이 저장되었습니다!</span></div>
 
           <form id="edit-form">
             <div class="form-row">
               <div class="form-group">
-                <label>Full Name</label>
-                <input class="form-control" id="edit-name" placeholder="Your name">
+                <label>이름</label>
+                <input class="form-control" id="edit-name" placeholder="홍길동">
               </div>
               <div class="form-group">
-                <label>Email</label>
+                <label>이메일</label>
                 <input class="form-control" id="edit-email" type="email" disabled style="background:var(--light);cursor:not-allowed">
-                <div class="form-hint">Email cannot be changed.</div>
+                <div class="form-hint">이메일은 변경할 수 없습니다.</div>
               </div>
             </div>
             <div class="form-group">
-              <label>Department / Affiliation</label>
-              <input class="form-control" id="edit-dept" placeholder="Department or company">
+              <label>소속 (직장 / 학교)</label>
+              <input class="form-control" id="edit-dept" placeholder="○○치과기공소 / ○○대학교">
             </div>
             <div class="form-group">
-              <label>Bio (optional)</label>
-              <textarea class="form-control" placeholder="Tell the community about yourself and your research interests…"></textarea>
+              <label>자기소개 (선택)</label>
+              <textarea class="form-control" placeholder="관심 분야나 현재 업무를 자유롭게 소개해 주세요."></textarea>
             </div>
-            <button type="submit" class="btn btn-primary">Save Changes</button>
+            <button type="submit" class="btn btn-primary">저장하기</button>
           </form>
         </div>
 
         <div class="panel mt-3">
-          <div class="panel-header"><h3>My Registrations</h3></div>
+          <div class="panel-header"><h3>나의 신청 내역</h3></div>
           <div id="reg-list">
-            <p style="color:var(--text-muted);font-size:.9rem">No registrations yet. <a href="../registration/study.html">Register for a session →</a></p>
+            <p style="color:var(--text-muted);font-size:.9rem">신청 내역이 없습니다. <a href="../registration/study.html">스터디 참가 신청하기 →</a></p>
           </div>
           <hr class="form-divider">
           <div style="display:flex;gap:12px;flex-wrap:wrap">
-            <a href="../registration/study.html" class="btn btn-dark btn-sm">+ Study Group</a>
-            <a href="../registration/symposium.html" class="btn btn-dark btn-sm">+ Symposium</a>
-            <a href="../registration/workshop.html" class="btn btn-dark btn-sm">+ Workshop</a>
+            <a href="../registration/study.html" class="btn btn-dark btn-sm">+ 스터디 신청</a>
+            <a href="../registration/symposium.html" class="btn btn-dark btn-sm">+ 심포지엄 신청</a>
+            <a href="../registration/workshop.html" class="btn btn-dark btn-sm">+ 워크샵 신청</a>
           </div>
         </div>
 
         <div class="panel mt-3">
-          <div class="panel-header"><h3>Change Password</h3></div>
+          <div class="panel-header"><h3>비밀번호 변경</h3></div>
           <div class="form-group">
-            <label>Current Password</label>
+            <label>현재 비밀번호</label>
             <input class="form-control" type="password" placeholder="••••••••">
           </div>
           <div class="form-row">
             <div class="form-group">
-              <label>New Password</label>
+              <label>새 비밀번호</label>
               <input class="form-control" type="password" placeholder="••••••••">
             </div>
             <div class="form-group">
-              <label>Confirm New Password</label>
+              <label>새 비밀번호 확인</label>
               <input class="form-control" type="password" placeholder="••••••••">
             </div>
           </div>
-          <button class="btn btn-dark btn-sm" onclick="alert('Password change is not available in demo mode.')">Update Password</button>
+          <button class="btn btn-dark btn-sm" onclick="alert('비밀번호 변경은 데모 모드에서 사용할 수 없습니다.')">비밀번호 변경</button>
         </div>
       </div>
     </div>
@@ -129,12 +129,15 @@
 <footer class="footer">
   <div class="container">
     <div class="footer-grid">
-      <div class="footer-brand"><a href="../index.html" class="nav-logo"><div class="logo-icon">🔥</div>TorchStudy</a><p style="margin-top:12px">A collaborative AI & machine learning study group.</p></div>
+      <div class="footer-brand">
+        <a href="../index.html" class="nav-logo"><div class="logo-icon">🔥</div>TORCH</a>
+        <p style="margin-top:12px">Korea Young Dental Technician Study<br>기술 · 기회 · 보완 · 도전 · 희망</p>
+      </div>
       <div class="footer-col"><h4>Pages</h4><ul><li><a href="../about.html">About</a></li><li><a href="../activity/index.html">Activity</a></li><li><a href="../sponsor.html">Sponsor</a></li></ul></div>
       <div class="footer-col"><h4>Registration</h4><ul><li><a href="../registration/study.html">Study Group</a></li><li><a href="../registration/symposium.html">Symposium</a></li><li><a href="../registration/workshop.html">Workshop</a></li></ul></div>
       <div class="footer-col"><h4>Community</h4><ul><li><a href="../news/index.html">News</a></li><li><a href="../contact.html">Contact</a></li></ul></div>
     </div>
-    <div class="footer-bottom"><span>© 2025 TorchStudy. All rights reserved.</span></div>
+    <div class="footer-bottom"><span>© 2025 TORCH – Korea Young Dental Technician Study. All rights reserved.</span></div>
   </div>
 </footer>
 <script src="../js/auth.js"></script>
