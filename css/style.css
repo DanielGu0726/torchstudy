@@ -226,16 +226,34 @@ p  { color: var(--text-muted); line-height: 1.75; }
 .hero {
   position: relative;
   min-height: calc(100vh - var(--nav-height));
-  background: linear-gradient(135deg, var(--dark) 0%, var(--dark-3) 60%, #1a0a0a 100%);
+  background: linear-gradient(135deg, var(--dark) 0%, var(--dark-3) 60%, #1a0a0a 100%); /* fallback */
   display: flex; align-items: center;
   overflow: hidden;
 }
+/* Video background */
+.hero-video {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+/* Dark overlay so text stays readable over video */
+.hero-video-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(8,6,20,.72) 0%, rgba(4,14,38,.60) 55%, rgba(15,3,3,.68) 100%);
+  z-index: 1;
+}
+/* Red accent overlay (on top of dark overlay) */
 .hero::before {
   content: '';
   position: absolute; inset: 0;
   background: radial-gradient(ellipse at 70% 50%, rgba(232,65,24,.18) 0%, transparent 65%);
+  z-index: 2;
 }
-.hero-content { position: relative; max-width: 680px; color: var(--white); }
+/* Content above all overlays */
+.hero > .container { position: relative; z-index: 3; }
+.hero-decoration    { z-index: 3; }
+.hero-content { max-width: 680px; color: var(--white); }
 .hero-badge {
   display: inline-flex; align-items: center; gap: 8px;
   background: rgba(232,65,24,.15);
