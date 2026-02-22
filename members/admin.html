@@ -179,13 +179,21 @@
             <div class="panel-header"><h3>사이트 설정</h3></div>
             <div class="form-group"><label>사이트 이름</label><input class="form-control" value="TORCH – Korea Young Dental Technician Study"></div>
             <div class="form-group"><label>연락처 이메일</label><input class="form-control" value="contact@torchstudy.kr" type="email"></div>
-            <div class="form-group"><label>신청 상태</label>
-              <select class="form-control">
-                <option>모집 중</option>
-                <option>마감</option>
-                <option>대기자 접수 중</option>
-              </select>
+
+            <!-- Registration Open/Close Toggle -->
+            <div class="form-group">
+              <label style="margin-bottom:10px;display:block;font-weight:600">신청(Registration) 활성화</label>
+              <div style="display:flex;align-items:center;gap:16px">
+                <label style="position:relative;display:inline-block;width:52px;height:28px;cursor:pointer">
+                  <input type="checkbox" id="reg-toggle" style="opacity:0;width:0;height:0">
+                  <span id="reg-toggle-track" style="position:absolute;inset:0;border-radius:14px;background:#ccc;transition:background .3s"></span>
+                  <span id="reg-toggle-knob" style="position:absolute;top:4px;left:4px;width:20px;height:20px;background:#fff;border-radius:50%;box-shadow:0 1px 4px rgba(0,0,0,.3);transition:transform .3s"></span>
+                </label>
+                <span id="reg-toggle-label" style="font-size:.9rem;font-weight:500"></span>
+              </div>
+              <p style="font-size:.82rem;color:var(--text-muted);margin-top:6px">비활성화 시 Registration 페이지에 "현재는 모집 기간이 아닙니다" 안내가 표시됩니다.</p>
             </div>
+
             <div class="form-group"><label>스터디 최대 정원</label><input class="form-control" type="number" value="30"></div>
             <button class="btn btn-primary" onclick="alert('설정이 저장되었습니다 (데모)')">저장하기</button>
           </div>
@@ -205,5 +213,32 @@
 <script src="../js/theme.js"></script>
 <script src="../js/registration.js"></script>
 <script src="../js/admin.js"></script>
+<script>
+/* ── Registration open/close toggle ── */
+(function() {
+  const toggle = document.getElementById('reg-toggle');
+  const track  = document.getElementById('reg-toggle-track');
+  const knob   = document.getElementById('reg-toggle-knob');
+  const lbl    = document.getElementById('reg-toggle-label');
+  if (!toggle) return;
+
+  function setUI(open) {
+    toggle.checked = open;
+    track.style.background = open ? 'var(--primary)' : '#ccc';
+    knob.style.transform   = open ? 'translateX(24px)' : 'translateX(0)';
+    lbl.textContent        = open ? '✅ 신청 활성화 (모집 중)' : '🔒 신청 비활성화 (모집 종료)';
+    lbl.style.color        = open ? 'var(--primary)' : 'var(--text-muted)';
+  }
+
+  // init from localStorage
+  setUI(localStorage.getItem('ts_reg_open') === 'true');
+
+  toggle.addEventListener('change', function() {
+    const open = this.checked;
+    localStorage.setItem('ts_reg_open', open ? 'true' : 'false');
+    setUI(open);
+  });
+})();
+</script>
 </body>
 </html>

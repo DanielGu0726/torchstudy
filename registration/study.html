@@ -40,7 +40,7 @@
   </div>
 </div>
 
-<section class="section section-light">
+<section class="section section-light" id="reg-section">
   <div class="container">
     <div style="display:grid;grid-template-columns:1fr 1.6fr;gap:40px;align-items:start">
       <!-- Info -->
@@ -146,6 +146,18 @@
   </div>
 </section>
 
+<section id="reg-closed-msg" style="display:none" class="section section-light">
+  <div class="container" style="text-align:center;padding:80px 16px">
+    <div style="font-size:3rem;margin-bottom:20px">🔒</div>
+    <h2 style="margin-bottom:16px">현재는 모집 기간이 아닙니다</h2>
+    <p style="max-width:480px;margin:0 auto 32px;color:var(--text-muted);font-size:1.05rem">TORCH는 연 1회 회원을 모집합니다. 모집 공고는 인스타그램과 공식 채널을 통해 안내됩니다.</p>
+    <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap">
+      <a href="https://www.instagram.com/t_o_r_c_h_study/" target="_blank" class="btn btn-primary">📷 Instagram 팔로우</a>
+      <a href="../contact.html" class="btn btn-dark">문의하기</a>
+    </div>
+  </div>
+</section>
+
 <footer class="footer">
   <div class="container">
     <div class="footer-grid">
@@ -160,6 +172,12 @@
 <script src="../js/auth.js"></script>
 <script src="../js/theme.js"></script>
 <script src="../js/registration.js"></script>
-<script>Registration.attachForm('study-form', 'study');</script>
+<script>
+  Registration.attachForm('study-form', 'study');
+  if (localStorage.getItem('ts_reg_open') !== 'true') {
+    document.getElementById('reg-section').style.display = 'none';
+    document.getElementById('reg-closed-msg').style.display = '';
+  }
+</script>
 </body>
 </html>
