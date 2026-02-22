@@ -18,9 +18,10 @@ const Theme = (() => {
     document.documentElement.setAttribute('data-theme', theme);
     localStorage.setItem(THEME_KEY, theme);
 
-    // Update toggle button icon
+    // CSS handles the knob position and icon via [data-theme] selectors
+    // Update aria-label for accessibility
     const btn = document.getElementById('themeToggle');
-    if (btn) btn.textContent = theme === 'dark' ? '☀️' : '🌙';
+    if (btn) btn.setAttribute('aria-label', theme === 'dark' ? '라이트 모드로 전환' : '다크 모드로 전환');
 
     // Swap logo images
     const root = getRootPath();
@@ -39,7 +40,9 @@ const Theme = (() => {
     const controls = document.createElement('div');
     controls.className = 'nav-controls';
     controls.innerHTML =
-      '<button class="btn-icon" id="themeToggle" title="테마 전환">🌙</button>';
+      '<button class="theme-toggle" id="themeToggle" title="테마 전환" aria-label="다크 모드로 전환">' +
+        '<span class="toggle-knob"></span>' +
+      '</button>';
     hamburger.parentNode.insertBefore(controls, hamburger);
     document.getElementById('themeToggle').addEventListener('click', toggleTheme);
   }

@@ -23,7 +23,7 @@
   --shadow:        0 2px 12px rgba(0,0,0,.08);
   --shadow-md:     0 4px 24px rgba(0,0,0,.12);
   --shadow-lg:     0 8px 40px rgba(0,0,0,.16);
-  --nav-height:    68px;
+  --nav-height:    76px;
   --transition:    .25s ease;
 }
 
@@ -151,17 +151,19 @@ p  { color: var(--text-muted); line-height: 1.75; }
   display: flex; align-items: center; justify-content: space-between;
 }
 .nav-logo {
-  display: flex; align-items: center; gap: 10px;
+  display: flex; align-items: center; gap: 9px;
   color: var(--white);
-  font-size: 1.3rem; font-weight: 800;
+  font-size: 1.2rem; font-weight: 800;
   letter-spacing: -.01em;
+  flex-shrink: 0;
 }
 .nav-logo .logo-icon {
-  width: 36px; height: 36px;
+  width: 30px; height: 30px;
   background: var(--primary);
-  border-radius: 8px;
+  border-radius: 7px;
   display: flex; align-items: center; justify-content: center;
-  font-size: 1.1rem;
+  font-size: .95rem;
+  flex-shrink: 0;
 }
 .nav-logo:hover { color: var(--white); }
 
@@ -665,26 +667,76 @@ tbody tr:last-child td { border-bottom: none; }
 
 /* ── Logo Image ─────────────────────────────────── */
 .logo-img {
-  width: 36px; height: 36px;
-  border-radius: 8px; object-fit: cover;
-  display: block;
+  width: 30px; height: 30px;
+  border-radius: 7px; object-fit: cover;
+  display: block; flex-shrink: 0;
+  /* 메뉴바 넘치지 않게 */
+  max-height: calc(var(--nav-height) - 32px);
 }
 
-/* ── Nav Controls (theme / lang toggle) ─────────── */
+/* ── Nav Controls & Modern Theme Toggle ─────────── */
 .nav-controls {
-  display: flex; align-items: center; gap: 6px; margin-right: 8px;
+  display: flex; align-items: center; gap: 8px; margin-right: 8px;
 }
-.btn-icon {
-  width: 34px; height: 34px;
-  background: rgba(255,255,255,.08);
-  border: 1px solid rgba(255,255,255,.15);
-  border-radius: 6px; cursor: pointer;
-  color: rgba(255,255,255,.8); font-size: 1rem;
+
+/* 슬라이딩 토글 스위치 */
+.theme-toggle {
+  position: relative;
+  width: 52px; height: 28px;
+  background: rgba(255,255,255,.1);
+  border: 1px solid rgba(255,255,255,.2);
+  border-radius: 100px;
+  cursor: pointer;
+  padding: 4px;
+  transition: background .35s ease, border-color .35s ease, box-shadow .35s ease;
+  flex-shrink: 0;
+}
+.theme-toggle:hover {
+  background: rgba(255,255,255,.18);
+  border-color: rgba(255,255,255,.35);
+  box-shadow: 0 0 0 3px rgba(255,255,255,.06);
+}
+/* 슬라이딩 놉 */
+.toggle-knob {
+  display: block;
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 1px 4px rgba(0,0,0,.25);
+  transition: transform .35s cubic-bezier(.34,1.56,.64,1), background .35s ease;
+  position: relative;
+}
+/* 아이콘 (::before = 라이트, ::after = 다크) */
+.toggle-knob::before {
+  content: '☀️';
+  position: absolute; inset: 0;
   display: flex; align-items: center; justify-content: center;
-  transition: all var(--transition);
-  padding: 0;
+  font-size: .72rem; line-height: 1;
+  opacity: 1; transition: opacity .2s ease;
 }
-.btn-icon:hover { background: rgba(255,255,255,.18); color: var(--white); }
+.toggle-knob::after {
+  content: '🌙';
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: .72rem; line-height: 1;
+  opacity: 0; transition: opacity .2s ease;
+}
+/* 다크모드 상태 */
+[data-theme="dark"] .theme-toggle {
+  background: rgba(232,65,24,.22);
+  border-color: rgba(232,65,24,.45);
+}
+[data-theme="dark"] .theme-toggle:hover {
+  background: rgba(232,65,24,.32);
+  box-shadow: 0 0 0 3px rgba(232,65,24,.12);
+}
+[data-theme="dark"] .toggle-knob {
+  transform: translateX(24px);
+  background: var(--accent);
+  box-shadow: 0 1px 6px rgba(245,166,35,.4);
+}
+[data-theme="dark"] .toggle-knob::before { opacity: 0; }
+[data-theme="dark"] .toggle-knob::after  { opacity: 1; }
 
 /* ── Member Cards ───────────────────────────────── */
 .members-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
