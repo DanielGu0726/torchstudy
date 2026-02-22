@@ -806,71 +806,153 @@ tbody tr:last-child td { border-bottom: none; }
   border-bottom: 2px solid var(--border); padding-bottom: 8px; margin-bottom: 20px;
 }
 
-/* ── Dark Mode ──────────────────────────────────── */
+/* ═══════════════════════════════════════════════════
+   DARK MODE
+   ─────────────────────────────────────────────────
+   전략:
+   • --white / --light 를 어두운 색으로 재정의 →
+     background: var(--white/--light) 을 쓰는 카드·폼 자동 다크화
+   • 단, color: var(--white) 로 밝은 글자를 표현하는
+     버튼·히어로·thead 등은 명시적으로 #fff 고정
+   ═══════════════════════════════════════════════════ */
 [data-theme="dark"] {
-  --white:     #1e2130;
-  --light:     #161825;
+  --white:     #1e2235;   /* 카드·패널·폼 배경 */
+  --light:     #14162a;   /* 페이지·섹션 배경  */
   --text:      #e2e8f0;
-  --text-muted:#94a3b8;
-  --border:    #2d3352;
-  --shadow:    0 2px 12px rgba(0,0,0,.35);
-  --shadow-md: 0 4px 24px rgba(0,0,0,.45);
+  --text-muted:#8892a4;
+  --border:    #2c3157;
+  --shadow:    0 2px 12px rgba(0,0,0,.45);
+  --shadow-md: 0 4px 24px rgba(0,0,0,.55);
+  --shadow-lg: 0 8px 40px rgba(0,0,0,.65);
 }
-[data-theme="dark"] body { background: var(--light); }
-[data-theme="dark"] p { color: var(--text-muted); }
-[data-theme="dark"] h1,[data-theme="dark"] h2,
-[data-theme="dark"] h3,[data-theme="dark"] h4 { color: var(--text); }
-[data-theme="dark"] .section-light { background: var(--light); }
-[data-theme="dark"] .stats-bar { background: var(--white); border-color: var(--border); }
-[data-theme="dark"] .stat-item { background: var(--white); }
-[data-theme="dark"] .card { background: var(--white); border-color: var(--border); }
-[data-theme="dark"] .card p { color: var(--text-muted); }
-[data-theme="dark"] .form-card { background: var(--white); border-color: var(--border); }
-[data-theme="dark"] .form-group label { color: var(--text); }
+
+/* ── 기본 ── */
+[data-theme="dark"] body          { background: var(--light); color: var(--text); }
+[data-theme="dark"] p             { color: var(--text-muted); }
+[data-theme="dark"] h1, [data-theme="dark"] h2,
+[data-theme="dark"] h3, [data-theme="dark"] h4 { color: var(--text); }
+[data-theme="dark"] a             { color: var(--primary); }
+
+/* ── 버튼: color:var(--white) → 흰색 유지 ── */
+[data-theme="dark"] .btn-primary,
+[data-theme="dark"] .btn-primary:hover  { color: #ffffff; }
+[data-theme="dark"] .btn-dark,
+[data-theme="dark"] .btn-dark:hover     { color: #e2e8f0; }
+[data-theme="dark"] .btn-outline        { color: rgba(255,255,255,.9); }
+[data-theme="dark"] .btn-outline:hover  { color: var(--primary); }
+
+/* ── 네브바·히어로·페이지헤더: 어두운 배경 위 흰 텍스트 유지 ── */
+[data-theme="dark"] .nav-logo,
+[data-theme="dark"] .nav-logo:hover     { color: #ffffff; }
+[data-theme="dark"] .hero-content       { color: #f0f4f8; }
+[data-theme="dark"] .hero h1            { color: #f0f4f8; }
+[data-theme="dark"] .hero p             { color: rgba(255,255,255,.72); }
+[data-theme="dark"] .page-header h1     { color: #f0f4f8; }
+[data-theme="dark"] .page-header p      { color: rgba(255,255,255,.7); }
+[data-theme="dark"] .text-white         { color: #f0f4f8 !important; }
+
+/* ── 테이블 ── */
+[data-theme="dark"] table               { background: var(--white); }
+[data-theme="dark"] thead tr            { background: #0f3460; color: #f0f4f8; }
+[data-theme="dark"] tbody td            { border-color: var(--border); color: var(--text); }
+[data-theme="dark"] tbody tr:hover      { background: rgba(255,255,255,.04); }
+
+/* ── 섹션 ── */
+[data-theme="dark"] .section-light      { background: var(--light); }
+[data-theme="dark"] .stats-bar          { background: var(--white); border-color: var(--border); }
+[data-theme="dark"] .stat-item          { background: var(--white); }
+[data-theme="dark"] .stat-item .num     { color: var(--primary); }
+[data-theme="dark"] .stat-item .label   { color: var(--text-muted); }
+
+/* ── 카드 ── */
+[data-theme="dark"] .card               { background: var(--white); border-color: var(--border); }
+[data-theme="dark"] .card h3,
+[data-theme="dark"] .card h4            { color: var(--text); }
+[data-theme="dark"] .card p             { color: var(--text-muted); }
+
+/* ── 폼 ── */
+[data-theme="dark"] .form-card          { background: var(--white); border-color: var(--border); }
+[data-theme="dark"] .form-group label   { color: var(--text); }
+[data-theme="dark"] .form-hint          { color: var(--text-muted); }
 [data-theme="dark"] .form-control {
-  background: var(--light); border-color: var(--border);
-  color: var(--text);
+  background: var(--light); border-color: var(--border); color: var(--text);
 }
-[data-theme="dark"] .form-control::placeholder { color: #4a5470; }
-[data-theme="dark"] select.form-control option { background: var(--white); color: var(--text); }
-[data-theme="dark"] .dropdown { background: #1e2130; border: 1px solid var(--border); }
-[data-theme="dark"] .dropdown a { color: var(--text); }
-[data-theme="dark"] .dropdown a:hover { background: var(--border); color: var(--primary); }
-[data-theme="dark"] .tabs { border-color: var(--border); }
-[data-theme="dark"] .tab-btn { color: var(--text-muted); }
-[data-theme="dark"] .tab-btn.active { color: var(--primary); }
-[data-theme="dark"] table { background: var(--white); }
-[data-theme="dark"] tbody td { border-color: var(--border); color: var(--text); }
-[data-theme="dark"] tbody tr:hover { background: rgba(255,255,255,.04); }
-[data-theme="dark"] .panel,[data-theme="dark"] .sidebar { background: var(--white); border-color: var(--border); }
-[data-theme="dark"] .panel-header h3 { color: var(--text); }
-[data-theme="dark"] .kpi-card { background: var(--white); border-color: var(--border); }
+[data-theme="dark"] .form-control:focus { border-color: var(--primary); }
+[data-theme="dark"] .form-control::placeholder { color: #45506a; }
+[data-theme="dark"] select.form-control option  { background: var(--white); color: var(--text); }
+[data-theme="dark"] .form-divider       { border-color: var(--border); }
+[data-theme="dark"] .required::after    { color: #f1948a; }
+
+/* ── 드롭다운 ── */
+[data-theme="dark"] .dropdown { background: #1e2235; border: 1px solid var(--border); box-shadow: 0 8px 32px rgba(0,0,0,.5); }
+[data-theme="dark"] .dropdown a         { color: var(--text); }
+[data-theme="dark"] .dropdown a:hover   { background: rgba(255,255,255,.06); color: var(--primary); }
+
+/* ── 탭 ── */
+[data-theme="dark"] .tabs               { border-color: var(--border); }
+[data-theme="dark"] .tab-btn            { color: var(--text-muted); }
+[data-theme="dark"] .tab-btn:hover:not(.active) { color: var(--text); }
+[data-theme="dark"] .tab-btn.active     { color: var(--primary); border-bottom-color: var(--primary); }
+
+/* ── 패널·사이드바·KPI ── */
+[data-theme="dark"] .panel,
+[data-theme="dark"] .sidebar            { background: var(--white); border-color: var(--border); }
+[data-theme="dark"] .panel-header h3    { color: var(--text); }
+[data-theme="dark"] .kpi-card           { background: var(--white); border-color: var(--border); }
 [data-theme="dark"] .kpi-card .kpi-value { color: var(--text); }
-[data-theme="dark"] .news-card { background: var(--white); border-color: var(--border); }
-[data-theme="dark"] .news-card h3 { color: var(--text); }
-[data-theme="dark"] .sponsor-tier { background: var(--white); border-color: var(--border); }
-[data-theme="dark"] .sponsor-logo-box { background: var(--light); border-color: var(--border); }
-[data-theme="dark"] .benefit-item { background: var(--light); }
-[data-theme="dark"] .profile-card { background: var(--white); border-color: var(--border); }
-[data-theme="dark"] .profile-name { color: var(--text); }
-[data-theme="dark"] .form-divider { border-color: var(--border); }
-[data-theme="dark"] .member-card { background: var(--white); border-color: var(--border); }
-[data-theme="dark"] .member-links { border-color: var(--border); }
-[data-theme="dark"] .year-label { border-color: var(--border); }
-[data-theme="dark"] .artwork-thumb { border-color: var(--border); }
-[data-theme="dark"] .alert-success { background: rgba(39,174,96,.12); border-color: rgba(39,174,96,.3); color: #6fcf97; }
-[data-theme="dark"] .alert-danger  { background: rgba(231,76,60,.12);  border-color: rgba(231,76,60,.3);  color: #f1948a; }
-[data-theme="dark"] .alert-info    { background: rgba(52,152,219,.12); border-color: rgba(52,152,219,.3); color: #85c1e9; }
-[data-theme="dark"] .badge-success { background: rgba(39,174,96,.18); }
-[data-theme="dark"] .badge-warning { background: rgba(243,156,18,.18); }
-[data-theme="dark"] .badge-danger  { background: rgba(231,76,60,.18); }
-[data-theme="dark"] .badge-info    { background: rgba(52,152,219,.18); }
+[data-theme="dark"] .kpi-card .kpi-label { color: var(--text-muted); }
+
+/* ── 뉴스 카드 ── */
+[data-theme="dark"] .news-card          { background: var(--white); border-color: var(--border); }
+[data-theme="dark"] .news-card h3       { color: var(--text); }
+
+/* ── 스폰서 ── */
+[data-theme="dark"] .sponsor-tier       { background: var(--white); border-color: var(--border); }
+[data-theme="dark"] .sponsor-tier h3    { color: var(--text); }
+[data-theme="dark"] .sponsor-logo-box   { background: var(--light); border-color: var(--border); }
+[data-theme="dark"] .benefit-item       { background: rgba(255,255,255,.04); }
+[data-theme="dark"] .benefit-item h4    { color: var(--text); }
 [data-theme="dark"] .tier-gold   { background: rgba(154,125,10,.18); border-color: rgba(249,231,159,.25); color: #f0d060; }
 [data-theme="dark"] .tier-silver { background: rgba(86,101,115,.18); border-color: rgba(213,216,220,.25); color: #bdc3c7; }
 [data-theme="dark"] .tier-bronze { background: rgba(147,81,22,.18);  border-color: rgba(240,200,160,.25); color: #e59866; }
-[data-theme="dark"] .timeline::before { background: var(--border); }
-[data-theme="dark"] .timeline-item::before { border-color: var(--white); }
-[data-theme="dark"] .greeting-text { color: var(--text); }
+
+/* ── 프로필 ── */
+[data-theme="dark"] .profile-card       { background: var(--white); border-color: var(--border); }
+[data-theme="dark"] .profile-name       { color: var(--text); }
+[data-theme="dark"] .profile-role       { color: var(--primary); }
+[data-theme="dark"] .profile-meta-item  { color: var(--text-muted); }
+
+/* ── 멤버 카드 ── */
+[data-theme="dark"] .member-card        { background: var(--white); border-color: var(--border); }
+[data-theme="dark"] .member-name        { color: var(--text); }
+[data-theme="dark"] .member-links       { border-color: var(--border); }
+[data-theme="dark"] .artwork-thumb      { border-color: var(--border); }
+
+/* ── 알림·배지 ── */
+[data-theme="dark"] .alert-success { background: rgba(39,174,96,.14); border-color: rgba(39,174,96,.35); color: #6fcf97; }
+[data-theme="dark"] .alert-danger  { background: rgba(231,76,60,.14);  border-color: rgba(231,76,60,.35);  color: #f1948a; }
+[data-theme="dark"] .alert-info    { background: rgba(52,152,219,.14); border-color: rgba(52,152,219,.35); color: #85c1e9; }
+[data-theme="dark"] .badge-success { background: rgba(39,174,96,.2); }
+[data-theme="dark"] .badge-warning { background: rgba(243,156,18,.2); }
+[data-theme="dark"] .badge-danger  { background: rgba(231,76,60,.2); }
+[data-theme="dark"] .badge-info    { background: rgba(52,152,219,.2); }
+
+/* ── 타임라인 ── */
+[data-theme="dark"] .timeline::before   { background: var(--border); }
+[data-theme="dark"] .timeline-date      { color: var(--text-muted); }
+[data-theme="dark"] .timeline-title     { color: var(--text); }
+
+/* ── 기타 ── */
+[data-theme="dark"] .year-label         { border-color: var(--border); }
+[data-theme="dark"] .greeting-text      { color: var(--text); }
+[data-theme="dark"] .eyebrow            { color: var(--primary); }
+[data-theme="dark"] .sidebar-title      { color: var(--text-muted); }
+[data-theme="dark"] .sidebar-link       { color: var(--text); }
+[data-theme="dark"] .sidebar-link:hover,
+[data-theme="dark"] .sidebar-link.active { color: var(--primary); background: rgba(232,65,24,.1); }
+[data-theme="dark"] .contact-icon       { background: rgba(232,65,24,.15); }
+[data-theme="dark"] .contact-item h4    { color: var(--text); }
+[data-theme="dark"] .check-item label   { color: var(--text); }
 
 @media (max-width: 1024px) {
   .members-grid { grid-template-columns: repeat(3, 1fr); }
