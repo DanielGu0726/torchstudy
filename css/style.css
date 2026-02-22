@@ -989,29 +989,34 @@ tbody tr:last-child td { border-bottom: none; }
 .lang-toggle {
   display: flex;
   align-items: center;
-  gap: 4px;
-  margin-left: 12px;
+  margin-left: 14px;
+  background: rgba(255,255,255,.1);
+  border-radius: 20px;
+  padding: 3px;
+  gap: 0;
+  backdrop-filter: blur(4px);
 }
 .lang-btn {
-  padding: 4px 10px;
-  border-radius: 6px;
-  font-size: .8rem;
+  padding: 4px 13px;
+  border-radius: 16px;
+  font-size: .72rem;
   font-weight: 700;
+  letter-spacing: .06em;
   cursor: pointer;
-  border: 1.5px solid rgba(255,255,255,.3);
+  border: none;
   background: transparent;
-  color: rgba(255,255,255,.6);
-  transition: all .2s;
-  line-height: 1.4;
+  color: rgba(255,255,255,.45);
+  transition: all .25s ease;
+  line-height: 1.5;
 }
 .lang-btn.active {
   background: var(--primary);
-  border-color: var(--primary);
   color: #fff;
+  box-shadow: 0 2px 8px rgba(232,65,24,.45);
 }
 .lang-btn:hover:not(.active) {
-  border-color: rgba(255,255,255,.7);
-  color: rgba(255,255,255,.9);
+  color: rgba(255,255,255,.85);
+  background: rgba(255,255,255,.08);
 }
 @media (max-width: 768px) {
   .lang-toggle { margin-left: 8px; }
