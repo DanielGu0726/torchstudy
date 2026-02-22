@@ -23,7 +23,7 @@
   --shadow:        0 2px 12px rgba(0,0,0,.08);
   --shadow-md:     0 4px 24px rgba(0,0,0,.12);
   --shadow-lg:     0 8px 40px rgba(0,0,0,.16);
-  --nav-height:    76px;
+  --nav-height:    108px;
   --transition:    .25s ease;
 }
 
@@ -151,18 +151,18 @@ p  { color: var(--text-muted); line-height: 1.75; }
   display: flex; align-items: center; justify-content: space-between;
 }
 .nav-logo {
-  display: flex; align-items: center; gap: 10px;
+  display: flex; align-items: center; gap: 14px;
   color: var(--white);
-  font-size: 1.55rem; font-weight: 800;
+  font-size: 3.1rem; font-weight: 800;
   letter-spacing: -.01em;
   flex-shrink: 0;
 }
 .nav-logo .logo-icon {
-  width: 44px; height: 44px;
+  width: 88px; height: 88px;
   background: var(--primary);
-  border-radius: 10px;
+  border-radius: 16px;
   display: flex; align-items: center; justify-content: center;
-  font-size: 1.3rem;
+  font-size: 2.6rem;
   flex-shrink: 0;
 }
 .nav-logo:hover { color: var(--white); }
@@ -685,11 +685,11 @@ tbody tr:last-child td { border-bottom: none; }
 
 /* ── Logo Image ─────────────────────────────────── */
 .logo-img {
-  width: 44px; height: 44px;
-  border-radius: 10px; object-fit: cover;
+  width: 88px; height: 88px;
+  border-radius: 16px; object-fit: cover;
   display: block; flex-shrink: 0;
   /* 메뉴바 넘치지 않게 */
-  max-height: calc(var(--nav-height) - 32px);
+  max-height: calc(var(--nav-height) - 20px);
 }
 
 /* ── Nav Controls & Modern Theme Toggle ─────────── */
