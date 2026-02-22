@@ -84,6 +84,7 @@
         <div class="sidebar-link" data-panel="panel-workshop">🛠️ Workshop 설정</div>
         <div class="sidebar-link" data-panel="panel-activity">🎯 Activity 관리</div>
         <div class="sidebar-link" data-panel="panel-members">👥 Members 관리</div>
+        <div class="sidebar-link" data-panel="panel-president">👑 회장 인사말</div>
         <div class="sidebar-link" data-panel="panel-news">📰 News 관리</div>
         <div class="sidebar-link" data-panel="panel-sponsors">🤝 Sponsor 관리</div>
         <div class="sidebar-link" data-panel="panel-messages">💬 메시지함</div>
@@ -232,6 +233,39 @@
           </div>
         </div>
 
+        <!-- ── Panel: President ── -->
+        <div id="panel-president" class="admin-panel">
+          <div class="panel">
+            <div class="panel-header">
+              <h3>회장 인사말 / 프로필</h3>
+              <button class="btn btn-primary btn-sm" onclick="savePresident()">저장</button>
+            </div>
+
+            <div class="form-inline" style="margin-bottom:12px">
+              <div class="form-group">
+                <label>회장 이름</label>
+                <input class="form-control" id="pres-name" placeholder="홍길동">
+              </div>
+              <div class="form-group">
+                <label>직함</label>
+                <input class="form-control" id="pres-title" placeholder="TORCH 2026 회장">
+              </div>
+            </div>
+
+            <div class="form-group" style="margin-bottom:12px">
+              <label>인사말</label>
+              <textarea class="form-control" id="pres-bio" rows="10" placeholder="회장 인사말을 입력하세요…"></textarea>
+            </div>
+
+            <div class="form-group">
+              <label>프로필 사진</label>
+              <input type="file" accept="image/*" id="pres-photo-input" style="display:block;margin-top:6px">
+              <img id="pres-photo-preview" class="img-preview" style="display:none;border-radius:50%;width:100px;height:100px;object-fit:cover;margin-top:8px">
+              <input type="hidden" id="pres-photo-data">
+            </div>
+          </div>
+        </div>
+
         <!-- ── Panel: News ── -->
         <div id="panel-news" class="admin-panel">
           <div class="panel">
@@ -350,6 +384,7 @@ const panelLoaders = {
   'panel-workshop':      ()=>{ loadWorkshop(); },
   'panel-activity':      ()=>{ loadCards(); loadSessions(); },
   'panel-members':       ()=>{ loadMembersAdmin(); },
+  'panel-president':     ()=>{ loadPresident(); },
   'panel-news':          ()=>{ loadNewsAdmin(); },
   'panel-sponsors':      ()=>{ loadSponsors(); },
   'panel-messages':      ()=>{ loadMessages(); },
@@ -783,6 +818,53 @@ async function delMsg(id){
   if(!confirm('메시지를 삭제하시겠습니까?')) return;
   await fetch('/api/admin/messages?id='+id,{method:'DELETE'});
   toast('삭제됨'); loadMessages();
+}
+
+/* ══════════════════════════════════════════
+   PRESIDENT
+══════════════════════════════════════════ */
+async function loadPresident(){
+  const res = await fetch('/api/admin/settings').catch(()=>null);
+  if(!res||!res.ok) return;
+  const {settings} = await res.json();
+  const map = {};
+  (settings||[]).forEach(s => map[s.key] = s.value);
+
+  document.getElementById('pres-name').value  = map.president_name  || '';
+  document.getElementById('pres-title').value = map.president_title || '';
+  document.getElementById('pres-bio').value   = map.president_bio   || '';
+
+  const preview = document.getElementById('pres-photo-preview');
+  if(map.president_photo){ preview.src = map.president_photo; preview.style.display = 'block'; }
+  else preview.style.display = 'none';
+  document.getElementById('pres-photo-data').value = map.president_photo || '';
+}
+
+document.getElementById('pres-photo-input').addEventListener('change', function(){
+  const file = this.files[0]; if(!file) return;
+  resizeImage(file, 400, 400, b64 => {
+    document.getElementById('pres-photo-data').value = b64;
+    const preview = document.getElementById('pres-photo-preview');
+    preview.src = b64; preview.style.display = 'block';
+  });
+});
+
+async function savePresident(){
+  const body = {
+    president_name:  document.getElementById('pres-name').value,
+    president_title: document.getElementById('pres-title').value,
+    president_bio:   document.getElementById('pres-bio').value,
+  };
+  const photo = document.getElementById('pres-photo-data').value;
+  if(photo) body.president_photo = photo;
+
+  const res = await fetch('/api/admin/settings', {
+    method: 'PATCH',
+    headers: {'Content-Type':'application/json'},
+    body: JSON.stringify(body)
+  });
+  if(res.ok) toast('회장 정보가 저장되었습니다.');
+  else toast('저장 실패', 'error');
 }
 
 /* ══════════════════════════════════════════

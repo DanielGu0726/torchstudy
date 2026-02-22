@@ -6,7 +6,7 @@
   <title>Members – TORCH</title>
   <link rel="stylesheet" href="../css/style.css">
   <style>
-    .member-row-card { display: grid; grid-template-columns: 96px 1fr; gap: 24px; align-items: start; background: var(--white); border-radius: var(--radius-lg); padding: 24px; box-shadow: var(--shadow); border: 1.5px solid var(--border); margin-bottom: 16px; }
+    .member-row-card { display: grid; grid-template-columns: 96px 1fr; gap: 24px; align-items: start; background: var(--white); border-radius: var(--radius-lg); padding: 24px; box-shadow: var(--shadow); border: 1.5px solid var(--border); margin-bottom: 16px; transition: border-color .2s; }
     .member-row-card:hover { border-color: var(--primary); }
     .member-avatar-lg { width: 88px; height: 88px; border-radius: 50%; overflow: hidden; background: var(--primary); display: flex; align-items: center; justify-content: center; font-size: 2rem; font-weight: 700; color: #fff; flex-shrink: 0; }
     .member-avatar-lg img { width: 100%; height: 100%; object-fit: cover; }
@@ -15,6 +15,9 @@
     .member-info-workplace { font-size: .85rem; color: var(--text-muted); margin-bottom: 8px; }
     .member-info-bio { font-size: .85rem; color: var(--text-muted); line-height: 1.6; }
     .member-artwork-thumb { width: 100%; max-height: 200px; object-fit: cover; border-radius: var(--radius); margin-top: 12px; }
+    .sort-bar { display: flex; align-items: center; gap: 10px; margin-bottom: 24px; flex-wrap: wrap; }
+    .sort-bar label { font-size: .85rem; color: var(--text-muted); font-weight: 500; }
+    .sort-bar select { padding: 6px 12px; border: 1px solid var(--border); border-radius: 6px; font-size: .85rem; background: var(--white); color: var(--text); }
     @media(max-width:600px) { .member-row-card { grid-template-columns: 72px 1fr; gap: 16px; } .member-avatar-lg { width: 64px; height: 64px; } }
   </style>
 </head>
@@ -67,21 +70,17 @@
         <div style="text-align:center">
           <div class="president-photo" id="president-photo">🔥</div>
           <div style="margin-top:18px">
-            <div style="font-size:1.05rem;font-weight:700" id="president-name">김치기</div>
-            <div style="font-size:.85rem;color:var(--text-muted);margin-top:2px">TORCH 2026 회장</div>
+            <div style="font-size:1.05rem;font-weight:700" id="president-name">—</div>
+            <div style="font-size:.85rem;color:var(--text-muted);margin-top:2px" id="president-title-display">—</div>
           </div>
         </div>
         <div>
           <div class="quote-mark">"</div>
-          <p class="greeting-text">
-            안녕하세요, TORCH 회원 여러분.<br><br>
-            저는 TORCH가 단순한 스터디 그룹이 아니라, 대한민국 치기공 업계의 미래를 함께 만들어가는 공동체라고 믿습니다.<br><br>
-            치과기공사로서 우리는 매일 정밀함과 아름다움을 손으로 빚어냅니다. 그 과정에서 마주치는 어려움과 기쁨을 혼자 감당하기보다, 함께 나누고 서로의 경험에서 배울 때 우리는 더 빠르게 성장할 수 있습니다.<br><br>
-            TORCH는 <strong>T</strong>echnology(기술), <strong>O</strong>pportunity(기회), <strong>R</strong>edeem(보완), <strong>C</strong>hallenge(도전), <strong>H</strong>ope(희망) — 이 다섯 가지 가치를 중심으로 모인 젊은 치기공사들의 모임입니다. 최신 기술 트렌드를 함께 공부하고, 임상 케이스를 공유하며, 국내외 전문가들과 네트워킹하는 이 공간이 여러분 모두에게 의미 있는 성장의 발판이 되길 바랍니다.<br><br>
-            여러분의 참여와 열정이 TORCH를 더욱 빛나게 합니다. 함께해 주셔서 감사합니다.
+          <p class="greeting-text" id="president-bio-display" style="white-space:pre-line">
+            불러오는 중…
           </p>
           <div style="margin-top:28px;padding-top:20px;border-top:1px solid var(--border);font-size:.9rem;color:var(--text-muted)">
-            TORCH 2026 회장 <strong style="color:var(--text)" id="president-sign">김치기</strong>
+            <span id="president-title-sign">—</span> <strong style="color:var(--text)" id="president-sign">—</strong>
           </div>
         </div>
       </div>
@@ -89,6 +88,16 @@
 
     <!-- ── Tab 2: 역대 Members ──────────────────────── -->
     <div id="tab-alumni" class="tab-pane">
+      <!-- Sort bar -->
+      <div class="sort-bar">
+        <label>정렬:</label>
+        <select id="alumni-sort" onchange="renderAlumni()">
+          <option value="year-desc">연도 (최신순)</option>
+          <option value="year-asc">연도 (오래된순)</option>
+          <option value="name-asc">이름 (가나다순)</option>
+          <option value="workplace-asc">소속 (가나다순)</option>
+        </select>
+      </div>
       <div id="alumni-list">
         <div style="text-align:center;padding:60px;color:var(--text-muted)">불러오는 중…</div>
       </div>
@@ -127,7 +136,7 @@
 
 <script src="../js/theme.js"></script>
 <script>
-/* Tab switching */
+/* ── Tab switching ─────────────────────────── */
 let alumniLoaded = false, currentLoaded = false;
 
 document.querySelectorAll('.tab-btn').forEach(btn => {
@@ -138,51 +147,143 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
     document.getElementById('tab-' + this.dataset.tab).classList.add('active');
 
     if (this.dataset.tab === 'alumni' && !alumniLoaded) {
-      loadMembers('alumni', 'alumni-list');
+      loadAllMembers();
       alumniLoaded = true;
     }
     if (this.dataset.tab === 'current' && !currentLoaded) {
-      loadMembers('current', 'current-list');
+      loadCurrentMembers();
       currentLoaded = true;
     }
   });
 });
 
-async function loadMembers(category, containerId) {
-  const container = document.getElementById(containerId);
+/* ── Escape HTML ────────────────────────────── */
+function esc(str) {
+  return (str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+/* ── President ──────────────────────────────── */
+async function loadPresident() {
   try {
-    const res = await fetch('/api/members-list?category=' + category);
+    const res = await fetch('/api/president');
+    if (!res.ok) throw new Error();
+    const p = await res.json();
+
+    // Photo
+    const photoEl = document.getElementById('president-photo');
+    if (p.photo) {
+      photoEl.innerHTML = `<img src="${esc(p.photo)}" alt="${esc(p.name)}" style="width:100%;height:100%;object-fit:cover;border-radius:50%">`;
+    }
+
+    // Name & title
+    document.getElementById('president-name').textContent = p.name || '—';
+    document.getElementById('president-title-display').textContent = p.title || '—';
+    document.getElementById('president-sign').textContent = p.name || '—';
+    document.getElementById('president-title-sign').textContent = p.title || '—';
+
+    // Bio (greeting)
+    const bioEl = document.getElementById('president-bio-display');
+    if (p.bio) {
+      bioEl.textContent = p.bio;
+    } else {
+      bioEl.innerHTML = `안녕하세요, TORCH 회원 여러분.<br><br>
+저는 TORCH가 단순한 스터디 그룹이 아니라, 대한민국 치기공 업계의 미래를 함께 만들어가는 공동체라고 믿습니다.<br><br>
+TORCH는 <strong>T</strong>echnology(기술), <strong>O</strong>pportunity(기회), <strong>R</strong>edeem(보완), <strong>C</strong>hallenge(도전), <strong>H</strong>ope(희망) — 이 다섯 가지 가치를 중심으로 모인 젊은 치기공사들의 모임입니다.<br><br>
+여러분의 참여와 열정이 TORCH를 더욱 빛나게 합니다. 함께해 주셔서 감사합니다.`;
+    }
+  } catch {
+    // keep default fallback text
+  }
+}
+
+/* ── All members (역대 – includes 2026 current) ── */
+let allMembersData = [];
+
+async function loadAllMembers() {
+  const container = document.getElementById('alumni-list');
+  try {
+    const res = await fetch('/api/members-list');  // no category filter → all members
+    if (!res.ok) throw new Error();
+    const { members } = await res.json();
+    allMembersData = members || [];
+    renderAlumni();
+  } catch {
+    container.innerHTML = `<div style="text-align:center;padding:60px;color:var(--text-muted)">
+      <div style="font-size:3rem;margin-bottom:16px">📚</div>
+      <p>역대 회원 정보를 불러올 수 없습니다.</p>
+    </div>`;
+  }
+}
+
+function renderAlumni() {
+  const container = document.getElementById('alumni-list');
+  if (!allMembersData.length) {
+    container.innerHTML = `<div style="text-align:center;padding:60px;color:var(--text-muted)">
+      <div style="font-size:3rem;margin-bottom:16px">📚</div><p>등록된 회원이 없습니다.</p></div>`;
+    return;
+  }
+
+  const sortKey = document.getElementById('alumni-sort').value;
+  let sorted = [...allMembersData];
+
+  if (sortKey === 'year-desc') {
+    sorted.sort((a, b) => (b.year || 0) - (a.year || 0) || (a.order_num || 0) - (b.order_num || 0));
+  } else if (sortKey === 'year-asc') {
+    sorted.sort((a, b) => (a.year || 0) - (b.year || 0) || (a.order_num || 0) - (b.order_num || 0));
+  } else if (sortKey === 'name-asc') {
+    sorted.sort((a, b) => (a.name || '').localeCompare(b.name || '', 'ko'));
+  } else if (sortKey === 'workplace-asc') {
+    sorted.sort((a, b) => (a.workplace || '').localeCompare(b.workplace || '', 'ko'));
+  }
+
+  // Group by year
+  const byYear = {};
+  sorted.forEach(m => {
+    const y = m.year || '기타';
+    if (!byYear[y]) byYear[y] = [];
+    byYear[y].push(m);
+  });
+
+  // Year order depends on sort
+  let years = Object.keys(byYear);
+  if (sortKey === 'year-asc') {
+    years.sort((a, b) => Number(a) - Number(b));
+  } else if (sortKey === 'year-desc') {
+    years.sort((a, b) => Number(b) - Number(a));
+  }
+  // For name/workplace sort, keep insertion order (already sorted above)
+
+  container.innerHTML = years.map(y => `
+    <div class="year-group">
+      <div class="year-label">${esc(y)} Members</div>
+      ${byYear[y].map(m => buildMemberCard(m)).join('')}
+    </div>
+  `).join('');
+}
+
+/* ── 2026 current members ─────────────────── */
+async function loadCurrentMembers() {
+  const container = document.getElementById('current-list');
+  try {
+    const res = await fetch('/api/members-list?category=current');
     if (!res.ok) throw new Error();
     const { members } = await res.json();
 
     if (!members || !members.length) {
-      container.innerHTML = buildEmptyState(category);
+      container.innerHTML = `<div style="text-align:center;padding:60px;color:var(--text-muted)">
+        <div style="font-size:3rem;margin-bottom:16px">👥</div>
+        <p>2026 회원 소개를 준비 중입니다.</p>
+        <p style="font-size:.88rem">문의: <a href="../contact.html">contact 페이지</a> 또는 <a href="https://www.instagram.com/t_o_r_c_h_study/" target="_blank">Instagram</a></p>
+      </div>`;
       return;
     }
-
-    if (category === 'alumni') {
-      // Group by year
-      const byYear = {};
-      members.forEach(m => {
-        const y = m.year || '기타';
-        if (!byYear[y]) byYear[y] = [];
-        byYear[y].push(m);
-      });
-      const years = Object.keys(byYear).sort((a, b) => b - a);
-      container.innerHTML = years.map(y => `
-        <div class="year-group">
-          <div class="year-label">${esc(y)} Members</div>
-          ${byYear[y].map(m => buildMemberCard(m)).join('')}
-        </div>
-      `).join('');
-    } else {
-      container.innerHTML = members.map(m => buildMemberCard(m)).join('');
-    }
+    container.innerHTML = members.map(m => buildMemberCard(m)).join('');
   } catch {
-    container.innerHTML = buildEmptyState(category);
+    container.innerHTML = `<div style="text-align:center;padding:60px;color:var(--text-muted)">데이터를 불러올 수 없습니다.</div>`;
   }
 }
 
+/* ── Build member card ──────────────────────── */
 function buildMemberCard(m) {
   const initial = (m.name || '?').replace(/\s/g, '')[0] || '?';
   const avatar = m.photo
@@ -200,33 +301,17 @@ function buildMemberCard(m) {
       <div class="member-avatar-lg">${avatar}</div>
       <div>
         <div class="member-info-name">${esc(m.name)}</div>
-        ${m.title ? `<div class="member-info-title">${esc(m.title)}</div>` : ''}
-        ${m.workplace ? `<div class="member-info-workplace">📍 ${esc(m.workplace)}</div>` : ''}
-        ${m.bio ? `<div class="member-info-bio">${esc(m.bio)}</div>` : ''}
+        ${m.title    ? `<div class="member-info-title">${esc(m.title)}</div>` : ''}
+        ${m.workplace? `<div class="member-info-workplace">📍 ${esc(m.workplace)}</div>` : ''}
+        ${m.bio      ? `<div class="member-info-bio">${esc(m.bio)}</div>` : ''}
         ${artwork}
         ${webpage}
       </div>
-    </div>
-  `;
-}
-
-function buildEmptyState(category) {
-  if (category === 'current') {
-    return `<div style="grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--text-muted)">
-      <div style="font-size:3rem;margin-bottom:16px">👥</div>
-      <p>2026 회원 소개를 준비 중입니다.</p>
-      <p style="font-size:.88rem">문의: <a href="../contact.html">contact 페이지</a> 또는 <a href="https://www.instagram.com/t_o_r_c_h_study/" target="_blank">Instagram</a></p>
     </div>`;
-  }
-  return `<div style="text-align:center;padding:60px 20px;color:var(--text-muted)">
-    <div style="font-size:3rem;margin-bottom:16px">📚</div>
-    <p>역대 회원 정보가 없습니다.</p>
-  </div>`;
 }
 
-function esc(str) {
-  return (str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-}
+/* ── Init ───────────────────────────────────── */
+loadPresident();
 </script>
 </body>
 </html>
