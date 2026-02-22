@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Study Group Registration – TorchStudy</title>
+  <title>Study 신청 – TORCH</title>
   <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
 <nav class="navbar">
   <div class="nav-inner">
-    <a href="../index.html" class="nav-logo"><div class="logo-icon">🔥</div>TorchStudy</a>
+    <a href="../index.html" class="nav-logo"><div class="logo-icon">🔥</div>TORCH</a>
     <div class="nav-links">
       <div class="nav-item"><a href="../index.html" class="nav-link">Home</a></div>
       <div class="nav-item"><a href="../about.html" class="nav-link">About</a></div>
@@ -25,16 +25,16 @@
 </nav>
 <div class="mobile-menu">
   <a href="../index.html" class="mobile-link">Home</a>
-  <a href="study.html" class="mobile-link">Study Registration</a>
-  <a href="symposium.html" class="mobile-link">Symposium Registration</a>
-  <a href="workshop.html" class="mobile-link">Workshop Registration</a>
+  <a href="study.html" class="mobile-link">Study 신청</a>
+  <a href="symposium.html" class="mobile-link">Symposium 신청</a>
+  <a href="workshop.html" class="mobile-link">Workshop 신청</a>
 </div>
 
 <div class="page-header">
   <div class="container">
     <span class="eyebrow">Join Us</span>
-    <h1>Study Group Registration</h1>
-    <p>Apply to join our weekly study sessions. We accept applications on a rolling basis.</p>
+    <h1>스터디 참가 신청</h1>
+    <p>TORCH 정기 스터디에 참가 신청하세요. 상시 모집 중입니다.</p>
     <div class="breadcrumb"><a href="../index.html">Home</a><span>/</span><a href="study.html">Registration</a><span>/</span><span>Study Group</span></div>
   </div>
 </div>
@@ -45,95 +45,100 @@
       <!-- Info -->
       <div>
         <div class="card">
-          <h3 style="margin-bottom:20px">What to Expect</h3>
+          <h3 style="margin-bottom:20px">스터디 안내</h3>
           <div class="feature-list">
-            <div class="feature-item"><div class="feature-icon">📅</div><div><h4>Every Thursday</h4><p style="font-size:.85rem">7:00 – 9:00 PM, hybrid format</p></div></div>
-            <div class="feature-item"><div class="feature-icon">📚</div><div><h4>Structured Curriculum</h4><p style="font-size:.85rem">From PyTorch basics to cutting-edge papers</p></div></div>
-            <div class="feature-item"><div class="feature-icon">💻</div><div><h4>Hands-on Coding</h4><p style="font-size:.85rem">Every session includes practical implementation</p></div></div>
-            <div class="feature-item"><div class="feature-icon">🤝</div><div><h4>Community Access</h4><p style="font-size:.85rem">Discord, resources, and member profile</p></div></div>
+            <div class="feature-item"><div class="feature-icon">📅</div><div><h4>격주 토요일</h4><p style="font-size:.85rem">오전 10시 – 오후 1시, 대면/온라인 병행</p></div></div>
+            <div class="feature-item"><div class="feature-icon">🦷</div><div><h4>임상 중심 커리큘럼</h4><p style="font-size:.85rem">케이스 발표, 논문 리뷰, 기술 세미나</p></div></div>
+            <div class="feature-item"><div class="feature-icon">💬</div><div><h4>커뮤니티 채널</h4><p style="font-size:.85rem">KakaoTalk 오픈채팅 및 회원 전용 자료실 제공</p></div></div>
+            <div class="feature-item"><div class="feature-icon">🤝</div><div><h4>네트워킹</h4><p style="font-size:.85rem">전국 치기공사 및 치기공과 학생과의 교류</p></div></div>
           </div>
           <hr class="form-divider">
           <div style="display:flex;flex-direction:column;gap:10px">
-            <div style="display:flex;justify-content:space-between;font-size:.88rem"><span style="color:var(--text-muted)">Session Fee</span><strong>Free</strong></div>
-            <div style="display:flex;justify-content:space-between;font-size:.88rem"><span style="color:var(--text-muted)">Open Spots</span><strong style="color:var(--success)">12 remaining</strong></div>
-            <div style="display:flex;justify-content:space-between;font-size:.88rem"><span style="color:var(--text-muted)">Semester</span><strong>Spring 2025</strong></div>
+            <div style="display:flex;justify-content:space-between;font-size:.88rem"><span style="color:var(--text-muted)">참가비</span><strong>무료</strong></div>
+            <div style="display:flex;justify-content:space-between;font-size:.88rem"><span style="color:var(--text-muted)">현재 모집</span><strong style="color:var(--success)">상시 모집 중</strong></div>
+            <div style="display:flex;justify-content:space-between;font-size:.88rem"><span style="color:var(--text-muted)">대상</span><strong>치기공사 / 치기공과 학생</strong></div>
           </div>
         </div>
       </div>
 
       <!-- Form -->
       <div class="form-card" style="max-width:100%">
-        <h3 style="margin-bottom:6px">Application Form</h3>
-        <p style="font-size:.88rem;margin-bottom:24px">Fill in your details below. We'll confirm your spot within 2 business days.</p>
+        <h3 style="margin-bottom:6px">참가 신청서</h3>
+        <p style="font-size:.88rem;margin-bottom:24px">아래 양식을 작성해 주시면 검토 후 연락드리겠습니다.</p>
 
         <div id="form-alert" class="alert"><span class="alert-msg"></span></div>
 
         <form id="study-form">
           <div class="form-row">
             <div class="form-group">
-              <label class="required">First Name</label>
-              <input class="form-control" name="firstName" placeholder="John" required>
+              <label class="required">이름</label>
+              <input class="form-control" name="firstName" placeholder="홍길동" required>
               <div class="error-msg"></div>
             </div>
             <div class="form-group">
-              <label class="required">Last Name</label>
-              <input class="form-control" name="lastName" placeholder="Doe" required>
+              <label class="required">연락처</label>
+              <input class="form-control" name="lastName" data-validate="phone" placeholder="010-0000-0000" required>
               <div class="error-msg"></div>
             </div>
           </div>
           <div class="form-group">
-            <label class="required">Email Address</label>
-            <input class="form-control" type="email" name="email" data-validate="email" placeholder="you@university.edu" required>
+            <label class="required">이메일</label>
+            <input class="form-control" type="email" name="email" data-validate="email" placeholder="example@email.com" required>
             <div class="error-msg"></div>
           </div>
           <div class="form-row">
             <div class="form-group">
-              <label class="required">Department / Major</label>
-              <input class="form-control" name="department" placeholder="Computer Science" required>
+              <label class="required">소속 (직장 / 학교)</label>
+              <input class="form-control" name="department" placeholder="○○치과기공소 / ○○대학교" required>
               <div class="error-msg"></div>
             </div>
             <div class="form-group">
-              <label class="required">Academic Level</label>
+              <label class="required">현재 상태</label>
               <select class="form-control" name="level" required>
-                <option value="">Select…</option>
-                <option>Undergraduate (1–2yr)</option>
-                <option>Undergraduate (3–4yr)</option>
-                <option>Master's Student</option>
-                <option>PhD Student</option>
-                <option>Postdoc / Faculty</option>
-                <option>Industry Professional</option>
+                <option value="">선택…</option>
+                <option>치기공과 재학생 (1–2학년)</option>
+                <option>치기공과 재학생 (3–4학년)</option>
+                <option>현직 치과기공사 (1–3년차)</option>
+                <option>현직 치과기공사 (4–10년차)</option>
+                <option>현직 치과기공사 (10년 이상)</option>
+                <option>기타</option>
               </select>
               <div class="error-msg"></div>
             </div>
           </div>
           <div class="form-group">
-            <label class="required">PyTorch / ML Experience Level</label>
+            <label class="required">주로 담당하는 분야</label>
             <select class="form-control" name="experience" required>
-              <option value="">Select…</option>
-              <option>Beginner – little or no experience</option>
-              <option>Intermediate – built a few models</option>
-              <option>Advanced – research / production experience</option>
+              <option value="">선택…</option>
+              <option>고정성 보철 (크라운/브릿지)</option>
+              <option>가철성 보철 (의치)</option>
+              <option>임플란트 보철</option>
+              <option>CAD/CAM / 디지털</option>
+              <option>교정 장치</option>
+              <option>다양한 분야</option>
+              <option>아직 학생 (실습 중)</option>
             </select>
             <div class="error-msg"></div>
           </div>
           <div class="form-group">
-            <label>Topics of Interest</label>
+            <label>관심 있는 스터디 주제 (복수 선택 가능)</label>
             <div class="check-group">
-              <label class="check-item"><input type="checkbox" name="topics" value="nlp"> <label>NLP & Language Models</label></label>
-              <label class="check-item"><input type="checkbox" name="topics" value="cv"> <label>Computer Vision</label></label>
-              <label class="check-item"><input type="checkbox" name="topics" value="rl"> <label>Reinforcement Learning</label></label>
-              <label class="check-item"><input type="checkbox" name="topics" value="gen"> <label>Generative AI</label></label>
-              <label class="check-item"><input type="checkbox" name="topics" value="other"> <label>Other / General ML</label></label>
+              <label class="check-item"><input type="checkbox" name="topics" value="ceramic"> <label>세라믹 / 심미 보철</label></label>
+              <label class="check-item"><input type="checkbox" name="topics" value="cadcam"> <label>CAD/CAM / 디지털 치기공</label></label>
+              <label class="check-item"><input type="checkbox" name="topics" value="implant"> <label>임플란트 보철</label></label>
+              <label class="check-item"><input type="checkbox" name="topics" value="denture"> <label>총의치 / 국소의치</label></label>
+              <label class="check-item"><input type="checkbox" name="topics" value="occlusion"> <label>교합</label></label>
+              <label class="check-item"><input type="checkbox" name="topics" value="exam"> <label>국가시험 대비</label></label>
             </div>
           </div>
           <div class="form-group">
-            <label>Motivation (optional)</label>
-            <textarea class="form-control" name="motivation" placeholder="Why do you want to join TorchStudy?"></textarea>
+            <label>지원 동기 (선택)</label>
+            <textarea class="form-control" name="motivation" placeholder="TORCH에 참가하고 싶은 이유나 배우고 싶은 것을 자유롭게 적어주세요."></textarea>
           </div>
           <div class="form-group">
-            <label class="check-item"><input type="checkbox" required> <label>I agree to the <a href="#">Terms & Conditions</a></label></label>
+            <label class="check-item"><input type="checkbox" required> <label>스터디 활동 규정 및 <a href="#">개인정보 처리방침</a>에 동의합니다</label></label>
           </div>
-          <button type="submit" class="btn btn-primary btn-block btn-lg">Submit Application</button>
+          <button type="submit" class="btn btn-primary btn-block btn-lg">신청서 제출</button>
         </form>
       </div>
     </div>
@@ -143,12 +148,12 @@
 <footer class="footer">
   <div class="container">
     <div class="footer-grid">
-      <div class="footer-brand"><a href="../index.html" class="nav-logo"><div class="logo-icon">🔥</div>TorchStudy</a><p style="margin-top:12px">A collaborative AI & machine learning study group.</p></div>
+      <div class="footer-brand"><a href="../index.html" class="nav-logo"><div class="logo-icon">🔥</div>TORCH</a><p style="margin-top:12px">Korea Young Dental Technician Study</p></div>
       <div class="footer-col"><h4>Pages</h4><ul><li><a href="../about.html">About</a></li><li><a href="../activity/index.html">Activity</a></li><li><a href="../sponsor.html">Sponsor</a></li></ul></div>
       <div class="footer-col"><h4>Registration</h4><ul><li><a href="study.html">Study Group</a></li><li><a href="symposium.html">Symposium</a></li><li><a href="workshop.html">Workshop</a></li></ul></div>
       <div class="footer-col"><h4>Community</h4><ul><li><a href="../news/index.html">News</a></li><li><a href="../members/login.html">Login</a></li><li><a href="../contact.html">Contact</a></li></ul></div>
     </div>
-    <div class="footer-bottom"><span>© 2025 TorchStudy. All rights reserved.</span></div>
+    <div class="footer-bottom"><span>© 2025 TORCH – Korea Young Dental Technician Study. All rights reserved.</span></div>
   </div>
 </footer>
 <script src="../js/auth.js"></script>
