@@ -76,6 +76,12 @@ const Registration = (() => {
     isOpen().then(open => {
       if (!open) { showClosed(); return; }
 
+      // Show form section (hidden by default until reg_open confirmed)
+      const section = document.getElementById('reg-section');
+      const closed  = document.getElementById('reg-closed-msg');
+      if (section) section.style.display = '';
+      if (closed)  closed.style.display  = 'none';
+
       // Live validation
       form.querySelectorAll('[required], [data-validate]').forEach(input => {
         input.addEventListener('blur', () => validateField(input));
