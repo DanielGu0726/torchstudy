@@ -662,3 +662,173 @@ tbody tr:last-child td { border-bottom: none; }
   .hero-buttons { flex-direction: column; }
   .btn-lg { padding: 14px 24px; }
 }
+
+/* ── Logo Image ─────────────────────────────────── */
+.logo-img {
+  width: 36px; height: 36px;
+  border-radius: 8px; object-fit: cover;
+  display: block;
+}
+
+/* ── Nav Controls (theme / lang toggle) ─────────── */
+.nav-controls {
+  display: flex; align-items: center; gap: 6px; margin-right: 8px;
+}
+.btn-icon {
+  width: 34px; height: 34px;
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.15);
+  border-radius: 6px; cursor: pointer;
+  color: rgba(255,255,255,.8); font-size: 1rem;
+  display: flex; align-items: center; justify-content: center;
+  transition: all var(--transition);
+  padding: 0;
+}
+.btn-icon:hover { background: rgba(255,255,255,.18); color: var(--white); }
+
+/* ── Member Cards ───────────────────────────────── */
+.members-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+.member-card {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); overflow: hidden;
+  transition: all var(--transition); box-shadow: var(--shadow);
+  text-align: center;
+}
+.member-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+.member-avatar {
+  width: 96px; height: 96px; border-radius: 50%;
+  margin: 28px auto 14px;
+  background: linear-gradient(135deg, var(--primary), var(--dark-3));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 2rem; color: var(--white); font-weight: 700;
+  overflow: hidden; flex-shrink: 0;
+}
+.member-avatar img { width: 100%; height: 100%; object-fit: cover; }
+.member-name { font-size: 1rem; font-weight: 700; margin-bottom: 3px; padding: 0 16px; }
+.member-workplace { font-size: .8rem; color: var(--text-muted); margin-bottom: 10px; padding: 0 16px; }
+.member-bio { font-size: .83rem; color: var(--text-muted); padding: 0 16px 16px; line-height: 1.55; }
+.member-links {
+  padding: 10px 16px; border-top: 1px solid var(--border);
+  display: flex; justify-content: center; gap: 8px;
+}
+.member-artworks {
+  display: grid; grid-template-columns: repeat(3,1fr); gap: 2px;
+  max-height: 120px; overflow: hidden;
+}
+.member-artworks img { width: 100%; height: 60px; object-fit: cover; }
+
+/* artwork upload grid */
+.artwork-preview-grid { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; }
+.artwork-thumb {
+  position: relative; width: 96px; height: 72px;
+  border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border);
+}
+.artwork-thumb img { width: 100%; height: 100%; object-fit: cover; }
+.artwork-thumb .remove-btn {
+  position: absolute; top: 3px; right: 3px;
+  background: rgba(0,0,0,.55); color: var(--white);
+  border: none; border-radius: 50%; width: 20px; height: 20px;
+  font-size: .7rem; cursor: pointer; display: flex; align-items: center; justify-content: center;
+}
+
+/* president section */
+.president-section {
+  display: grid; grid-template-columns: 240px 1fr; gap: 48px; align-items: start;
+}
+.president-photo {
+  width: 200px; height: 200px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary), var(--dark-3));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 4rem; margin: 0 auto;
+  overflow: hidden;
+}
+.president-photo img { width: 100%; height: 100%; object-fit: cover; }
+.quote-mark { font-size: 4rem; color: var(--primary); line-height: .8; margin-bottom: 8px; font-family: Georgia, serif; }
+.greeting-text { font-size: 1.05rem; line-height: 1.9; color: var(--text); }
+
+/* alumni year group */
+.year-group { margin-bottom: 40px; }
+.year-label {
+  font-size: .75rem; font-weight: 700; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--primary);
+  border-bottom: 2px solid var(--border); padding-bottom: 8px; margin-bottom: 20px;
+}
+
+/* ── Dark Mode ──────────────────────────────────── */
+[data-theme="dark"] {
+  --white:     #1e2130;
+  --light:     #161825;
+  --text:      #e2e8f0;
+  --text-muted:#94a3b8;
+  --border:    #2d3352;
+  --shadow:    0 2px 12px rgba(0,0,0,.35);
+  --shadow-md: 0 4px 24px rgba(0,0,0,.45);
+}
+[data-theme="dark"] body { background: var(--light); }
+[data-theme="dark"] p { color: var(--text-muted); }
+[data-theme="dark"] h1,[data-theme="dark"] h2,
+[data-theme="dark"] h3,[data-theme="dark"] h4 { color: var(--text); }
+[data-theme="dark"] .section-light { background: var(--light); }
+[data-theme="dark"] .stats-bar { background: var(--white); border-color: var(--border); }
+[data-theme="dark"] .stat-item { background: var(--white); }
+[data-theme="dark"] .card { background: var(--white); border-color: var(--border); }
+[data-theme="dark"] .card p { color: var(--text-muted); }
+[data-theme="dark"] .form-card { background: var(--white); border-color: var(--border); }
+[data-theme="dark"] .form-group label { color: var(--text); }
+[data-theme="dark"] .form-control {
+  background: var(--light); border-color: var(--border);
+  color: var(--text);
+}
+[data-theme="dark"] .form-control::placeholder { color: #4a5470; }
+[data-theme="dark"] select.form-control option { background: var(--white); color: var(--text); }
+[data-theme="dark"] .dropdown { background: #1e2130; border: 1px solid var(--border); }
+[data-theme="dark"] .dropdown a { color: var(--text); }
+[data-theme="dark"] .dropdown a:hover { background: var(--border); color: var(--primary); }
+[data-theme="dark"] .tabs { border-color: var(--border); }
+[data-theme="dark"] .tab-btn { color: var(--text-muted); }
+[data-theme="dark"] .tab-btn.active { color: var(--primary); }
+[data-theme="dark"] table { background: var(--white); }
+[data-theme="dark"] tbody td { border-color: var(--border); color: var(--text); }
+[data-theme="dark"] tbody tr:hover { background: rgba(255,255,255,.04); }
+[data-theme="dark"] .panel,[data-theme="dark"] .sidebar { background: var(--white); border-color: var(--border); }
+[data-theme="dark"] .panel-header h3 { color: var(--text); }
+[data-theme="dark"] .kpi-card { background: var(--white); border-color: var(--border); }
+[data-theme="dark"] .kpi-card .kpi-value { color: var(--text); }
+[data-theme="dark"] .news-card { background: var(--white); border-color: var(--border); }
+[data-theme="dark"] .news-card h3 { color: var(--text); }
+[data-theme="dark"] .sponsor-tier { background: var(--white); border-color: var(--border); }
+[data-theme="dark"] .sponsor-logo-box { background: var(--light); border-color: var(--border); }
+[data-theme="dark"] .benefit-item { background: var(--light); }
+[data-theme="dark"] .profile-card { background: var(--white); border-color: var(--border); }
+[data-theme="dark"] .profile-name { color: var(--text); }
+[data-theme="dark"] .form-divider { border-color: var(--border); }
+[data-theme="dark"] .member-card { background: var(--white); border-color: var(--border); }
+[data-theme="dark"] .member-links { border-color: var(--border); }
+[data-theme="dark"] .year-label { border-color: var(--border); }
+[data-theme="dark"] .artwork-thumb { border-color: var(--border); }
+[data-theme="dark"] .alert-success { background: rgba(39,174,96,.12); border-color: rgba(39,174,96,.3); color: #6fcf97; }
+[data-theme="dark"] .alert-danger  { background: rgba(231,76,60,.12);  border-color: rgba(231,76,60,.3);  color: #f1948a; }
+[data-theme="dark"] .alert-info    { background: rgba(52,152,219,.12); border-color: rgba(52,152,219,.3); color: #85c1e9; }
+[data-theme="dark"] .badge-success { background: rgba(39,174,96,.18); }
+[data-theme="dark"] .badge-warning { background: rgba(243,156,18,.18); }
+[data-theme="dark"] .badge-danger  { background: rgba(231,76,60,.18); }
+[data-theme="dark"] .badge-info    { background: rgba(52,152,219,.18); }
+[data-theme="dark"] .tier-gold   { background: rgba(154,125,10,.18); border-color: rgba(249,231,159,.25); color: #f0d060; }
+[data-theme="dark"] .tier-silver { background: rgba(86,101,115,.18); border-color: rgba(213,216,220,.25); color: #bdc3c7; }
+[data-theme="dark"] .tier-bronze { background: rgba(147,81,22,.18);  border-color: rgba(240,200,160,.25); color: #e59866; }
+[data-theme="dark"] .timeline::before { background: var(--border); }
+[data-theme="dark"] .timeline-item::before { border-color: var(--white); }
+[data-theme="dark"] .greeting-text { color: var(--text); }
+
+@media (max-width: 1024px) {
+  .members-grid { grid-template-columns: repeat(3, 1fr); }
+  .president-section { grid-template-columns: 1fr; }
+  .president-photo { width: 160px; height: 160px; }
+}
+@media (max-width: 768px) {
+  .members-grid { grid-template-columns: repeat(2, 1fr); }
+  .nav-controls { display: none; }
+}
+@media (max-width: 480px) {
+  .members-grid { grid-template-columns: 1fr 1fr; }
+}

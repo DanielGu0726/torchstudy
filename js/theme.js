@@ -16,13 +16,16 @@ const Theme = (() => {
 
   function applyTheme(theme) {
     document.documentElement.setAttribute('data-theme', theme);
-    const root = getRootPath();
-    // torch1 = dark-mode logo, torch2 = light-mode logo
-    const src = root + (theme === 'dark' ? 'images/torch1.jpg' : 'images/torch2.jpg');
-    document.querySelectorAll('.logo-img').forEach(img => { img.src = src; });
+    localStorage.setItem(THEME_KEY, theme);
+
+    // Update toggle button icon
     const btn = document.getElementById('themeToggle');
     if (btn) btn.textContent = theme === 'dark' ? '☀️' : '🌙';
-    localStorage.setItem(THEME_KEY, theme);
+
+    // Swap logo images
+    const root = getRootPath();
+    const src  = root + (theme === 'dark' ? 'images/torch1.jpg' : 'images/torch2.jpg');
+    document.querySelectorAll('.logo-img').forEach(img => { img.src = src; });
   }
 
   function toggleTheme() {
@@ -36,29 +39,35 @@ const Theme = (() => {
     const controls = document.createElement('div');
     controls.className = 'nav-controls';
     controls.innerHTML =
-      '<button class="btn-icon" id="themeToggle" aria-label="Toggle theme">🌙</button>' +
-      '<button class="btn-icon" id="langToggle" aria-label="Toggle language">EN</button>';
+      '<button class="btn-icon" id="themeToggle" title="테마 전환">🌙</button>';
     hamburger.parentNode.insertBefore(controls, hamburger);
-
     document.getElementById('themeToggle').addEventListener('click', toggleTheme);
-    document.getElementById('langToggle').addEventListener('click', () => {
-      const cur = localStorage.getItem('ts_lang') || 'ko';
-      const next = cur === 'ko' ? 'en' : 'ko';
-      if (window.I18n) window.I18n.apply(next);
-    });
   }
 
   function injectLogo() {
-    const root = getRootPath();
+    const root  = getRootPath();
     const theme = getTheme();
+    const src   = root + (theme === 'dark' ? 'images/torch1.jpg' : 'images/torch2.jpg');
+
     document.querySelectorAll('.nav-logo').forEach(link => {
       if (link.querySelector('.logo-img')) return;
       const old = link.querySelector('.logo-icon');
+      if (!old) return;
+
       const img = document.createElement('img');
       img.className = 'logo-img';
       img.alt = 'TORCH';
-      img.src = root + (theme === 'dark' ? 'images/torch1.jpg' : 'images/torch2.jpg');
-      if (old) old.replaceWith(img); else link.prepend(img);
+      img.src = src;
+
+      // Fallback: if image fails to load, keep the emoji icon
+      img.onerror = function() {
+        const fallback = document.createElement('div');
+        fallback.className = 'logo-icon';
+        fallback.textContent = '🔥';
+        this.replaceWith(fallback);
+      };
+
+      old.replaceWith(img);
     });
   }
 
@@ -66,11 +75,7 @@ const Theme = (() => {
     injectControls();
     injectLogo();
     applyTheme(getTheme());
-    // Sync lang button label
-    const lang = localStorage.getItem('ts_lang') || 'ko';
-    const btn = document.getElementById('langToggle');
-    if (btn) btn.textContent = lang === 'ko' ? 'EN' : '한';
   });
 
-  return { applyTheme, getTheme };
+  return { applyTheme, getTheme, toggleTheme };
 })();
