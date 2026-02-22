@@ -361,6 +361,10 @@
    UTILITIES
 ══════════════════════════════════════════ */
 function esc(s){ return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+/* 편집 데이터 캐시 – onclick에 JSON 직접 삽입하면 큰따옴표 충돌 발생,
+   대신 ID만 전달하고 여기서 조회 */
+const _store = {};
 function toast(msg,type='success'){
   const el=document.getElementById('toast');
   el.textContent=(type==='success'?'✅ ':'❌ ')+msg;
@@ -610,6 +614,7 @@ async function loadCards(){
     tbody.innerHTML='<tr><td colspan="6" style="text-align:center;padding:24px;color:var(--text-muted)">카드 없음</td></tr>';
     return;
   }
+  cards.forEach(c => { _store['c_'+c.id] = c; });
   tbody.innerHTML=cards.map((c,i)=>`
     <tr>
       <td>${i+1}</td>
@@ -618,7 +623,7 @@ async function loadCards(){
       <td>${c.order_num}</td>
       <td>${c.active?'✅':'—'}</td>
       <td><div class="table-actions">
-        <button onclick="editCard(${JSON.stringify(c).replace(/'/g,"&#39;")})">✏️</button>
+        <button onclick="editCard(${c.id})">✏️</button>
         <button onclick="delCard(${c.id})" style="color:var(--danger)">🗑</button>
       </div></td>
     </tr>
@@ -643,6 +648,7 @@ async function loadSessions(){
     tbody.innerHTML='<tr><td colspan="7" style="text-align:center;padding:24px;color:var(--text-muted)">세션 없음</td></tr>';
     return;
   }
+  sessions.forEach(s => { _store['s_'+s.id] = s; });
   tbody.innerHTML=sessions.map((s,i)=>`
     <tr>
       <td>${i+1}</td>
@@ -652,7 +658,7 @@ async function loadSessions(){
       <td style="font-size:.82rem">${esc(s.format)}</td>
       <td>${s.has_material?'✅':'—'}</td>
       <td><div class="table-actions">
-        <button onclick="editSession(${JSON.stringify(s).replace(/'/g,"&#39;")})">✏️</button>
+        <button onclick="editSession(${s.id})">✏️</button>
         <button onclick="delSession(${s.id})" style="color:var(--danger)">🗑</button>
       </div></td>
     </tr>
@@ -682,6 +688,7 @@ async function loadMembersAdmin(){
     tbody.innerHTML='<tr><td colspan="8" style="text-align:center;padding:24px;color:var(--text-muted)">회원 없음</td></tr>';
     return;
   }
+  rows.forEach(m => { _store['m_'+m.id] = m; });
   tbody.innerHTML=rows.map((m,i)=>`
     <tr>
       <td>${i+1}</td>
@@ -692,7 +699,7 @@ async function loadMembersAdmin(){
       <td>${m.category==='current'?'현재':'역대'}</td>
       <td>${m.active?'✅':'—'}</td>
       <td><div class="table-actions">
-        <button onclick="editMember(${JSON.stringify(m).replace(/'/g,"&#39;")})">✏️</button>
+        <button onclick="editMember(${m.id})">✏️</button>
         <button onclick="delMember(${m.id})" style="color:var(--danger)">🗑</button>
       </div></td>
     </tr>
@@ -717,6 +724,7 @@ async function loadNewsAdmin(){
     tbody.innerHTML='<tr><td colspan="6" style="text-align:center;padding:24px;color:var(--text-muted)">공지 없음</td></tr>';
     return;
   }
+  news.forEach(n => { _store['n_'+n.id] = n; });
   tbody.innerHTML=news.map((n,i)=>`
     <tr>
       <td>${i+1}</td>
@@ -725,7 +733,7 @@ async function loadNewsAdmin(){
       <td style="font-size:.82rem">${(n.created_at||'').slice(0,10)}</td>
       <td>${n.published?'✅':'—'}</td>
       <td><div class="table-actions">
-        <button onclick="editNews(${JSON.stringify(n).replace(/'/g,"&#39;")})">✏️</button>
+        <button onclick="editNews(${n.id})">✏️</button>
         <button onclick="toggleNews(${n.id},${n.published?0:1})">${n.published?'숨기기':'공개'}</button>
         <button onclick="delNews(${n.id})" style="color:var(--danger)">🗑</button>
       </div></td>
@@ -756,6 +764,7 @@ async function loadSponsors(){
     tbody.innerHTML='<tr><td colspan="7" style="text-align:center;padding:24px;color:var(--text-muted)">후원사 없음</td></tr>';
     return;
   }
+  sponsors.forEach(s => { _store['sp_'+s.id] = s; });
   tbody.innerHTML=sponsors.map((s,i)=>`
     <tr>
       <td>${i+1}</td>
@@ -765,7 +774,7 @@ async function loadSponsors(){
       <td>${s.order_num}</td>
       <td>${s.active?'✅':'—'}</td>
       <td><div class="table-actions">
-        <button onclick="editSponsor(${JSON.stringify(s).replace(/'/g,"&#39;")})">✏️</button>
+        <button onclick="editSponsor(${s.id})">✏️</button>
         <button onclick="delSponsor(${s.id})" style="color:var(--danger)">🗑</button>
       </div></td>
     </tr>
@@ -1047,11 +1056,11 @@ async function modalSave(){
 
 function val(id){ const el=document.getElementById(id); return el?el.value:''; }
 
-function editCard(c){ openModal('card',typeof c==='string'?JSON.parse(c):c); }
-function editSession(s){ openModal('session',typeof s==='string'?JSON.parse(s):s); }
-function editMember(m){ openModal('member',typeof m==='string'?JSON.parse(m):m); }
-function editNews(n){ openModal('news',typeof n==='string'?JSON.parse(n):n); }
-function editSponsor(s){ openModal('sponsor',typeof s==='string'?JSON.parse(s):s); }
+function editCard(id)   { openModal('card',    _store['c_' +id]); }
+function editSession(id){ openModal('session', _store['s_' +id]); }
+function editMember(id) { openModal('member',  _store['m_' +id]); }
+function editNews(id)   { openModal('news',    _store['n_' +id]); }
+function editSponsor(id){ openModal('sponsor', _store['sp_'+id]); }
 
 /* ══════════════════════════════════════════
    IMAGE RESIZE HELPER
