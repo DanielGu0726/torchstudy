@@ -13,11 +13,11 @@
     <div class="nav-links">
       <div class="nav-item"><a href="../index.html" class="nav-link">Home</a></div>
       <div class="nav-item"><a href="../about.html" class="nav-link">About</a></div>
-      <div class="nav-item"><span class="nav-link">Activity <svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l4 4 4-4"/></svg></span><div class="dropdown"><a href="../activity/index.html">Overview</a><a href="../activity/symposium.html">Symposium</a></div></div>
+      <div class="nav-item"><a href="../activity/index.html" class="nav-link">Activity</a></div>
       <div class="nav-item"><span class="nav-link">Registration <svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l4 4 4-4"/></svg></span><div class="dropdown"><a href="../registration/study.html">Study Group</a><a href="../registration/symposium.html">Symposium</a><a href="../registration/workshop.html">Workshop</a></div></div>
       <div class="nav-item"><a href="../sponsor.html" class="nav-link">Sponsor</a></div>
       <div class="nav-item"><a href="../members/members.html" class="nav-link">Members</a></div>
-      <div class="nav-item"><span class="nav-link active">News <svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l4 4 4-4"/></svg></span><div class="dropdown"><a href="index.html">News & Updates</a><a href="apply.html">Submit News</a></div></div>
+      <div class="nav-item"><a href="index.html" class="nav-link active">News</a></div>
       <div class="nav-item"><a href="../contact.html" class="nav-link">Contact</a></div>
     </div>
     <div class="hamburger"><span></span><span></span><span></span></div>
@@ -26,7 +26,6 @@
 <div class="mobile-menu">
   <a href="../index.html" class="mobile-link">Home</a>
   <a href="index.html" class="mobile-link">News</a>
-  <a href="apply.html" class="mobile-link">소식 제보</a>
   <a href="../contact.html" class="mobile-link">Contact</a>
   <a href="../members/members.html" class="mobile-link">Members 소개</a>
 </div>
@@ -42,74 +41,16 @@
 
 <section class="section section-light">
   <div class="container">
-    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:32px">
-      <button class="btn btn-primary btn-sm filter-btn" data-filter="all">전체</button>
-      <button class="btn btn-dark btn-sm filter-btn" data-filter="event">행사</button>
-      <button class="btn btn-dark btn-sm filter-btn" data-filter="workshop">워크샵</button>
-      <button class="btn btn-dark btn-sm filter-btn" data-filter="news">소식</button>
-      <button class="btn btn-dark btn-sm filter-btn" data-filter="general">공지</button>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:32px" id="filter-bar">
+      <button class="btn btn-primary btn-sm filter-btn active" data-filter="all">전체</button>
+      <button class="btn btn-dark btn-sm filter-btn" data-filter="공지">공지</button>
+      <button class="btn btn-dark btn-sm filter-btn" data-filter="행사">행사</button>
+      <button class="btn btn-dark btn-sm filter-btn" data-filter="워크샵">워크샵</button>
+      <button class="btn btn-dark btn-sm filter-btn" data-filter="소식">소식</button>
     </div>
 
-    <div class="news-grid">
-      <div class="news-card" data-category="event">
-        <div class="news-thumb">🎤</div>
-        <div class="news-body">
-          <div class="news-meta"><span class="news-tag">행사</span><span class="news-date">2025년 2월 15일</span></div>
-          <h3>TORCH Symposium 2025 개최 확정</h3>
-          <p>2025년 5월 24일, 제3회 TORCH 심포지엄이 개최됩니다. 케이스 발표자 모집 및 참가 신청을 받고 있습니다.</p>
-          <a href="../activity/symposium.html" class="btn btn-primary btn-sm mt-2">자세히 보기 →</a>
-        </div>
-      </div>
-      <div class="news-card" data-category="workshop">
-        <div class="news-thumb">🛠️</div>
-        <div class="news-body">
-          <div class="news-meta"><span class="news-tag">워크샵</span><span class="news-date">2025년 2월 1일</span></div>
-          <h3>CAD/CAM 실습 워크샵 모집 시작</h3>
-          <p>4월 12일 진행될 CAD/CAM 실습 워크샵 참가자를 모집합니다. 정원 15명의 소규모 실습 위주 진행입니다.</p>
-          <a href="../registration/workshop.html" class="btn btn-primary btn-sm mt-2">신청하기 →</a>
-        </div>
-      </div>
-      <div class="news-card" data-category="news">
-        <div class="news-thumb">🏆</div>
-        <div class="news-body">
-          <div class="news-meta"><span class="news-tag">소식</span><span class="news-date">2025년 1월 28일</span></div>
-          <h3>회원 논문 치과기공학회지 게재</h3>
-          <p>TORCH 회원의 지르코니아 관련 증례 논문이 대한치과기공학회지에 게재되었습니다. 함께 축하해 주세요!</p>
-          <a href="#" class="btn btn-primary btn-sm mt-2">논문 보기 →</a>
-        </div>
-      </div>
-      <div class="news-card" data-category="general">
-        <div class="news-thumb">📢</div>
-        <div class="news-body">
-          <div class="news-meta"><span class="news-tag">공지</span><span class="news-date">2025년 1월 20일</span></div>
-          <h3>2025년 상반기 스터디 일정 공개</h3>
-          <p>2025년 상반기 정기 스터디 일정이 확정되었습니다. 격주 토요일 오전 진행이며, 상시 참가 신청이 가능합니다.</p>
-          <a href="../registration/study.html" class="btn btn-primary btn-sm mt-2">스터디 신청 →</a>
-        </div>
-      </div>
-      <div class="news-card" data-category="event">
-        <div class="news-thumb">🎓</div>
-        <div class="news-body">
-          <div class="news-meta"><span class="news-tag">행사</span><span class="news-date">2025년 1월 10일</span></div>
-          <h3>제2회 TORCH 심포지엄 후기</h3>
-          <p>2024년 심포지엄에 참가해 주신 모든 분들께 감사드립니다. 참가자 100명 이상, 케이스 발표 12건으로 성황리에 마쳤습니다.</p>
-          <a href="#" class="btn btn-primary btn-sm mt-2">후기 보기 →</a>
-        </div>
-      </div>
-      <div class="news-card" data-category="news">
-        <div class="news-thumb">📸</div>
-        <div class="news-body">
-          <div class="news-meta"><span class="news-tag">소식</span><span class="news-date">2024년 12월 20일</span></div>
-          <h3>2024년 TORCH 연간 회고</h3>
-          <p>스터디 24회, 워크샵 4회, 심포지엄 1회 — 2024년 TORCH와 함께한 한 해를 돌아봅니다.</p>
-          <a href="#" class="btn btn-primary btn-sm mt-2">보러가기 →</a>
-        </div>
-      </div>
-    </div>
-
-    <div style="text-align:center;margin-top:48px">
-      <p style="margin-bottom:16px">소식을 제보하거나 자신의 케이스/성과를 공유하고 싶으신가요?</p>
-      <a href="apply.html" class="btn btn-primary">소식 제보하기</a>
+    <div id="news-grid" class="news-grid">
+      <div style="grid-column:1/-1;text-align:center;padding:60px;color:var(--text-muted)">불러오는 중…</div>
     </div>
   </div>
 </section>
@@ -117,7 +58,7 @@
 <footer class="footer">
   <div class="container">
     <div class="footer-grid">
-      <div class="footer-brand"><a href="../index.html" class="nav-logo"><div class="logo-icon">🔥</div>TORCH</a><p style="margin-top:12px">Korea Young Dental Technician Study</p></div>
+      <div class="footer-brand"><a href="../index.html" class="nav-logo"><div class="logo-icon">🔥</div>TORCH</a><p style="margin-top:12px">Korea Young Dental Technician Study<br>기술 · 기회 · 보완 · 도전 · 희망</p></div>
       <div class="footer-col"><h4>Pages</h4><ul><li><a href="../about.html">About</a></li><li><a href="../activity/index.html">Activity</a></li><li><a href="../sponsor.html">Sponsor</a></li></ul></div>
       <div class="footer-col"><h4>Registration</h4><ul><li><a href="../registration/study.html">Study Group</a></li><li><a href="../registration/symposium.html">Symposium</a></li><li><a href="../registration/workshop.html">Workshop</a></li></ul></div>
       <div class="footer-col"><h4>Community</h4><ul><li><a href="index.html">News</a></li><li><a href="../contact.html">Contact</a></li></ul></div>
@@ -125,18 +66,81 @@
     <div class="footer-bottom"><span>© 2025 TORCH – Korea Young Dental Technician Study. All rights reserved.</span></div>
   </div>
 </footer>
+
 <script src="../js/theme.js"></script>
 <script>
-  document.querySelectorAll('.filter-btn').forEach(btn => {
-    btn.addEventListener('click', function() {
-      document.querySelectorAll('.filter-btn').forEach(b => { b.className = 'btn btn-dark btn-sm filter-btn'; });
-      this.className = 'btn btn-primary btn-sm filter-btn';
-      const filter = this.dataset.filter;
-      document.querySelectorAll('.news-card').forEach(card => {
-        card.style.display = filter === 'all' || card.dataset.category === filter ? '' : 'none';
-      });
+let allNews = [];
+let currentFilter = 'all';
+
+/* Filter buttons */
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('.filter-btn').forEach(b => {
+      b.className = 'btn btn-dark btn-sm filter-btn';
     });
+    this.className = 'btn btn-primary btn-sm filter-btn active';
+    currentFilter = this.dataset.filter;
+    renderNews();
   });
+});
+
+function renderNews() {
+  const grid = document.getElementById('news-grid');
+  const filtered = currentFilter === 'all'
+    ? allNews
+    : allNews.filter(n => n.category === currentFilter);
+
+  if (!filtered.length) {
+    grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:60px;color:var(--text-muted)">
+      <div style="font-size:3rem;margin-bottom:16px">📭</div>
+      <p>공지사항이 없습니다.</p>
+    </div>`;
+    return;
+  }
+
+  const catIcon = { '공지': '📢', '행사': '🎤', '워크샵': '🛠️', '소식': '📸' };
+  grid.innerHTML = filtered.map(n => `
+    <div class="news-card" data-category="${esc(n.category)}">
+      <div class="news-thumb">${catIcon[n.category] || '📌'}</div>
+      <div class="news-body">
+        <div class="news-meta">
+          <span class="news-tag">${esc(n.category)}</span>
+          <span class="news-date">${formatDate(n.created_at)}</span>
+        </div>
+        <h3>${esc(n.title)}</h3>
+        <p>${esc(n.content)}</p>
+      </div>
+    </div>
+  `).join('');
+}
+
+function formatDate(iso) {
+  if (!iso) return '';
+  const d = new Date(iso);
+  return `${d.getFullYear()}년 ${d.getMonth()+1}월 ${d.getDate()}일`;
+}
+
+function esc(str) {
+  return (str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+/* Load news from API */
+(async () => {
+  try {
+    const res = await fetch('/api/news');
+    if (!res.ok) throw new Error();
+    const { news } = await res.json();
+    allNews = news || [];
+    renderNews();
+  } catch {
+    document.getElementById('news-grid').innerHTML = `
+      <div style="grid-column:1/-1;text-align:center;padding:60px;color:var(--text-muted)">
+        <p>공지사항을 불러올 수 없습니다.</p>
+        <p style="font-size:.85rem;margin-top:8px">Instagram에서 최신 소식을 확인하세요.</p>
+        <a href="https://www.instagram.com/t_o_r_c_h_study/" target="_blank" class="btn btn-primary" style="margin-top:16px">📷 @t_o_r_c_h_study</a>
+      </div>`;
+  }
+})();
 </script>
 </body>
 </html>

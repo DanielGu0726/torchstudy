@@ -8,32 +8,41 @@
   <style>
     .admin-layout { display: grid; grid-template-columns: 220px 1fr; gap: 24px; align-items: start; }
     @media (max-width: 768px) { .admin-layout { grid-template-columns: 1fr; } }
-    .reg-status-toggle { display: flex; align-items: center; gap: 16px; padding: 16px; background: var(--light); border-radius: var(--radius); border: 1.5px solid var(--border); }
-    .toggle-pill { position: relative; width: 52px; height: 28px; cursor: pointer; }
-    .toggle-pill input { opacity: 0; width: 0; height: 0; }
+    .toggle-pill { position: relative; width: 52px; height: 28px; cursor: pointer; display:inline-flex; }
+    .toggle-pill input { opacity: 0; width: 0; height: 0; position:absolute; }
     .toggle-track { position: absolute; inset: 0; border-radius: 14px; background: #ccc; transition: background .25s; }
     .toggle-knob  { position: absolute; top: 4px; left: 4px; width: 20px; height: 20px; background: #fff; border-radius: 50%; box-shadow: 0 1px 4px rgba(0,0,0,.25); transition: transform .25s; }
     .toggle-pill input:checked ~ .toggle-track { background: var(--primary); }
     .toggle-pill input:checked ~ .toggle-knob  { transform: translateX(24px); }
+    .reg-status-toggle { display: flex; align-items: center; gap: 16px; padding: 16px; background: var(--light); border-radius: var(--radius); border: 1.5px solid var(--border); }
     .status-badge { font-size: .88rem; font-weight: 600; }
-    .reg-open  .status-badge { color: var(--success); }
-    .reg-close .status-badge { color: var(--text-muted); }
-    .table-actions { display: flex; gap: 6px; }
-    .table-actions button { padding: 4px 8px; font-size: .78rem; border-radius: 4px; border: 1px solid var(--border); background: var(--white); cursor: pointer; }
+    .table-actions { display: flex; gap: 6px; flex-wrap:wrap; }
+    .table-actions button { padding: 4px 8px; font-size: .78rem; border-radius: 4px; border: 1px solid var(--border); background: var(--white); cursor: pointer; color:var(--text); }
     .table-actions button:hover { background: var(--light); }
     .filter-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
     .filter-row select { padding: 6px 10px; border: 1px solid var(--border); border-radius: 6px; font-size: .85rem; background: var(--white); color: var(--text); }
-    .setting-row { display: flex; align-items: center; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid var(--border); }
+    .setting-row { display: flex; align-items: center; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid var(--border); gap:12px; }
     .setting-row:last-child { border-bottom: none; }
-    .setting-row input { max-width: 260px; }
-    .setting-row select { max-width: 260px; }
+    .setting-row input, .setting-row select { max-width: 280px; }
     #toast { position: fixed; bottom: 24px; right: 24px; background: #1a1a2e; color: #fff; padding: 12px 20px; border-radius: 8px; font-size: .88rem; opacity: 0; transform: translateY(8px); transition: all .25s; pointer-events: none; z-index: 9999; }
     #toast.show { opacity: 1; transform: translateY(0); }
+    .admin-panel { display:none; }
+    .admin-panel.active { display:block; }
+    .sidebar-link { cursor:pointer; }
+    .img-preview { max-width:100%;max-height:120px;object-fit:contain;border-radius:var(--radius);margin-top:8px;border:1px solid var(--border); }
+    .form-inline { display:grid;grid-template-columns:1fr 1fr;gap:12px; }
+    @media(max-width:600px){ .form-inline{grid-template-columns:1fr;} }
+    .message-card { background:var(--white);border-radius:var(--radius);padding:18px;border:1.5px solid var(--border);margin-bottom:12px; }
+    .message-card.unread { border-left:4px solid var(--primary); }
+    .message-meta { font-size:.8rem;color:var(--text-muted);margin-bottom:8px;display:flex;gap:12px;flex-wrap:wrap; }
+    .message-body { font-size:.88rem;line-height:1.6;white-space:pre-wrap; }
+    .modal-overlay { position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:8000;display:flex;align-items:center;justify-content:center;padding:20px; }
+    .modal-box { background:var(--white);border-radius:var(--radius-lg);padding:28px;max-width:560px;width:100%;max-height:90vh;overflow-y:auto; }
+    .modal-box h3 { margin-bottom:16px; }
   </style>
 </head>
 <body>
 
-<!-- Navbar -->
 <nav class="navbar">
   <div class="nav-inner">
     <a href="../index.html" class="nav-logo"><div class="logo-icon">🔥</div>TORCH</a>
@@ -52,7 +61,7 @@
   <div class="container">
     <span class="eyebrow">Administration</span>
     <h1>관리자 대시보드</h1>
-    <p>신청 현황, 회원 정보, 사이트 설정을 관리합니다.</p>
+    <p>신청 현황, 콘텐츠, 사이트 설정을 관리합니다.</p>
   </div>
 </div>
 
@@ -63,15 +72,21 @@
     <div class="kpi-grid" style="margin-bottom:28px" id="kpi-grid">
       <div class="kpi-card"><div class="kpi-label">총 신청</div><div class="kpi-value" id="kpi-total">—</div></div>
       <div class="kpi-card"><div class="kpi-label">스터디</div><div class="kpi-value" id="kpi-study">—</div></div>
-      <div class="kpi-card"><div class="kpi-label">심포지엄</div><div class="kpi-value" id="kpi-symposium">—</div></div>
       <div class="kpi-card"><div class="kpi-label">워크샵</div><div class="kpi-value" id="kpi-workshop">—</div></div>
+      <div class="kpi-card"><div class="kpi-label">미읽은 메시지</div><div class="kpi-value" id="kpi-messages">—</div></div>
     </div>
 
     <div class="admin-layout">
       <!-- Sidebar -->
       <div class="sidebar">
-        <div class="sidebar-title">대시보드</div>
+        <div class="sidebar-title">콘텐츠</div>
         <div class="sidebar-link active" data-panel="panel-registrations">📋 신청 관리</div>
+        <div class="sidebar-link" data-panel="panel-workshop">🛠️ Workshop 설정</div>
+        <div class="sidebar-link" data-panel="panel-activity">🎯 Activity 관리</div>
+        <div class="sidebar-link" data-panel="panel-members">👥 Members 관리</div>
+        <div class="sidebar-link" data-panel="panel-news">📰 News 관리</div>
+        <div class="sidebar-link" data-panel="panel-sponsors">🤝 Sponsor 관리</div>
+        <div class="sidebar-link" data-panel="panel-messages">💬 메시지함</div>
         <div class="sidebar-title" style="margin-top:12px">설정</div>
         <div class="sidebar-link" data-panel="panel-settings">⚙️ 사이트 설정</div>
       </div>
@@ -79,16 +94,13 @@
       <!-- Main -->
       <div class="main-panel">
 
-        <!-- Registrations Panel -->
-        <div id="panel-registrations" class="admin-panel">
+        <!-- ── Panel: Registrations ── -->
+        <div id="panel-registrations" class="admin-panel active">
           <div class="panel">
             <div class="panel-header">
               <h3>신청 목록</h3>
-              <div style="display:flex;gap:8px">
-                <button class="btn btn-primary btn-sm" onclick="exportCSV()">📥 CSV</button>
-              </div>
+              <button class="btn btn-primary btn-sm" onclick="exportCSV()">📥 CSV</button>
             </div>
-
             <div class="filter-row">
               <select id="filter-type" onchange="loadRegistrations()">
                 <option value="all">전체 유형</option>
@@ -102,32 +114,170 @@
                 <option value="approved">승인됨</option>
                 <option value="rejected">거절됨</option>
               </select>
-              <input class="form-control" id="reg-search" placeholder="이름/이메일 검색…"
+              <input class="form-control" id="reg-search" placeholder="이름 검색…"
                      style="max-width:200px;font-size:.85rem;padding:7px 12px"
                      oninput="filterTable()">
             </div>
-
             <div class="table-wrap">
               <table id="reg-table">
-                <thead>
-                  <tr><th>#</th><th>유형</th><th>이름</th><th>이메일</th><th>소속</th><th>날짜</th><th>상태</th><th>관리</th></tr>
-                </thead>
-                <tbody id="reg-tbody">
-                  <tr><td colspan="8" style="text-align:center;padding:32px;color:var(--text-muted)">불러오는 중…</td></tr>
-                </tbody>
+                <thead><tr><th>#</th><th>유형</th><th>이름</th><th>연락처</th><th>소속</th><th>날짜</th><th>상태</th><th>관리</th></tr></thead>
+                <tbody id="reg-tbody"><tr><td colspan="8" style="text-align:center;padding:32px;color:var(--text-muted)">불러오는 중…</td></tr></tbody>
               </table>
             </div>
           </div>
         </div>
 
-        <!-- Settings Panel -->
-        <div id="panel-settings" class="admin-panel" style="display:none">
+        <!-- ── Panel: Workshop ── -->
+        <div id="panel-workshop" class="admin-panel">
+          <div class="panel">
+            <div class="panel-header"><h3>Workshop 설정</h3><button class="btn btn-primary btn-sm" onclick="saveWorkshop()">저장</button></div>
+
+            <div class="reg-status-toggle" style="margin-bottom:20px">
+              <label class="toggle-pill">
+                <input type="checkbox" id="ws-active-toggle">
+                <span class="toggle-track"></span>
+                <span class="toggle-knob"></span>
+              </label>
+              <div>
+                <div class="status-badge" id="ws-status-label">불러오는 중…</div>
+                <div style="font-size:.8rem;color:var(--text-muted);margin-top:2px">활성화 시 Workshop 페이지에 신청 양식이 표시됩니다.</div>
+              </div>
+            </div>
+
+            <div class="form-inline">
+              <div class="form-group"><label>Workshop 제목</label><input class="form-control" id="ws-title"></div>
+              <div class="form-group"><label>날짜</label><input class="form-control" id="ws-date" placeholder="예: 2026년 3월 15일"></div>
+              <div class="form-group"><label>장소</label><input class="form-control" id="ws-location"></div>
+              <div class="form-group"><label>정원 (명)</label><input class="form-control" id="ws-capacity" type="number" min="1"></div>
+            </div>
+            <div class="form-group" style="margin-top:12px"><label>주제</label><input class="form-control" id="ws-topic"></div>
+            <div class="form-group" style="margin-top:12px"><label>설명</label><textarea class="form-control" id="ws-description" rows="4"></textarea></div>
+            <div class="form-group" style="margin-top:12px">
+              <label>대표 사진</label>
+              <input type="file" accept="image/*" id="ws-photo-input" style="display:block;margin-top:6px">
+              <img id="ws-photo-preview" class="img-preview" style="display:none">
+              <input type="hidden" id="ws-photo-data">
+            </div>
+          </div>
+
+          <!-- Workshop registrations -->
+          <div class="panel" style="margin-top:20px">
+            <div class="panel-header"><h3>Workshop 신청자</h3></div>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>#</th><th>이름</th><th>연락처</th><th>소속</th><th>경력</th><th>날짜</th><th>상태</th><th>관리</th></tr></thead>
+                <tbody id="ws-reg-tbody"><tr><td colspan="8" style="text-align:center;padding:24px;color:var(--text-muted)">—</td></tr></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── Panel: Activity ── -->
+        <div id="panel-activity" class="admin-panel">
+          <!-- Cards section -->
+          <div class="panel">
+            <div class="panel-header">
+              <h3>카드 뉴스 (프로그램 소개)</h3>
+              <button class="btn btn-primary btn-sm" onclick="openModal('card')">+ 추가</button>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>#</th><th>제목</th><th>날짜</th><th>순서</th><th>활성</th><th>관리</th></tr></thead>
+                <tbody id="cards-tbody"><tr><td colspan="6" style="text-align:center;padding:24px;color:var(--text-muted)">불러오는 중…</td></tr></tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Sessions section -->
+          <div class="panel" style="margin-top:20px">
+            <div class="panel-header">
+              <h3>스터디 세션</h3>
+              <button class="btn btn-primary btn-sm" onclick="openModal('session')">+ 추가</button>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>#</th><th>날짜</th><th>주제</th><th>발표자</th><th>형식</th><th>자료</th><th>관리</th></tr></thead>
+                <tbody id="sessions-tbody"><tr><td colspan="7" style="text-align:center;padding:24px;color:var(--text-muted)">불러오는 중…</td></tr></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── Panel: Members ── -->
+        <div id="panel-members" class="admin-panel">
+          <div class="panel">
+            <div class="panel-header">
+              <h3>Members 관리</h3>
+              <button class="btn btn-primary btn-sm" onclick="openModal('member')">+ 추가</button>
+            </div>
+            <div class="filter-row">
+              <select id="member-year-filter" onchange="loadMembersAdmin()">
+                <option value="">전체 연도</option>
+                <option value="2026">2026</option>
+                <option value="2025">2025</option>
+                <option value="2024">2024</option>
+              </select>
+              <select id="member-cat-filter" onchange="loadMembersAdmin()">
+                <option value="">전체 카테고리</option>
+                <option value="current">현재 회원</option>
+                <option value="alumni">역대 회원</option>
+              </select>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>#</th><th>이름</th><th>직함</th><th>소속</th><th>연도</th><th>카테고리</th><th>활성</th><th>관리</th></tr></thead>
+                <tbody id="members-tbody"><tr><td colspan="8" style="text-align:center;padding:24px;color:var(--text-muted)">불러오는 중…</td></tr></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── Panel: News ── -->
+        <div id="panel-news" class="admin-panel">
+          <div class="panel">
+            <div class="panel-header">
+              <h3>News / 공지사항</h3>
+              <button class="btn btn-primary btn-sm" onclick="openModal('news')">+ 작성</button>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>#</th><th>제목</th><th>카테고리</th><th>날짜</th><th>공개</th><th>관리</th></tr></thead>
+                <tbody id="news-tbody"><tr><td colspan="6" style="text-align:center;padding:24px;color:var(--text-muted)">불러오는 중…</td></tr></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── Panel: Sponsors ── -->
+        <div id="panel-sponsors" class="admin-panel">
+          <div class="panel">
+            <div class="panel-header">
+              <h3>Sponsor 관리</h3>
+              <button class="btn btn-primary btn-sm" onclick="openModal('sponsor')">+ 추가</button>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>#</th><th>로고</th><th>이름</th><th>웹사이트</th><th>순서</th><th>활성</th><th>관리</th></tr></thead>
+                <tbody id="sponsors-tbody"><tr><td colspan="7" style="text-align:center;padding:24px;color:var(--text-muted)">불러오는 중…</td></tr></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── Panel: Messages ── -->
+        <div id="panel-messages" class="admin-panel">
+          <div class="panel">
+            <div class="panel-header"><h3>메시지함</h3><button class="btn btn-dark btn-sm" onclick="loadMessages()">새로고침</button></div>
+            <div id="messages-list"><div style="text-align:center;padding:32px;color:var(--text-muted)">불러오는 중…</div></div>
+          </div>
+        </div>
+
+        <!-- ── Panel: Settings ── -->
+        <div id="panel-settings" class="admin-panel">
           <div class="panel">
             <div class="panel-header"><h3>사이트 설정</h3></div>
-
-            <!-- Registration Open/Close -->
             <div style="margin-bottom:24px">
-              <h4 style="margin-bottom:12px">신청(Registration) 활성화</h4>
+              <h4 style="margin-bottom:12px">Study 신청(Registration) 활성화</h4>
               <div class="reg-status-toggle" id="reg-toggle-wrap">
                 <label class="toggle-pill">
                   <input type="checkbox" id="reg-open-toggle">
@@ -136,29 +286,15 @@
                 </label>
                 <div>
                   <div class="status-badge" id="reg-status-label"></div>
-                  <div style="font-size:.8rem;color:var(--text-muted);margin-top:2px">비활성화 시 Registration 페이지에 "모집 기간 아님" 안내가 표시됩니다.</div>
+                  <div style="font-size:.8rem;color:var(--text-muted);margin-top:2px">스터디 Registration 신청 활성화 여부입니다.</div>
                 </div>
               </div>
             </div>
-
             <hr class="form-divider">
-
-            <!-- Other settings -->
             <div id="settings-form">
-              <div class="setting-row">
-                <label style="font-weight:500">사이트 이름</label>
-                <input class="form-control" id="s-site_name">
-              </div>
-              <div class="setting-row">
-                <label style="font-weight:500">연락처 이메일</label>
-                <input class="form-control" id="s-contact_email" type="email">
-              </div>
-              <div class="setting-row">
-                <label style="font-weight:500">스터디 최대 정원</label>
-                <input class="form-control" id="s-max_capacity" type="number">
-              </div>
+              <div class="setting-row"><label style="font-weight:500">사이트 이름</label><input class="form-control" id="s-site_name"></div>
+              <div class="setting-row"><label style="font-weight:500">스터디 최대 정원</label><input class="form-control" id="s-max_capacity" type="number"></div>
             </div>
-
             <div style="margin-top:20px;display:flex;gap:10px">
               <button class="btn btn-primary" onclick="saveSettings()">설정 저장</button>
               <button class="btn btn-dark" onclick="loadSettings()">초기화</button>
@@ -166,224 +302,701 @@
           </div>
         </div>
 
-      </div>
-    </div>
+      </div><!-- /main-panel -->
+    </div><!-- /admin-layout -->
   </div>
 </section>
+
+<!-- ── Modal ── -->
+<div id="modal-overlay" class="modal-overlay" style="display:none" onclick="if(event.target===this)closeModal()">
+  <div class="modal-box">
+    <h3 id="modal-title">추가</h3>
+    <div id="modal-body"></div>
+    <div style="display:flex;gap:10px;margin-top:20px;justify-content:flex-end">
+      <button class="btn btn-dark" onclick="closeModal()">취소</button>
+      <button class="btn btn-primary" id="modal-save-btn" onclick="modalSave()">저장</button>
+    </div>
+  </div>
+</div>
 
 <div id="toast"></div>
 
 <script src="../js/theme.js"></script>
 <script>
-/* ── Auth check ─────────────────────────────── */
-async function authCheck() {
-  const res = await fetch('/api/admin/settings').catch(() => null);
-  if (!res || res.status === 401) {
-    window.location.href = '/admin/login.html';
-  }
+/* ══════════════════════════════════════════
+   UTILITIES
+══════════════════════════════════════════ */
+function esc(s){ return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function toast(msg,type='success'){
+  const el=document.getElementById('toast');
+  el.textContent=(type==='success'?'✅ ':'❌ ')+msg;
+  el.className='show';
+  setTimeout(()=>el.className='',2800);
 }
 
-/* ── Sidebar nav ────────────────────────────── */
-document.querySelectorAll('.sidebar-link[data-panel]').forEach(link => {
-  link.addEventListener('click', () => {
-    document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
-    document.querySelectorAll('.admin-panel').forEach(p => p.style.display = 'none');
+/* ══════════════════════════════════════════
+   AUTH
+══════════════════════════════════════════ */
+async function authCheck(){
+  const res=await fetch('/api/admin/settings').catch(()=>null);
+  if(!res||res.status===401) window.location.href='/admin/login.html';
+}
+
+/* ══════════════════════════════════════════
+   SIDEBAR NAV
+══════════════════════════════════════════ */
+const panelLoaders = {
+  'panel-registrations': ()=>{ loadRegistrations(); loadKPI(); },
+  'panel-workshop':      ()=>{ loadWorkshop(); },
+  'panel-activity':      ()=>{ loadCards(); loadSessions(); },
+  'panel-members':       ()=>{ loadMembersAdmin(); },
+  'panel-news':          ()=>{ loadNewsAdmin(); },
+  'panel-sponsors':      ()=>{ loadSponsors(); },
+  'panel-messages':      ()=>{ loadMessages(); },
+  'panel-settings':      ()=>{ loadSettings(); },
+};
+
+document.querySelectorAll('.sidebar-link[data-panel]').forEach(link=>{
+  link.addEventListener('click',()=>{
+    document.querySelectorAll('.sidebar-link').forEach(l=>l.classList.remove('active'));
+    document.querySelectorAll('.admin-panel').forEach(p=>p.classList.remove('active'));
     link.classList.add('active');
-    document.getElementById(link.dataset.panel).style.display = '';
-    if (link.dataset.panel === 'panel-settings') loadSettings();
-    if (link.dataset.panel === 'panel-registrations') loadRegistrations();
+    const panel = document.getElementById(link.dataset.panel);
+    panel.classList.add('active');
+    if(panelLoaders[link.dataset.panel]) panelLoaders[link.dataset.panel]();
   });
 });
 
-/* ── Toast ──────────────────────────────────── */
-function toast(msg, type = 'success') {
-  const el = document.getElementById('toast');
-  el.textContent = (type === 'success' ? '✅ ' : '❌ ') + msg;
-  el.className = 'show';
-  setTimeout(() => el.className = '', 2800);
-}
-
-/* ── Logout ─────────────────────────────────── */
-document.getElementById('logout-btn').addEventListener('click', async () => {
-  await fetch('/api/auth/logout', { method: 'POST' });
-  window.location.href = '/admin/login.html';
+/* ══════════════════════════════════════════
+   LOGOUT
+══════════════════════════════════════════ */
+document.getElementById('logout-btn').addEventListener('click',async()=>{
+  await fetch('/api/auth/logout',{method:'POST'});
+  window.location.href='/admin/login.html';
 });
 
-/* ── KPI ────────────────────────────────────── */
-async function loadKPI() {
-  const res = await fetch('/api/admin/registrations').catch(() => null);
-  if (!res || !res.ok) return;
-  const { kpi } = await res.json();
-
-  let total = 0;
-  const map = {};
-  (kpi || []).forEach(k => { map[k.type] = k.cnt; total += k.cnt; });
-
-  document.getElementById('kpi-total').textContent     = total;
-  document.getElementById('kpi-study').textContent     = map.study     || 0;
-  document.getElementById('kpi-symposium').textContent = map.symposium || 0;
-  document.getElementById('kpi-workshop').textContent  = map.workshop  || 0;
-}
-
-/* ── Registrations table ────────────────────── */
-let allRows = [];
-
-async function loadRegistrations() {
-  const type   = document.getElementById('filter-type').value;
-  const status = document.getElementById('filter-status').value;
-  const params = new URLSearchParams({ type, status });
-
-  document.getElementById('reg-tbody').innerHTML =
-    '<tr><td colspan="8" style="text-align:center;padding:24px;color:var(--text-muted)">불러오는 중…</td></tr>';
-
-  const res = await fetch('/api/admin/registrations?' + params).catch(() => null);
-  if (!res || !res.ok) {
-    document.getElementById('reg-tbody').innerHTML =
-      '<tr><td colspan="8" style="text-align:center;padding:24px;color:var(--danger)">로드 실패</td></tr>';
-    return;
+/* ══════════════════════════════════════════
+   KPI
+══════════════════════════════════════════ */
+async function loadKPI(){
+  const [regsRes, msgsRes] = await Promise.all([
+    fetch('/api/admin/registrations').catch(()=>null),
+    fetch('/api/admin/messages').catch(()=>null)
+  ]);
+  if(regsRes&&regsRes.ok){
+    const {registrations}=await regsRes.json();
+    const all=registrations||[];
+    document.getElementById('kpi-total').textContent=all.length;
+    document.getElementById('kpi-study').textContent=all.filter(r=>r.type==='study').length;
+    document.getElementById('kpi-workshop').textContent=all.filter(r=>r.type==='workshop').length;
   }
-  const { registrations } = await res.json();
-  allRows = registrations || [];
-  renderTable(allRows);
+  if(msgsRes&&msgsRes.ok){
+    const {messages}=await msgsRes.json();
+    document.getElementById('kpi-messages').textContent=(messages||[]).filter(m=>!m.is_read).length;
+  }
 }
 
-function filterTable() {
-  const q = document.getElementById('reg-search').value.toLowerCase();
-  const filtered = allRows.filter(r =>
-    (r.name  || '').toLowerCase().includes(q) ||
-    (r.email || '').toLowerCase().includes(q)
-  );
-  renderTable(filtered);
-}
-
-const typeLabel  = { study: '스터디', symposium: '심포지엄', workshop: '워크샵' };
-const statusBadge = {
-  pending:  '<span class="badge badge-warning">검토 중</span>',
-  approved: '<span class="badge badge-success">승인됨</span>',
-  rejected: '<span class="badge badge-danger">거절됨</span>'
+/* ══════════════════════════════════════════
+   REGISTRATIONS
+══════════════════════════════════════════ */
+let allRows=[];
+const typeLabel={study:'스터디',symposium:'심포지엄',workshop:'워크샵'};
+const statusBadge={
+  pending:'<span class="badge badge-warning">검토 중</span>',
+  approved:'<span class="badge badge-success">승인됨</span>',
+  rejected:'<span class="badge badge-danger">거절됨</span>'
 };
 
-function renderTable(rows) {
-  const tbody = document.getElementById('reg-tbody');
-  if (!rows.length) {
-    tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;padding:24px;color:var(--text-muted)">신청 내역이 없습니다.</td></tr>';
-    return;
-  }
-  tbody.innerHTML = rows.map((r, i) => `
+async function loadRegistrations(){
+  const type=document.getElementById('filter-type').value;
+  const status=document.getElementById('filter-status').value;
+  const tbody=document.getElementById('reg-tbody');
+  tbody.innerHTML='<tr><td colspan="8" style="text-align:center;padding:24px;color:var(--text-muted)">불러오는 중…</td></tr>';
+  const res=await fetch(`/api/admin/registrations?type=${type}&status=${status}`).catch(()=>null);
+  if(!res||!res.ok){ tbody.innerHTML='<tr><td colspan="8" style="text-align:center;color:var(--danger)">로드 실패</td></tr>'; return; }
+  const {registrations}=await res.json();
+  allRows=registrations||[];
+  renderRegTable(allRows);
+}
+
+function filterTable(){
+  const q=document.getElementById('reg-search').value.toLowerCase();
+  renderRegTable(allRows.filter(r=>(r.name||'').toLowerCase().includes(q)));
+}
+
+function renderRegTable(rows){
+  const tbody=document.getElementById('reg-tbody');
+  if(!rows.length){ tbody.innerHTML='<tr><td colspan="8" style="text-align:center;padding:24px;color:var(--text-muted)">신청 내역 없음</td></tr>'; return; }
+  tbody.innerHTML=rows.map((r,i)=>`
     <tr>
-      <td>${i + 1}</td>
-      <td><span class="badge badge-info">${typeLabel[r.type] || r.type}</span></td>
+      <td>${i+1}</td>
+      <td><span class="badge badge-info">${typeLabel[r.type]||r.type}</span></td>
       <td>${esc(r.name)}</td>
-      <td style="font-size:.82rem">${esc(r.email)}</td>
+      <td style="font-size:.82rem">${esc(r.phone||r.email)}</td>
       <td style="font-size:.82rem">${esc(r.affiliation)}</td>
-      <td style="font-size:.82rem">${(r.created_at || '').slice(0,10)}</td>
-      <td>${statusBadge[r.status] || r.status}</td>
-      <td>
-        <div class="table-actions">
-          <button onclick="setStatus(${r.id},'approved')" title="승인">✅</button>
-          <button onclick="setStatus(${r.id},'rejected')" title="거절">❌</button>
-          <button onclick="setStatus(${r.id},'pending')"  title="검토중">⏳</button>
-          <button onclick="delReg(${r.id})" title="삭제" style="color:var(--danger)">🗑</button>
-        </div>
-      </td>
+      <td style="font-size:.82rem">${(r.created_at||'').slice(0,10)}</td>
+      <td>${statusBadge[r.status]||r.status}</td>
+      <td><div class="table-actions">
+        <button onclick="setRegStatus(${r.id},'approved')" title="승인">✅</button>
+        <button onclick="setRegStatus(${r.id},'rejected')" title="거절">❌</button>
+        <button onclick="setRegStatus(${r.id},'pending')"  title="검토중">⏳</button>
+        <button onclick="delReg(${r.id})" title="삭제" style="color:var(--danger)">🗑</button>
+      </div></td>
     </tr>
   `).join('');
 }
 
-function esc(str) {
-  return (str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+async function setRegStatus(id,status){
+  const res=await fetch('/api/admin/registrations',{method:'PATCH',headers:{'Content-Type':'application/json'},body:JSON.stringify({id,status})});
+  if(res.ok){ toast('상태 변경됨'); loadRegistrations(); loadKPI(); }
+  else toast('변경 실패','error');
 }
 
-async function setStatus(id, status) {
-  const res = await fetch('/api/admin/registrations', {
-    method: 'PATCH',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ id, status })
-  });
-  if (res.ok) { toast('상태가 변경되었습니다.'); loadRegistrations(); loadKPI(); }
-  else toast('변경 실패', 'error');
+async function delReg(id){
+  if(!confirm('삭제하시겠습니까?')) return;
+  const res=await fetch('/api/admin/registrations?id='+id,{method:'DELETE'});
+  if(res.ok){ toast('삭제됨'); loadRegistrations(); loadKPI(); }
+  else toast('삭제 실패','error');
 }
 
-async function delReg(id) {
-  if (!confirm('이 신청을 삭제하시겠습니까?')) return;
-  const res = await fetch('/api/admin/registrations?id=' + id, { method: 'DELETE' });
-  if (res.ok) { toast('삭제되었습니다.'); loadRegistrations(); loadKPI(); }
-  else toast('삭제 실패', 'error');
-}
-
-/* ── CSV Export ─────────────────────────────── */
-function exportCSV() {
-  if (!allRows.length) { toast('내보낼 데이터가 없습니다.', 'error'); return; }
-  const header = ['ID', '유형', '이름', '이메일', '소속', '날짜', '상태'];
-  const rows = allRows.map(r => [
-    r.id, typeLabel[r.type] || r.type,
-    r.name, r.email, r.affiliation,
-    (r.created_at || '').slice(0,10), r.status
-  ].map(v => `"${String(v || '').replace(/"/g, '""')}"`).join(','));
-  const csv = [header.join(','), ...rows].join('\n');
-  const a = document.createElement('a');
-  a.href = 'data:text/csv;charset=utf-8,\uFEFF' + encodeURIComponent(csv);
-  a.download = `registrations_${new Date().toISOString().slice(0,10)}.csv`;
+function exportCSV(){
+  if(!allRows.length){ toast('내보낼 데이터 없음','error'); return; }
+  const header=['ID','유형','이름','연락처','소속','날짜','상태'];
+  const rows=allRows.map(r=>[r.id,typeLabel[r.type]||r.type,r.name,r.phone||r.email,r.affiliation,(r.created_at||'').slice(0,10),r.status].map(v=>`"${String(v||'').replace(/"/g,'""')}"`).join(','));
+  const csv=[header.join(','),...rows].join('\n');
+  const a=document.createElement('a');
+  a.href='data:text/csv;charset=utf-8,\uFEFF'+encodeURIComponent(csv);
+  a.download=`registrations_${new Date().toISOString().slice(0,10)}.csv`;
   a.click();
 }
 
-/* ── Settings ───────────────────────────────── */
-async function loadSettings() {
-  const res = await fetch('/api/admin/settings').catch(() => null);
-  if (!res || !res.ok) return;
-  const { settings } = await res.json();
-  const map = {};
-  (settings || []).forEach(s => map[s.key] = s.value);
+/* ══════════════════════════════════════════
+   WORKSHOP CONFIG
+══════════════════════════════════════════ */
+async function loadWorkshop(){
+  const res=await fetch('/api/admin/workshop').catch(()=>null);
+  if(!res||!res.ok) return;
+  const {config,registrations}=await res.json();
 
-  // Registration toggle
-  const isOpen = map.reg_open === 'true';
-  const toggle = document.getElementById('reg-open-toggle');
-  toggle.checked = isOpen;
-  updateToggleLabel(isOpen);
+  document.getElementById('ws-active-toggle').checked=!!config.active;
+  updateWsLabel(!!config.active);
+  document.getElementById('ws-title').value=config.title||'';
+  document.getElementById('ws-date').value=config.date||'';
+  document.getElementById('ws-location').value=config.location||'';
+  document.getElementById('ws-capacity').value=config.capacity||'';
+  document.getElementById('ws-topic').value=config.topic||'';
+  document.getElementById('ws-description').value=config.description||'';
 
-  // Other fields
-  ['site_name', 'contact_email', 'max_capacity'].forEach(k => {
-    const el = document.getElementById('s-' + k);
-    if (el) el.value = map[k] || '';
-  });
+  const preview=document.getElementById('ws-photo-preview');
+  if(config.photo){ preview.src=config.photo; preview.style.display=''; }
+  else preview.style.display='none';
+  document.getElementById('ws-photo-data').value=config.photo||'';
+
+  // Workshop registrations table
+  const tbody=document.getElementById('ws-reg-tbody');
+  const regs=registrations||[];
+  if(!regs.length){
+    tbody.innerHTML='<tr><td colspan="8" style="text-align:center;padding:24px;color:var(--text-muted)">신청자 없음</td></tr>';
+    return;
+  }
+  tbody.innerHTML=regs.map((r,i)=>{
+    const data=r.data?JSON.parse(r.data):{};
+    return `<tr>
+      <td>${i+1}</td>
+      <td>${esc(r.name)}</td>
+      <td style="font-size:.82rem">${esc(r.phone)}</td>
+      <td style="font-size:.82rem">${esc(r.affiliation)}</td>
+      <td style="font-size:.82rem">${esc(data.experience||'')}</td>
+      <td style="font-size:.82rem">${(r.created_at||'').slice(0,10)}</td>
+      <td>${statusBadge[r.status]||r.status}</td>
+      <td><div class="table-actions">
+        <button onclick="setRegStatus(${r.id},'approved')" title="승인">✅</button>
+        <button onclick="setRegStatus(${r.id},'rejected')" title="거절">❌</button>
+        <button onclick="delWsReg(${r.id})" title="삭제" style="color:var(--danger)">🗑</button>
+      </div></td>
+    </tr>`;
+  }).join('');
 }
 
-function updateToggleLabel(isOpen) {
-  const lbl  = document.getElementById('reg-status-label');
-  const wrap = document.getElementById('reg-toggle-wrap');
-  lbl.textContent = isOpen ? '✅ 신청 활성화 (모집 중)' : '🔒 신청 비활성화 (모집 종료)';
-  wrap.className  = 'reg-status-toggle ' + (isOpen ? 'reg-open' : 'reg-close');
+function updateWsLabel(active){
+  document.getElementById('ws-status-label').textContent=active?'✅ Workshop 모집 중':'🔒 Workshop 비활성화';
 }
 
-document.getElementById('reg-open-toggle').addEventListener('change', async function() {
-  const open = this.checked;
-  updateToggleLabel(open);
-  const res = await fetch('/api/admin/settings', {
-    method: 'PATCH',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ reg_open: open ? 'true' : 'false' })
-  });
-  if (res.ok) toast(open ? '신청이 활성화되었습니다.' : '신청이 비활성화되었습니다.');
-  else { toast('저장 실패', 'error'); this.checked = !open; updateToggleLabel(!open); }
+document.getElementById('ws-active-toggle').addEventListener('change',function(){
+  updateWsLabel(this.checked);
 });
 
-async function saveSettings() {
-  const body = {};
-  ['site_name', 'contact_email', 'max_capacity'].forEach(k => {
-    const el = document.getElementById('s-' + k);
-    if (el) body[k] = el.value;
+// Image preview for workshop
+document.getElementById('ws-photo-input').addEventListener('change',function(){
+  const file=this.files[0];
+  if(!file) return;
+  resizeImage(file,800,600,(b64)=>{
+    document.getElementById('ws-photo-data').value=b64;
+    const preview=document.getElementById('ws-photo-preview');
+    preview.src=b64;
+    preview.style.display='';
   });
-  const res = await fetch('/api/admin/settings', {
-    method: 'PATCH',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(body)
-  });
-  if (res.ok) toast('설정이 저장되었습니다.');
-  else toast('저장 실패', 'error');
+});
+
+async function saveWorkshop(){
+  const body={
+    ws_active: document.getElementById('ws-active-toggle').checked?'true':'false',
+    ws_title:  document.getElementById('ws-title').value,
+    ws_date:   document.getElementById('ws-date').value,
+    ws_location: document.getElementById('ws-location').value,
+    ws_capacity: document.getElementById('ws-capacity').value,
+    ws_topic:    document.getElementById('ws-topic').value,
+    ws_description: document.getElementById('ws-description').value,
+  };
+  const photo=document.getElementById('ws-photo-data').value;
+  if(photo) body.ws_photo=photo;
+
+  const res=await fetch('/api/admin/workshop',{method:'PATCH',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+  if(res.ok) toast('Workshop 설정 저장됨');
+  else toast('저장 실패','error');
 }
 
-/* ── Init ───────────────────────────────────── */
-(async () => {
+async function delWsReg(id){
+  if(!confirm('삭제하시겠습니까?')) return;
+  const res=await fetch('/api/admin/workshop?reg_id='+id,{method:'DELETE'});
+  if(res.ok){ toast('삭제됨'); loadWorkshop(); }
+  else toast('삭제 실패','error');
+}
+
+/* ══════════════════════════════════════════
+   ACTIVITY – CARDS
+══════════════════════════════════════════ */
+async function loadCards(){
+  const res=await fetch('/api/admin/activity?type=cards').catch(()=>null);
+  if(!res||!res.ok) return;
+  const {cards}=await res.json();
+  const tbody=document.getElementById('cards-tbody');
+  if(!cards||!cards.length){
+    tbody.innerHTML='<tr><td colspan="6" style="text-align:center;padding:24px;color:var(--text-muted)">카드 없음</td></tr>';
+    return;
+  }
+  tbody.innerHTML=cards.map((c,i)=>`
+    <tr>
+      <td>${i+1}</td>
+      <td>${esc(c.title)}</td>
+      <td style="font-size:.82rem">${esc(c.date)}</td>
+      <td>${c.order_num}</td>
+      <td>${c.active?'✅':'—'}</td>
+      <td><div class="table-actions">
+        <button onclick="editCard(${JSON.stringify(c).replace(/'/g,"&#39;")})">✏️</button>
+        <button onclick="delCard(${c.id})" style="color:var(--danger)">🗑</button>
+      </div></td>
+    </tr>
+  `).join('');
+}
+
+async function delCard(id){
+  if(!confirm('삭제하시겠습니까?')) return;
+  await fetch('/api/admin/activity?type=cards&id='+id,{method:'DELETE'});
+  toast('삭제됨'); loadCards();
+}
+
+/* ══════════════════════════════════════════
+   ACTIVITY – SESSIONS
+══════════════════════════════════════════ */
+async function loadSessions(){
+  const res=await fetch('/api/admin/activity?type=sessions').catch(()=>null);
+  if(!res||!res.ok) return;
+  const {sessions}=await res.json();
+  const tbody=document.getElementById('sessions-tbody');
+  if(!sessions||!sessions.length){
+    tbody.innerHTML='<tr><td colspan="7" style="text-align:center;padding:24px;color:var(--text-muted)">세션 없음</td></tr>';
+    return;
+  }
+  tbody.innerHTML=sessions.map((s,i)=>`
+    <tr>
+      <td>${i+1}</td>
+      <td style="font-size:.82rem">${esc(s.session_date)}</td>
+      <td>${esc(s.title)}</td>
+      <td style="font-size:.82rem">${esc(s.presenter)}</td>
+      <td style="font-size:.82rem">${esc(s.format)}</td>
+      <td>${s.has_material?'✅':'—'}</td>
+      <td><div class="table-actions">
+        <button onclick="editSession(${JSON.stringify(s).replace(/'/g,"&#39;")})">✏️</button>
+        <button onclick="delSession(${s.id})" style="color:var(--danger)">🗑</button>
+      </div></td>
+    </tr>
+  `).join('');
+}
+
+async function delSession(id){
+  if(!confirm('삭제하시겠습니까?')) return;
+  await fetch('/api/admin/activity?type=sessions&id='+id,{method:'DELETE'});
+  toast('삭제됨'); loadSessions();
+}
+
+/* ══════════════════════════════════════════
+   MEMBERS
+══════════════════════════════════════════ */
+async function loadMembersAdmin(){
+  const year=document.getElementById('member-year-filter').value;
+  const cat=document.getElementById('member-cat-filter').value;
+  const res=await fetch('/api/admin/members-list').catch(()=>null);
+  if(!res||!res.ok) return;
+  const {members}=await res.json();
+  let rows=members||[];
+  if(year) rows=rows.filter(m=>m.year==year);
+  if(cat)  rows=rows.filter(m=>m.category==cat);
+  const tbody=document.getElementById('members-tbody');
+  if(!rows.length){
+    tbody.innerHTML='<tr><td colspan="8" style="text-align:center;padding:24px;color:var(--text-muted)">회원 없음</td></tr>';
+    return;
+  }
+  tbody.innerHTML=rows.map((m,i)=>`
+    <tr>
+      <td>${i+1}</td>
+      <td>${esc(m.name)}</td>
+      <td style="font-size:.82rem">${esc(m.title)}</td>
+      <td style="font-size:.82rem">${esc(m.workplace)}</td>
+      <td>${m.year||''}</td>
+      <td>${m.category==='current'?'현재':'역대'}</td>
+      <td>${m.active?'✅':'—'}</td>
+      <td><div class="table-actions">
+        <button onclick="editMember(${JSON.stringify(m).replace(/'/g,"&#39;")})">✏️</button>
+        <button onclick="delMember(${m.id})" style="color:var(--danger)">🗑</button>
+      </div></td>
+    </tr>
+  `).join('');
+}
+
+async function delMember(id){
+  if(!confirm('삭제하시겠습니까?')) return;
+  await fetch('/api/admin/members-list?id='+id,{method:'DELETE'});
+  toast('삭제됨'); loadMembersAdmin();
+}
+
+/* ══════════════════════════════════════════
+   NEWS
+══════════════════════════════════════════ */
+async function loadNewsAdmin(){
+  const res=await fetch('/api/admin/news').catch(()=>null);
+  if(!res||!res.ok) return;
+  const {news}=await res.json();
+  const tbody=document.getElementById('news-tbody');
+  if(!news||!news.length){
+    tbody.innerHTML='<tr><td colspan="6" style="text-align:center;padding:24px;color:var(--text-muted)">공지 없음</td></tr>';
+    return;
+  }
+  tbody.innerHTML=news.map((n,i)=>`
+    <tr>
+      <td>${i+1}</td>
+      <td>${esc(n.title)}</td>
+      <td><span class="badge badge-info">${esc(n.category)}</span></td>
+      <td style="font-size:.82rem">${(n.created_at||'').slice(0,10)}</td>
+      <td>${n.published?'✅':'—'}</td>
+      <td><div class="table-actions">
+        <button onclick="editNews(${JSON.stringify(n).replace(/'/g,"&#39;")})">✏️</button>
+        <button onclick="toggleNews(${n.id},${n.published?0:1})">${n.published?'숨기기':'공개'}</button>
+        <button onclick="delNews(${n.id})" style="color:var(--danger)">🗑</button>
+      </div></td>
+    </tr>
+  `).join('');
+}
+
+async function toggleNews(id,published){
+  await fetch('/api/admin/news',{method:'PATCH',headers:{'Content-Type':'application/json'},body:JSON.stringify({id,published:!!published})});
+  toast('변경됨'); loadNewsAdmin();
+}
+
+async function delNews(id){
+  if(!confirm('삭제하시겠습니까?')) return;
+  await fetch('/api/admin/news?id='+id,{method:'DELETE'});
+  toast('삭제됨'); loadNewsAdmin();
+}
+
+/* ══════════════════════════════════════════
+   SPONSORS
+══════════════════════════════════════════ */
+async function loadSponsors(){
+  const res=await fetch('/api/admin/sponsors').catch(()=>null);
+  if(!res||!res.ok) return;
+  const {sponsors}=await res.json();
+  const tbody=document.getElementById('sponsors-tbody');
+  if(!sponsors||!sponsors.length){
+    tbody.innerHTML='<tr><td colspan="7" style="text-align:center;padding:24px;color:var(--text-muted)">후원사 없음</td></tr>';
+    return;
+  }
+  tbody.innerHTML=sponsors.map((s,i)=>`
+    <tr>
+      <td>${i+1}</td>
+      <td>${s.logo?`<img src="${esc(s.logo)}" style="height:36px;width:auto;max-width:80px;object-fit:contain;">`:'—'}</td>
+      <td>${esc(s.name)}</td>
+      <td style="font-size:.82rem">${s.website?`<a href="${esc(s.website)}" target="_blank">${esc(s.website)}</a>`:'—'}</td>
+      <td>${s.order_num}</td>
+      <td>${s.active?'✅':'—'}</td>
+      <td><div class="table-actions">
+        <button onclick="editSponsor(${JSON.stringify(s).replace(/'/g,"&#39;")})">✏️</button>
+        <button onclick="delSponsor(${s.id})" style="color:var(--danger)">🗑</button>
+      </div></td>
+    </tr>
+  `).join('');
+}
+
+async function delSponsor(id){
+  if(!confirm('삭제하시겠습니까?')) return;
+  await fetch('/api/admin/sponsors?id='+id,{method:'DELETE'});
+  toast('삭제됨'); loadSponsors();
+}
+
+/* ══════════════════════════════════════════
+   MESSAGES
+══════════════════════════════════════════ */
+async function loadMessages(){
+  const res=await fetch('/api/admin/messages').catch(()=>null);
+  if(!res||!res.ok) return;
+  const {messages}=await res.json();
+  const list=document.getElementById('messages-list');
+  if(!messages||!messages.length){
+    list.innerHTML='<div style="text-align:center;padding:32px;color:var(--text-muted)">메시지 없음</div>';
+    return;
+  }
+  list.innerHTML=messages.map(m=>`
+    <div class="message-card ${m.is_read?'':'unread'}" id="msg-${m.id}">
+      <div class="message-meta">
+        <strong>${esc(m.name)}</strong>
+        <span>📞 ${esc(m.phone)}</span>
+        ${m.subject?`<span>📌 ${esc(m.subject)}</span>`:''}
+        <span>${(m.created_at||'').slice(0,16).replace('T',' ')}</span>
+        ${m.is_read?'':'<span style="color:var(--primary);font-weight:600">NEW</span>'}
+      </div>
+      <div class="message-body">${esc(m.message)}</div>
+      <div class="table-actions" style="margin-top:12px">
+        ${!m.is_read?`<button onclick="markRead(${m.id})">✅ 읽음 표시</button>`:''}
+        <button onclick="delMsg(${m.id})" style="color:var(--danger)">🗑 삭제</button>
+      </div>
+    </div>
+  `).join('');
+  loadKPI();
+}
+
+async function markRead(id){
+  await fetch('/api/admin/messages',{method:'PATCH',headers:{'Content-Type':'application/json'},body:JSON.stringify({id})});
+  toast('읽음 처리됨'); loadMessages();
+}
+
+async function delMsg(id){
+  if(!confirm('메시지를 삭제하시겠습니까?')) return;
+  await fetch('/api/admin/messages?id='+id,{method:'DELETE'});
+  toast('삭제됨'); loadMessages();
+}
+
+/* ══════════════════════════════════════════
+   SETTINGS
+══════════════════════════════════════════ */
+async function loadSettings(){
+  const res=await fetch('/api/admin/settings').catch(()=>null);
+  if(!res||!res.ok) return;
+  const {settings}=await res.json();
+  const map={};
+  (settings||[]).forEach(s=>map[s.key]=s.value);
+  const isOpen=map.reg_open==='true';
+  document.getElementById('reg-open-toggle').checked=isOpen;
+  updateRegLabel(isOpen);
+  ['site_name','max_capacity'].forEach(k=>{
+    const el=document.getElementById('s-'+k);
+    if(el) el.value=map[k]||'';
+  });
+}
+
+function updateRegLabel(open){
+  const lbl=document.getElementById('reg-status-label');
+  const wrap=document.getElementById('reg-toggle-wrap');
+  lbl.textContent=open?'✅ 신청 활성화 (모집 중)':'🔒 신청 비활성화 (모집 종료)';
+  wrap.className='reg-status-toggle '+(open?'reg-open':'reg-close');
+}
+
+document.getElementById('reg-open-toggle').addEventListener('change',async function(){
+  const open=this.checked;
+  updateRegLabel(open);
+  const res=await fetch('/api/admin/settings',{method:'PATCH',headers:{'Content-Type':'application/json'},body:JSON.stringify({reg_open:open?'true':'false'})});
+  if(res.ok) toast(open?'신청 활성화됨':'신청 비활성화됨');
+  else{ toast('저장 실패','error'); this.checked=!open; updateRegLabel(!open); }
+});
+
+async function saveSettings(){
+  const body={};
+  ['site_name','max_capacity'].forEach(k=>{ const el=document.getElementById('s-'+k); if(el) body[k]=el.value; });
+  const res=await fetch('/api/admin/settings',{method:'PATCH',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+  if(res.ok) toast('설정 저장됨');
+  else toast('저장 실패','error');
+}
+
+/* ══════════════════════════════════════════
+   MODAL SYSTEM
+══════════════════════════════════════════ */
+let modalType='', modalData=null;
+
+function openModal(type, data=null){
+  modalType=type; modalData=data;
+  const overlay=document.getElementById('modal-overlay');
+  const title=document.getElementById('modal-title');
+  const body=document.getElementById('modal-body');
+  overlay.style.display='flex';
+
+  if(type==='card'){
+    title.textContent=(data?'카드 수정':'카드 추가');
+    body.innerHTML=`
+      <div class="form-group"><label>제목</label><input class="form-control" id="m-title" value="${esc(data?.title||'')}"></div>
+      <div class="form-group"><label>설명</label><textarea class="form-control" id="m-description" rows="3">${esc(data?.description||'')}</textarea></div>
+      <div class="form-group"><label>날짜</label><input class="form-control" id="m-date" value="${esc(data?.date||'')}"></div>
+      <div class="form-group"><label>순서</label><input class="form-control" id="m-order_num" type="number" value="${data?.order_num||0}"></div>
+      <div class="form-group"><label>이미지 업로드</label><input type="file" accept="image/*" id="m-img-input" style="display:block;margin-top:6px"><input type="hidden" id="m-image" value="${esc(data?.image||'')}">
+        ${data?.image?`<img src="${esc(data.image)}" class="img-preview">`:''}
+      </div>`;
+    document.getElementById('m-img-input').addEventListener('change',function(){
+      const file=this.files[0]; if(!file) return;
+      resizeImage(file,800,600,(b64)=>{ document.getElementById('m-image').value=b64; });
+    });
+  } else if(type==='session'){
+    title.textContent=(data?'세션 수정':'세션 추가');
+    body.innerHTML=`
+      <div class="form-inline">
+        <div class="form-group"><label>날짜</label><input class="form-control" id="m-session_date" type="date" value="${esc(data?.session_date||'')}"></div>
+        <div class="form-group"><label>형식</label><select class="form-control" id="m-format">
+          ${['케이스 발표','세미나','실습','게스트 강사','기타'].map(f=>`<option${data?.format===f?' selected':''}>${f}</option>`).join('')}
+        </select></div>
+      </div>
+      <div class="form-group"><label>주제</label><input class="form-control" id="m-title" value="${esc(data?.title||'')}"></div>
+      <div class="form-group"><label>발표자</label><input class="form-control" id="m-presenter" value="${esc(data?.presenter||'')}"></div>
+      <div class="form-group"><label>순서</label><input class="form-control" id="m-order_num" type="number" value="${data?.order_num||0}"></div>
+      <div class="form-group"><label class="check-item"><input type="checkbox" id="m-has_material" ${data?.has_material?'checked':''}> <span>자료 있음</span></label></div>`;
+  } else if(type==='member'){
+    title.textContent=(data?'회원 수정':'회원 추가');
+    body.innerHTML=`
+      <div class="form-inline">
+        <div class="form-group"><label>이름</label><input class="form-control" id="m-name" value="${esc(data?.name||'')}"></div>
+        <div class="form-group"><label>직함</label><input class="form-control" id="m-title" value="${esc(data?.title||'')}"></div>
+      </div>
+      <div class="form-group"><label>소속</label><input class="form-control" id="m-workplace" value="${esc(data?.workplace||'')}"></div>
+      <div class="form-group"><label>이력/소개</label><textarea class="form-control" id="m-bio" rows="3">${esc(data?.bio||'')}</textarea></div>
+      <div class="form-inline">
+        <div class="form-group"><label>연도</label><input class="form-control" id="m-year" value="${data?.year||'2026'}"></div>
+        <div class="form-group"><label>카테고리</label><select class="form-control" id="m-category">
+          <option value="current"${data?.category==='current'?' selected':''}>현재 회원</option>
+          <option value="alumni"${data?.category==='alumni'?' selected':''}>역대 회원</option>
+        </select></div>
+      </div>
+      <div class="form-group"><label>웹페이지 URL</label><input class="form-control" id="m-webpage" value="${esc(data?.webpage||'')}"></div>
+      <div class="form-group"><label>순서</label><input class="form-control" id="m-order_num" type="number" value="${data?.order_num||0}"></div>
+      <div class="form-group"><label>프로필 사진</label><input type="file" accept="image/*" id="m-photo-input" style="display:block;margin-top:6px"><input type="hidden" id="m-photo" value="${esc(data?.photo||'')}">
+        ${data?.photo?`<img src="${esc(data.photo)}" class="img-preview">`:''}
+      </div>
+      <div class="form-group"><label>Artwork 이미지</label><input type="file" accept="image/*" id="m-artwork-input" style="display:block;margin-top:6px"><input type="hidden" id="m-artwork" value="${esc(data?.artwork||'')}">
+        ${data?.artwork?`<img src="${esc(data.artwork)}" class="img-preview">`:''}
+      </div>`;
+    document.getElementById('m-photo-input').addEventListener('change',function(){
+      resizeImage(this.files[0],400,400,(b64)=>{ document.getElementById('m-photo').value=b64; });
+    });
+    document.getElementById('m-artwork-input').addEventListener('change',function(){
+      resizeImage(this.files[0],800,600,(b64)=>{ document.getElementById('m-artwork').value=b64; });
+    });
+  } else if(type==='news'){
+    title.textContent=(data?'공지 수정':'공지 작성');
+    body.innerHTML=`
+      <div class="form-group"><label>제목</label><input class="form-control" id="m-title" value="${esc(data?.title||'')}"></div>
+      <div class="form-group"><label>카테고리</label><select class="form-control" id="m-category">
+        ${['공지','행사','워크샵','소식'].map(c=>`<option${data?.category===c?' selected':''}>${c}</option>`).join('')}
+      </select></div>
+      <div class="form-group"><label>내용</label><textarea class="form-control" id="m-content" rows="6">${esc(data?.content||'')}</textarea></div>
+      <div class="form-group"><label class="check-item"><input type="checkbox" id="m-published" ${!data||data.published?'checked':''}> <span>즉시 공개</span></label></div>`;
+  } else if(type==='sponsor'){
+    title.textContent=(data?'후원사 수정':'후원사 추가');
+    body.innerHTML=`
+      <div class="form-group"><label>이름</label><input class="form-control" id="m-name" value="${esc(data?.name||'')}"></div>
+      <div class="form-group"><label>웹사이트 URL</label><input class="form-control" id="m-website" value="${esc(data?.website||'')}"></div>
+      <div class="form-group"><label>순서</label><input class="form-control" id="m-order_num" type="number" value="${data?.order_num||0}"></div>
+      <div class="form-group"><label>로고 이미지</label><input type="file" accept="image/*" id="m-logo-input" style="display:block;margin-top:6px"><input type="hidden" id="m-logo" value="${esc(data?.logo||'')}">
+        ${data?.logo?`<img src="${esc(data.logo)}" class="img-preview">`:''}
+      </div>`;
+    document.getElementById('m-logo-input').addEventListener('change',function(){
+      resizeImage(this.files[0],400,200,(b64)=>{ document.getElementById('m-logo').value=b64; });
+    });
+  }
+}
+
+function closeModal(){
+  document.getElementById('modal-overlay').style.display='none';
+  modalType=''; modalData=null;
+}
+
+async function modalSave(){
+  const data=modalData;
+  const isEdit=!!data;
+  let body={};
+  let url='', method='';
+
+  if(modalType==='card'){
+    body={ title:val('m-title'),description:val('m-description'),date:val('m-date'),order_num:parseInt(val('m-order_num'))||0,image:val('m-image') };
+    if(isEdit){ body.id=data.id; body.type='card'; url='/api/admin/activity'; method='PATCH'; }
+    else{ body.type='card'; url='/api/admin/activity'; method='POST'; }
+  } else if(modalType==='session'){
+    body={ session_date:val('m-session_date'),title:val('m-title'),presenter:val('m-presenter'),format:val('m-format'),has_material:document.getElementById('m-has_material').checked,order_num:parseInt(val('m-order_num'))||0 };
+    if(isEdit){ body.id=data.id; body.type='session'; url='/api/admin/activity'; method='PATCH'; }
+    else{ body.type='session'; url='/api/admin/activity'; method='POST'; }
+  } else if(modalType==='member'){
+    body={ name:val('m-name'),title:val('m-title'),workplace:val('m-workplace'),bio:val('m-bio'),year:val('m-year'),category:val('m-category'),webpage:val('m-webpage'),order_num:parseInt(val('m-order_num'))||0,photo:val('m-photo'),artwork:val('m-artwork') };
+    if(isEdit){ body.id=data.id; url='/api/admin/members-list'; method='PATCH'; }
+    else{ url='/api/admin/members-list'; method='POST'; }
+  } else if(modalType==='news'){
+    body={ title:val('m-title'),content:val('m-content'),category:val('m-category'),published:document.getElementById('m-published').checked };
+    if(isEdit){ body.id=data.id; url='/api/admin/news'; method='PATCH'; }
+    else{ url='/api/admin/news'; method='POST'; }
+  } else if(modalType==='sponsor'){
+    body={ name:val('m-name'),website:val('m-website'),order_num:parseInt(val('m-order_num'))||0,logo:val('m-logo') };
+    if(isEdit){ body.id=data.id; url='/api/admin/sponsors'; method='PATCH'; }
+    else{ url='/api/admin/sponsors'; method='POST'; }
+  }
+
+  const res=await fetch(url,{method,headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+  if(res.ok){
+    toast(isEdit?'수정됨':'추가됨');
+    closeModal();
+    const reloader={card:()=>loadCards(),session:()=>loadSessions(),member:()=>loadMembersAdmin(),news:()=>loadNewsAdmin(),sponsor:()=>loadSponsors()};
+    if(reloader[modalType]) reloader[modalType]();
+  } else {
+    toast('저장 실패','error');
+  }
+}
+
+function val(id){ const el=document.getElementById(id); return el?el.value:''; }
+
+function editCard(c){ openModal('card',typeof c==='string'?JSON.parse(c):c); }
+function editSession(s){ openModal('session',typeof s==='string'?JSON.parse(s):s); }
+function editMember(m){ openModal('member',typeof m==='string'?JSON.parse(m):m); }
+function editNews(n){ openModal('news',typeof n==='string'?JSON.parse(n):n); }
+function editSponsor(s){ openModal('sponsor',typeof s==='string'?JSON.parse(s):s); }
+
+/* ══════════════════════════════════════════
+   IMAGE RESIZE HELPER
+══════════════════════════════════════════ */
+function resizeImage(file,maxW,maxH,cb){
+  if(!file) return;
+  const reader=new FileReader();
+  reader.onload=e=>{
+    const img=new Image();
+    img.onload=()=>{
+      let {width:w,height:h}=img;
+      if(w>maxW){ h=Math.round(h*maxW/w); w=maxW; }
+      if(h>maxH){ w=Math.round(w*maxH/h); h=maxH; }
+      const canvas=document.createElement('canvas');
+      canvas.width=w; canvas.height=h;
+      canvas.getContext('2d').drawImage(img,0,0,w,h);
+      cb(canvas.toDataURL('image/jpeg',0.82));
+    };
+    img.src=e.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+
+/* ══════════════════════════════════════════
+   INIT
+══════════════════════════════════════════ */
+(async()=>{
   await authCheck();
   loadKPI();
   loadRegistrations();

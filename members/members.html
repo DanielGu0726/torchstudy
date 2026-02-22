@@ -5,6 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Members – TORCH</title>
   <link rel="stylesheet" href="../css/style.css">
+  <style>
+    .member-row-card { display: grid; grid-template-columns: 96px 1fr; gap: 24px; align-items: start; background: var(--white); border-radius: var(--radius-lg); padding: 24px; box-shadow: var(--shadow); border: 1.5px solid var(--border); margin-bottom: 16px; }
+    .member-row-card:hover { border-color: var(--primary); }
+    .member-avatar-lg { width: 88px; height: 88px; border-radius: 50%; overflow: hidden; background: var(--primary); display: flex; align-items: center; justify-content: center; font-size: 2rem; font-weight: 700; color: #fff; flex-shrink: 0; }
+    .member-avatar-lg img { width: 100%; height: 100%; object-fit: cover; }
+    .member-info-name { font-size: 1.05rem; font-weight: 700; margin-bottom: 2px; }
+    .member-info-title { font-size: .82rem; color: var(--primary); font-weight: 600; margin-bottom: 4px; }
+    .member-info-workplace { font-size: .85rem; color: var(--text-muted); margin-bottom: 8px; }
+    .member-info-bio { font-size: .85rem; color: var(--text-muted); line-height: 1.6; }
+    .member-artwork-thumb { width: 100%; max-height: 200px; object-fit: cover; border-radius: var(--radius); margin-top: 12px; }
+    @media(max-width:600px) { .member-row-card { grid-template-columns: 72px 1fr; gap: 16px; } .member-avatar-lg { width: 64px; height: 64px; } }
+  </style>
 </head>
 <body>
 <nav class="navbar">
@@ -13,7 +25,7 @@
     <div class="nav-links">
       <div class="nav-item"><a href="../index.html" class="nav-link">Home</a></div>
       <div class="nav-item"><a href="../about.html" class="nav-link">About</a></div>
-      <div class="nav-item"><span class="nav-link">Activity <svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l4 4 4-4"/></svg></span><div class="dropdown"><a href="../activity/index.html">Overview</a><a href="../activity/symposium.html">Symposium</a></div></div>
+      <div class="nav-item"><a href="../activity/index.html" class="nav-link">Activity</a></div>
       <div class="nav-item"><span class="nav-link">Registration <svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l4 4 4-4"/></svg></span><div class="dropdown"><a href="../registration/study.html">Study Group</a><a href="../registration/symposium.html">Symposium</a><a href="../registration/workshop.html">Workshop</a></div></div>
       <div class="nav-item"><a href="../sponsor.html" class="nav-link">Sponsor</a></div>
       <div class="nav-item"><a href="members.html" class="nav-link active">Members</a></div>
@@ -53,9 +65,7 @@
     <div id="tab-president" class="tab-pane active">
       <div class="president-section">
         <div style="text-align:center">
-          <div class="president-photo" id="president-photo">
-            🔥
-          </div>
+          <div class="president-photo" id="president-photo">🔥</div>
           <div style="margin-top:18px">
             <div style="font-size:1.05rem;font-weight:700" id="president-name">김치기</div>
             <div style="font-size:.85rem;color:var(--text-muted);margin-top:2px">TORCH 2026 회장</div>
@@ -78,25 +88,16 @@
     </div>
 
     <!-- ── Tab 2: 역대 Members ──────────────────────── -->
-    <div id="tab-alumni" class="tab-pane">
-      <div class="year-group">
-        <div class="year-label">2025 Members</div>
-        <div class="members-grid" id="alumni-2025"></div>
-      </div>
-      <div class="year-group">
-        <div class="year-label">2024 Members</div>
-        <div class="members-grid" id="alumni-2024"></div>
+    <div id="tab-alumni" class="tab-pane" style="display:none">
+      <div id="alumni-list">
+        <div style="text-align:center;padding:60px;color:var(--text-muted)">불러오는 중…</div>
       </div>
     </div>
 
     <!-- ── Tab 3: 2026 TORCH Members ─────────────────── -->
-    <div id="tab-current" class="tab-pane">
-      <div id="members-grid-2026" class="members-grid">
-        <div style="grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--text-muted)">
-          <div style="font-size:3rem;margin-bottom:16px">👥</div>
-          <p>2026 회원 소개를 준비 중입니다.</p>
-          <p style="font-size:.88rem">문의: <a href="../contact.html">contact 페이지</a> 또는 <a href="https://www.instagram.com/t_o_r_c_h_study/" target="_blank">Instagram</a></p>
-        </div>
+    <div id="tab-current" class="tab-pane" style="display:none">
+      <div id="current-list">
+        <div style="text-align:center;padding:60px;color:var(--text-muted)">불러오는 중…</div>
       </div>
     </div>
 
@@ -126,58 +127,107 @@
 
 <script src="../js/theme.js"></script>
 <script>
-/* ── Tab switching ──────────────────────────── */
+/* Tab switching */
+let alumniLoaded = false, currentLoaded = false;
+
 document.querySelectorAll('.tab-btn').forEach(btn => {
   btn.addEventListener('click', function() {
     document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-    document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-pane').forEach(p => p.style.display = 'none');
     this.classList.add('active');
-    document.getElementById('tab-' + this.dataset.tab).classList.add('active');
+    const pane = document.getElementById('tab-' + this.dataset.tab);
+    pane.style.display = '';
+
+    if (this.dataset.tab === 'alumni' && !alumniLoaded) {
+      loadMembers('alumni', 'alumni-list');
+      alumniLoaded = true;
+    }
+    if (this.dataset.tab === 'current' && !currentLoaded) {
+      loadMembers('current', 'current-list');
+      currentLoaded = true;
+    }
   });
 });
 
-/* ── Build member card HTML ─────────────────── */
-function buildMemberCard(profile) {
-  const initial = (profile.name || '?').split('').filter(c => c.trim())[0] || '?';
-  const avatarHtml = profile.photo
-    ? `<img src="${profile.photo}" alt="${profile.name}">`
+async function loadMembers(category, containerId) {
+  const container = document.getElementById(containerId);
+  try {
+    const res = await fetch('/api/members-list?category=' + category);
+    if (!res.ok) throw new Error();
+    const { members } = await res.json();
+
+    if (!members || !members.length) {
+      container.innerHTML = buildEmptyState(category);
+      return;
+    }
+
+    if (category === 'alumni') {
+      // Group by year
+      const byYear = {};
+      members.forEach(m => {
+        const y = m.year || '기타';
+        if (!byYear[y]) byYear[y] = [];
+        byYear[y].push(m);
+      });
+      const years = Object.keys(byYear).sort((a, b) => b - a);
+      container.innerHTML = years.map(y => `
+        <div class="year-group">
+          <div class="year-label">${esc(y)} Members</div>
+          ${byYear[y].map(m => buildMemberCard(m)).join('')}
+        </div>
+      `).join('');
+    } else {
+      container.innerHTML = members.map(m => buildMemberCard(m)).join('');
+    }
+  } catch {
+    container.innerHTML = buildEmptyState(category);
+  }
+}
+
+function buildMemberCard(m) {
+  const initial = (m.name || '?').replace(/\s/g, '')[0] || '?';
+  const avatar = m.photo
+    ? `<img src="${esc(m.photo)}" alt="${esc(m.name)}">`
     : initial;
-  const websiteHtml = profile.website
-    ? `<a href="${profile.website}" target="_blank" class="btn btn-sm btn-dark" style="font-size:.78rem;padding:5px 12px">🌐 웹사이트</a>`
+  const artwork = m.artwork
+    ? `<img src="${esc(m.artwork)}" alt="artwork" class="member-artwork-thumb">`
     : '';
+  const webpage = m.webpage
+    ? `<div style="margin-top:10px"><a href="${esc(m.webpage)}" target="_blank" rel="noopener" class="btn btn-sm btn-dark" style="font-size:.78rem;padding:5px 12px">🌐 웹사이트</a></div>`
+    : '';
+
   return `
-    <div class="member-card">
-      <div class="member-avatar">${avatarHtml}</div>
-      <div class="member-name">${profile.name || '이름 없음'}</div>
-      <div class="member-workplace">${profile.workplace || ''}</div>
-      <div class="member-bio">${profile.bio || ''}</div>
-      ${websiteHtml ? `<div class="member-links">${websiteHtml}</div>` : ''}
+    <div class="member-row-card">
+      <div class="member-avatar-lg">${avatar}</div>
+      <div>
+        <div class="member-info-name">${esc(m.name)}</div>
+        ${m.title ? `<div class="member-info-title">${esc(m.title)}</div>` : ''}
+        ${m.workplace ? `<div class="member-info-workplace">📍 ${esc(m.workplace)}</div>` : ''}
+        ${m.bio ? `<div class="member-info-bio">${esc(m.bio)}</div>` : ''}
+        ${artwork}
+        ${webpage}
+      </div>
+    </div>
+  `;
+}
+
+function buildEmptyState(category) {
+  if (category === 'current') {
+    return `<div style="grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--text-muted)">
+      <div style="font-size:3rem;margin-bottom:16px">👥</div>
+      <p>2026 회원 소개를 준비 중입니다.</p>
+      <p style="font-size:.88rem">문의: <a href="../contact.html">contact 페이지</a> 또는 <a href="https://www.instagram.com/t_o_r_c_h_study/" target="_blank">Instagram</a></p>
     </div>`;
+  }
+  return `<div style="text-align:center;padding:60px 20px;color:var(--text-muted)">
+    <div style="font-size:3rem;margin-bottom:16px">📚</div>
+    <p>역대 회원 정보가 없습니다.</p>
+  </div>`;
 }
 
-/* ── Alumni data ─────────────────────────────── */
-const ALUMNI_DATA = {
-  '2025': [
-    { name: '이수진', workplace: '서울치과기공소', bio: '고정성 보철 전문. 세라믹 케이스 발표.' },
-    { name: '박민준', workplace: '연세대학교 치기공학과', bio: '디지털 치기공 연구 중.' },
-    { name: '김지현', workplace: '강남 치과기공소', bio: '임플란트 보철 전공.' },
-    { name: '최현우', workplace: '부산 치과기공소', bio: '가철성 보철 & 교합 관심.' },
-  ],
-  '2024': [
-    { name: '정유나', workplace: '한양대학교 치기공학과', bio: 'CAD/CAM 전공.' },
-    { name: '김성호', workplace: '대전 덴탈랩', bio: '세라믹 레이어링 전문가.' },
-    { name: '이민아', workplace: '서울 치과기공소', bio: '심미 보철 케이스 다수 보유.' },
-  ],
-};
-
-function loadAlumni(year) {
-  const grid = document.getElementById(`alumni-${year}`);
-  if (!grid) return;
-  grid.innerHTML = (ALUMNI_DATA[year] || []).map(m => buildMemberCard(m)).join('');
+function esc(str) {
+  return (str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
-
-loadAlumni('2025');
-loadAlumni('2024');
 </script>
 </body>
 </html>

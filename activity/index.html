@@ -5,6 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Activity – TORCH</title>
   <link rel="stylesheet" href="../css/style.css">
+  <style>
+    .activity-card-news { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; }
+    .act-card { background: var(--white); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow); transition: transform .2s; }
+    .act-card:hover { transform: translateY(-4px); }
+    .act-card-img { width: 100%; height: 200px; object-fit: cover; background: var(--light); display: flex; align-items: center; justify-content: center; font-size: 3rem; }
+    .act-card-img img { width: 100%; height: 100%; object-fit: cover; }
+    .act-card-body { padding: 20px; }
+    .act-card-date { font-size: .78rem; color: var(--text-muted); margin-bottom: 8px; }
+    .act-card-title { font-size: 1rem; font-weight: 700; margin-bottom: 8px; }
+    .act-card-desc { font-size: .85rem; color: var(--text-muted); }
+  </style>
 </head>
 <body>
 <nav class="navbar">
@@ -13,14 +24,8 @@
     <div class="nav-links">
       <div class="nav-item"><a href="../index.html" class="nav-link">Home</a></div>
       <div class="nav-item"><a href="../about.html" class="nav-link">About</a></div>
-      <div class="nav-item">
-        <span class="nav-link active">Activity <svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l4 4 4-4"/></svg></span>
-        <div class="dropdown"><a href="index.html">Overview</a><a href="symposium.html">Symposium</a></div>
-      </div>
-      <div class="nav-item">
-        <span class="nav-link">Registration <svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l4 4 4-4"/></svg></span>
-        <div class="dropdown"><a href="../registration/study.html">Study Group</a><a href="../registration/symposium.html">Symposium</a><a href="../registration/workshop.html">Workshop</a></div>
-      </div>
+      <div class="nav-item"><a href="index.html" class="nav-link active">Activity</a></div>
+      <div class="nav-item"><span class="nav-link">Registration <svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l4 4 4-4"/></svg></span><div class="dropdown"><a href="../registration/study.html">Study Group</a><a href="../registration/symposium.html">Symposium</a><a href="../registration/workshop.html">Workshop</a></div></div>
       <div class="nav-item"><a href="../sponsor.html" class="nav-link">Sponsor</a></div>
       <div class="nav-item"><a href="../members/members.html" class="nav-link">Members</a></div>
       <div class="nav-item"><a href="../news/index.html" class="nav-link">News</a></div>
@@ -32,8 +37,7 @@
 <div class="mobile-menu">
   <a href="../index.html" class="mobile-link">Home</a>
   <a href="../about.html" class="mobile-link">About</a>
-  <a href="index.html" class="mobile-link">Activity Overview</a>
-  <a href="symposium.html" class="mobile-link">Symposium</a>
+  <a href="index.html" class="mobile-link">Activity</a>
   <a href="../registration/study.html" class="mobile-link">Study 신청</a>
   <a href="../contact.html" class="mobile-link">Contact</a>
   <a href="../members/members.html" class="mobile-link">Members 소개</a>
@@ -56,7 +60,11 @@
       <h2>주요 활동 프로그램</h2>
       <div class="divider"></div>
     </div>
-    <div class="grid-3">
+    <div id="cards-grid" class="activity-card-news">
+      <!-- Loaded from API -->
+    </div>
+    <!-- Fallback static cards (hidden when API loaded) -->
+    <div id="cards-fallback" class="grid-3" style="display:none">
       <div class="card">
         <div class="card-icon">🦷</div>
         <h3>정기 스터디</h3>
@@ -66,7 +74,6 @@
           <li style="font-size:.85rem;color:var(--text-muted)">⏱ 2–3시간</li>
           <li style="font-size:.85rem;color:var(--text-muted)">📍 대면 / 온라인 병행</li>
         </ul>
-        <a href="../registration/study.html" class="btn btn-primary btn-sm mt-3">참가 신청</a>
       </div>
       <div class="card">
         <div class="card-icon">🛠️</div>
@@ -77,7 +84,6 @@
           <li style="font-size:.85rem;color:var(--text-muted)">⏱ 4–8시간</li>
           <li style="font-size:.85rem;color:var(--text-muted)">📍 실습 공간 대면</li>
         </ul>
-        <a href="../registration/workshop.html" class="btn btn-primary btn-sm mt-3">신청하기</a>
       </div>
       <div class="card">
         <div class="card-icon">🎤</div>
@@ -88,39 +94,31 @@
           <li style="font-size:.85rem;color:var(--text-muted)">⏱ 하루 종일</li>
           <li style="font-size:.85rem;color:var(--text-muted)">📍 대형 강의장</li>
         </ul>
-        <a href="symposium.html" class="btn btn-primary btn-sm mt-3">자세히 보기</a>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Study Topics -->
+<!-- Sessions -->
 <section class="section section-light">
   <div class="container">
     <div class="section-header">
       <span class="eyebrow">Curriculum</span>
-      <h2>스터디 주제</h2>
+      <h2>스터디 세션</h2>
       <div class="divider"></div>
-      <p>TORCH에서 다루는 치기공 관련 주요 학습 주제들입니다.</p>
     </div>
 
     <div class="tabs">
       <button class="tab-btn active" data-tab="tab-past">지난 세션</button>
       <button class="tab-btn" data-tab="tab-upcoming">예정 세션</button>
-      <button class="tab-btn" data-tab="tab-resources">학습 자료</button>
     </div>
 
     <div id="tab-past" class="tab-pane active">
       <div class="table-wrap">
-        <table>
-          <thead><tr><th>#</th><th>날짜</th><th>주제</th><th>발표자</th><th>자료</th></tr></thead>
-          <tbody>
-            <tr><td>1</td><td>1월 11일</td><td>전치부 올세라믹 크라운 – 색조 재현의 원리</td><td>회원 발표</td><td><span class="badge badge-success">자료 있음</span></td></tr>
-            <tr><td>2</td><td>1월 25일</td><td>지르코니아 종류별 특성과 임상 적용</td><td>회원 발표</td><td><span class="badge badge-success">자료 있음</span></td></tr>
-            <tr><td>3</td><td>2월 8일</td><td>디지털 인상 채득 & 구강 스캐너 비교</td><td>게스트 강사</td><td><span class="badge badge-success">자료 있음</span></td></tr>
-            <tr><td>4</td><td>2월 22일</td><td>임플란트 보철 케이스 리뷰 – 교합 관리</td><td>회원 발표</td><td><span class="badge badge-success">자료 있음</span></td></tr>
-            <tr><td>5</td><td>3월 8일</td><td>총의치 인상 채득과 교합제 제작</td><td>회원 발표</td><td><span class="badge badge-warning">녹화본</span></td></tr>
-            <tr><td>6</td><td>3월 22일</td><td>CAD 소프트웨어 비교: exocad vs 3Shape</td><td>회원 발표</td><td><span class="badge badge-warning">녹화본</span></td></tr>
+        <table id="sessions-past-table">
+          <thead><tr><th>#</th><th>날짜</th><th>주제</th><th>발표자</th><th>형식</th><th>자료</th></tr></thead>
+          <tbody id="past-tbody">
+            <tr><td colspan="6" style="text-align:center;padding:32px;color:var(--text-muted)">불러오는 중…</td></tr>
           </tbody>
         </table>
       </div>
@@ -130,27 +128,16 @@
       <div class="table-wrap">
         <table>
           <thead><tr><th>#</th><th>날짜</th><th>주제</th><th>형식</th><th>신청</th></tr></thead>
-          <tbody>
-            <tr><td>7</td><td>4월 5일</td><td>세라믹 레이어링 기법 – 심미 보철의 완성</td><td>케이스 발표</td><td><a href="../registration/study.html" class="btn btn-primary btn-sm">신청</a></td></tr>
-            <tr><td>8</td><td>4월 19일</td><td>교정용 retainer 및 appliance 제작</td><td>실습</td><td><a href="../registration/study.html" class="btn btn-primary btn-sm">신청</a></td></tr>
-            <tr><td>9</td><td>5월 3일</td><td>3D 프린팅 레진 의치 — 현재와 미래</td><td>세미나</td><td><a href="../registration/study.html" class="btn btn-primary btn-sm">신청</a></td></tr>
-            <tr><td>10</td><td>5월 17일</td><td>Full Arch 임플란트 케이스 총정리</td><td>케이스 발표</td><td><a href="../registration/study.html" class="btn btn-primary btn-sm">신청</a></td></tr>
+          <tbody id="upcoming-tbody">
+            <tr><td colspan="5" style="text-align:center;padding:32px;color:var(--text-muted)">불러오는 중…</td></tr>
           </tbody>
         </table>
-      </div>
-    </div>
-
-    <div id="tab-resources" class="tab-pane">
-      <div class="grid-3">
-        <div class="card"><div class="card-icon">📄</div><h3>케이스 자료집</h3><p>회원들이 발표한 임상 케이스 자료를 정리한 아카이브입니다. 회원 전용으로 제공됩니다.</p><a href="../members/login.html" class="btn btn-dark btn-sm mt-2">로그인 후 열람</a></div>
-        <div class="card"><div class="card-icon">📖</div><h3>추천 문헌</h3><p>치기공 분야 국내외 주요 논문 및 교재 목록을 분야별로 정리하여 제공합니다.</p><a href="../members/login.html" class="btn btn-dark btn-sm mt-2">로그인 후 열람</a></div>
-        <div class="card"><div class="card-icon">🎥</div><h3>세션 녹화본</h3><p>참석하지 못한 세션의 녹화본을 회원 전용 채널에서 언제든지 다시 볼 수 있습니다.</p><a href="../members/login.html" class="btn btn-dark btn-sm mt-2">로그인 후 열람</a></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Study fields -->
+<!-- Fields -->
 <section class="section">
   <div class="container">
     <div class="section-header">
@@ -159,46 +146,14 @@
       <div class="divider"></div>
     </div>
     <div class="grid-4">
-      <div class="card text-center" style="padding:20px">
-        <div style="font-size:2rem;margin-bottom:10px">🪥</div>
-        <h4>고정성 보철</h4>
-        <p style="font-size:.82rem">크라운, 브릿지, 인레이 등 고정성 보철물 제작 전반</p>
-      </div>
-      <div class="card text-center" style="padding:20px">
-        <div style="font-size:2rem;margin-bottom:10px">😁</div>
-        <h4>가철성 보철</h4>
-        <p style="font-size:.82rem">총의치, 국소의치 등 가철성 보철물 제작 및 교합</p>
-      </div>
-      <div class="card text-center" style="padding:20px">
-        <div style="font-size:2rem;margin-bottom:10px">🔩</div>
-        <h4>임플란트 보철</h4>
-        <p style="font-size:.82rem">임플란트 상부 보철물, Full Arch 케이스 등</p>
-      </div>
-      <div class="card text-center" style="padding:20px">
-        <div style="font-size:2rem;margin-bottom:10px">✨</div>
-        <h4>심미 치기공</h4>
-        <p style="font-size:.82rem">전치부 세라믹, 라미네이트, 색조 재현 기법</p>
-      </div>
-      <div class="card text-center" style="padding:20px">
-        <div style="font-size:2rem;margin-bottom:10px">💻</div>
-        <h4>CAD/CAM</h4>
-        <p style="font-size:.82rem">디지털 보철 설계, 밀링, 구강 스캐너 활용</p>
-      </div>
-      <div class="card text-center" style="padding:20px">
-        <div style="font-size:2rem;margin-bottom:10px">🖨️</div>
-        <h4>3D 프린팅</h4>
-        <p style="font-size:.82rem">레진 프린팅, 서지컬 가이드, 임시 보철 제작</p>
-      </div>
-      <div class="card text-center" style="padding:20px">
-        <div style="font-size:2rem;margin-bottom:10px">🦴</div>
-        <h4>교정 장치</h4>
-        <p style="font-size:.82rem">교정용 레테이너, 악골 장치, 투명 교정 장치</p>
-      </div>
-      <div class="card text-center" style="padding:20px">
-        <div style="font-size:2rem;margin-bottom:10px">📋</div>
-        <h4>국가시험 대비</h4>
-        <p style="font-size:.82rem">치과기공사 국가시험 필기 및 실기 준비</p>
-      </div>
+      <div class="card text-center" style="padding:20px"><div style="font-size:2rem;margin-bottom:10px">🪥</div><h4>고정성 보철</h4><p style="font-size:.82rem">크라운, 브릿지, 인레이 등 고정성 보철물 제작 전반</p></div>
+      <div class="card text-center" style="padding:20px"><div style="font-size:2rem;margin-bottom:10px">😁</div><h4>가철성 보철</h4><p style="font-size:.82rem">총의치, 국소의치 등 가철성 보철물 제작 및 교합</p></div>
+      <div class="card text-center" style="padding:20px"><div style="font-size:2rem;margin-bottom:10px">🔩</div><h4>임플란트 보철</h4><p style="font-size:.82rem">임플란트 상부 보철물, Full Arch 케이스 등</p></div>
+      <div class="card text-center" style="padding:20px"><div style="font-size:2rem;margin-bottom:10px">✨</div><h4>심미 치기공</h4><p style="font-size:.82rem">전치부 세라믹, 라미네이트, 색조 재현 기법</p></div>
+      <div class="card text-center" style="padding:20px"><div style="font-size:2rem;margin-bottom:10px">💻</div><h4>CAD/CAM</h4><p style="font-size:.82rem">디지털 보철 설계, 밀링, 구강 스캐너 활용</p></div>
+      <div class="card text-center" style="padding:20px"><div style="font-size:2rem;margin-bottom:10px">🖨️</div><h4>3D 프린팅</h4><p style="font-size:.82rem">레진 프린팅, 서지컬 가이드, 임시 보철 제작</p></div>
+      <div class="card text-center" style="padding:20px"><div style="font-size:2rem;margin-bottom:10px">🦴</div><h4>교정 장치</h4><p style="font-size:.82rem">교정용 레테이너, 악골 장치, 투명 교정 장치</p></div>
+      <div class="card text-center" style="padding:20px"><div style="font-size:2rem;margin-bottom:10px">📋</div><h4>국가시험 대비</h4><p style="font-size:.82rem">치과기공사 국가시험 필기 및 실기 준비</p></div>
     </div>
   </div>
 </section>
@@ -206,24 +161,100 @@
 <footer class="footer">
   <div class="container">
     <div class="footer-grid">
-      <div class="footer-brand"><a href="../index.html" class="nav-logo"><div class="logo-icon">🔥</div>TORCH</a><p style="margin-top:12px">Korea Young Dental Technician Study</p></div>
-      <div class="footer-col"><h4>Pages</h4><ul><li><a href="../about.html">About</a></li><li><a href="index.html">Activity</a></li><li><a href="symposium.html">Symposium</a></li></ul></div>
+      <div class="footer-brand"><a href="../index.html" class="nav-logo"><div class="logo-icon">🔥</div>TORCH</a><p style="margin-top:12px">Korea Young Dental Technician Study<br>기술 · 기회 · 보완 · 도전 · 희망</p></div>
+      <div class="footer-col"><h4>Pages</h4><ul><li><a href="../about.html">About</a></li><li><a href="index.html">Activity</a></li><li><a href="../sponsor.html">Sponsor</a></li></ul></div>
       <div class="footer-col"><h4>Registration</h4><ul><li><a href="../registration/study.html">Study Group</a></li><li><a href="../registration/symposium.html">Symposium</a></li><li><a href="../registration/workshop.html">Workshop</a></li></ul></div>
       <div class="footer-col"><h4>Community</h4><ul><li><a href="../news/index.html">News</a></li><li><a href="../contact.html">Contact</a></li></ul></div>
     </div>
     <div class="footer-bottom"><span>© 2025 TORCH – Korea Young Dental Technician Study. All rights reserved.</span></div>
   </div>
 </footer>
+
 <script src="../js/theme.js"></script>
 <script>
-  document.querySelectorAll('.tab-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-      document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
-      btn.classList.add('active');
-      document.getElementById(btn.dataset.tab).classList.add('active');
-    });
+/* Tab switching */
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById(btn.dataset.tab).classList.add('active');
   });
+});
+
+/* Load activity data from API */
+(async () => {
+  try {
+    const res = await fetch('/api/activity');
+    if (!res.ok) throw new Error();
+    const { cards, sessions } = await res.json();
+
+    // Cards
+    const grid = document.getElementById('cards-grid');
+    if (cards && cards.length) {
+      grid.innerHTML = cards.map(c => `
+        <div class="act-card">
+          <div class="act-card-img">
+            ${c.image ? `<img src="${esc(c.image)}" alt="${esc(c.title)}">` : '🔥'}
+          </div>
+          <div class="act-card-body">
+            ${c.date ? `<div class="act-card-date">📅 ${esc(c.date)}</div>` : ''}
+            <div class="act-card-title">${esc(c.title)}</div>
+            <div class="act-card-desc">${esc(c.description)}</div>
+          </div>
+        </div>
+      `).join('');
+    } else {
+      grid.style.display = 'none';
+      document.getElementById('cards-fallback').style.display = '';
+    }
+
+    // Sessions
+    const today = new Date().toISOString().slice(0,10);
+    const past = (sessions || []).filter(s => s.session_date <= today);
+    const upcoming = (sessions || []).filter(s => s.session_date > today);
+
+    const pastTbody = document.getElementById('past-tbody');
+    if (past.length) {
+      pastTbody.innerHTML = past.map((s, i) => `
+        <tr>
+          <td>${i + 1}</td>
+          <td>${esc(s.session_date)}</td>
+          <td>${esc(s.title)}</td>
+          <td>${esc(s.presenter)}</td>
+          <td>${esc(s.format)}</td>
+          <td>${s.has_material ? '<span class="badge badge-success">자료 있음</span>' : '<span class="badge badge-warning">없음</span>'}</td>
+        </tr>
+      `).join('');
+    } else {
+      pastTbody.innerHTML = '<tr><td colspan="6" style="text-align:center;padding:32px;color:var(--text-muted)">지난 세션 내역이 없습니다.</td></tr>';
+    }
+
+    const upcomingTbody = document.getElementById('upcoming-tbody');
+    if (upcoming.length) {
+      upcomingTbody.innerHTML = upcoming.map((s, i) => `
+        <tr>
+          <td>${i + 1}</td>
+          <td>${esc(s.session_date)}</td>
+          <td>${esc(s.title)}</td>
+          <td>${esc(s.format)}</td>
+          <td><a href="../registration/study.html" class="btn btn-primary btn-sm">신청</a></td>
+        </tr>
+      `).join('');
+    } else {
+      upcomingTbody.innerHTML = '<tr><td colspan="5" style="text-align:center;padding:32px;color:var(--text-muted)">예정된 세션이 없습니다.</td></tr>';
+    }
+  } catch {
+    document.getElementById('cards-grid').style.display = 'none';
+    document.getElementById('cards-fallback').style.display = '';
+    document.getElementById('past-tbody').innerHTML = '<tr><td colspan="6" style="text-align:center;padding:32px;color:var(--text-muted)">데이터를 불러올 수 없습니다.</td></tr>';
+    document.getElementById('upcoming-tbody').innerHTML = '<tr><td colspan="5" style="text-align:center;padding:32px;color:var(--text-muted)">데이터를 불러올 수 없습니다.</td></tr>';
+  }
+})();
+
+function esc(str) {
+  return (str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
 </script>
 </body>
 </html>

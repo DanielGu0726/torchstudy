@@ -13,7 +13,7 @@
     <div class="nav-links">
       <div class="nav-item"><a href="index.html" class="nav-link">Home</a></div>
       <div class="nav-item"><a href="about.html" class="nav-link">About</a></div>
-      <div class="nav-item"><span class="nav-link">Activity <svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l4 4 4-4"/></svg></span><div class="dropdown"><a href="activity/index.html">Overview</a><a href="activity/symposium.html">Symposium</a></div></div>
+      <div class="nav-item"><a href="activity/index.html" class="nav-link">Activity</a></div>
       <div class="nav-item"><span class="nav-link">Registration <svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l4 4 4-4"/></svg></span><div class="dropdown"><a href="registration/study.html">Study Group</a><a href="registration/symposium.html">Symposium</a><a href="registration/workshop.html">Workshop</a></div></div>
       <div class="nav-item"><a href="sponsor.html" class="nav-link">Sponsor</a></div>
       <div class="nav-item"><a href="members/members.html" class="nav-link">Members</a></div>
@@ -54,18 +54,6 @@
               <p><a href="https://www.instagram.com/t_o_r_c_h_study/" target="_blank">@t_o_r_c_h_study</a><br>가장 빠르게 소식을 확인할 수 있습니다.</p>
             </div>
           </div>
-          <div class="contact-item">
-            <div class="contact-icon">✉</div>
-            <div><h4>이메일</h4><p>contact@torchstudy.kr</p></div>
-          </div>
-          <div class="contact-item">
-            <div class="contact-icon">💬</div>
-            <div><h4>오픈채팅</h4><p>KakaoTalk 오픈채팅을 통해 커뮤니티에 참여하세요.<br>Instagram DM으로 링크를 요청해주세요.</p></div>
-          </div>
-          <div class="contact-item">
-            <div class="contact-icon">🕐</div>
-            <div><h4>응답 시간</h4><p>Instagram DM 또는 이메일로 문의 시<br>영업일 기준 1–2일 내 답변드립니다.</p></div>
-          </div>
         </div>
 
         <div style="margin-top:32px;padding:24px;background:var(--dark);border-radius:var(--radius-lg)">
@@ -93,8 +81,8 @@
               <div class="error-msg"></div>
             </div>
             <div class="form-group">
-              <label class="required">이메일</label>
-              <input class="form-control" type="email" name="email" data-validate="email" placeholder="example@email.com" required>
+              <label class="required">연락처</label>
+              <input class="form-control" name="phone" data-validate="phone" placeholder="010-0000-0000" required>
               <div class="error-msg"></div>
             </div>
           </div>
@@ -116,7 +104,7 @@
             <div class="error-msg"></div>
           </div>
           <div class="form-group">
-            <label class="check-item"><input type="checkbox" required> <label><a href="#">개인정보 처리방침</a>에 동의합니다</label></label>
+            <label class="check-item"><input type="checkbox" required> <span><a href="#">개인정보 처리방침</a>에 동의합니다</span></label>
           </div>
           <button type="submit" class="btn btn-primary btn-block btn-lg">메시지 전송</button>
         </form>
@@ -140,14 +128,32 @@
     <div class="footer-bottom"><span>© 2025 TORCH – Korea Young Dental Technician Study. All rights reserved.</span></div>
   </div>
 </footer>
+
 <script src="js/registration.js"></script>
 <script>
-  document.getElementById('contact-form').addEventListener('submit', function(e) {
-    e.preventDefault();
-    if (!Registration.validateForm(this)) { Registration.showAlert('danger', '필수 항목을 모두 입력해주세요.'); return; }
-    this.reset();
-    Registration.showAlert('success', '✅ 메시지가 전송되었습니다. 1–2일 내로 답변드리겠습니다.');
-  });
+document.getElementById('contact-form').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  if (!Registration.validateForm(this)) {
+    Registration.showAlert('danger', '필수 항목을 모두 입력해주세요.');
+    return;
+  }
+  const data = Object.fromEntries(new FormData(this).entries());
+  try {
+    const res = await fetch('/api/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name: data.name, phone: data.phone, subject: data.subject, message: data.message })
+    });
+    if (res.ok) {
+      this.reset();
+      Registration.showAlert('success', '✅ 메시지가 전송되었습니다. 빠르게 답변드리겠습니다.');
+    } else {
+      Registration.showAlert('danger', '전송 중 오류가 발생했습니다. 다시 시도해주세요.');
+    }
+  } catch {
+    Registration.showAlert('danger', '네트워크 오류가 발생했습니다.');
+  }
+});
 </script>
 <script src="js/theme.js"></script>
 </body>

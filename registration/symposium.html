@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Symposium Registration – TorchStudy</title>
+  <title>Symposium – TORCH</title>
   <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
@@ -13,7 +13,7 @@
     <div class="nav-links">
       <div class="nav-item"><a href="../index.html" class="nav-link">Home</a></div>
       <div class="nav-item"><a href="../about.html" class="nav-link">About</a></div>
-      <div class="nav-item"><span class="nav-link">Activity <svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l4 4 4-4"/></svg></span><div class="dropdown"><a href="../activity/index.html">Overview</a><a href="../activity/symposium.html">Symposium</a></div></div>
+      <div class="nav-item"><a href="../activity/index.html" class="nav-link">Activity</a></div>
       <div class="nav-item"><span class="nav-link active">Registration <svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l4 4 4-4"/></svg></span><div class="dropdown"><a href="study.html">Study Group</a><a href="symposium.html">Symposium</a><a href="workshop.html">Workshop</a></div></div>
       <div class="nav-item"><a href="../sponsor.html" class="nav-link">Sponsor</a></div>
       <div class="nav-item"><a href="../members/members.html" class="nav-link">Members</a></div>
@@ -25,134 +25,51 @@
 </nav>
 <div class="mobile-menu">
   <a href="../index.html" class="mobile-link">Home</a>
-  <a href="study.html" class="mobile-link">Study Registration</a>
-  <a href="symposium.html" class="mobile-link">Symposium Registration</a>
-  <a href="workshop.html" class="mobile-link">Workshop Registration</a>
+  <a href="study.html" class="mobile-link">Study 신청</a>
+  <a href="symposium.html" class="mobile-link">Symposium</a>
+  <a href="workshop.html" class="mobile-link">Workshop 신청</a>
 </div>
 
 <div class="page-header">
   <div class="container">
     <span class="eyebrow">Annual Event</span>
-    <h1>Symposium Registration</h1>
-    <p>Register to attend or present at the TorchStudy Symposium 2025 — May 20, 2025.</p>
+    <h1>TORCH Symposium</h1>
+    <p>연 1회 개최하는 TORCH 연례 심포지엄입니다.</p>
     <div class="breadcrumb"><a href="../index.html">Home</a><span>/</span><a href="study.html">Registration</a><span>/</span><span>Symposium</span></div>
   </div>
 </div>
 
-<section class="section section-light" id="reg-section">
-  <div class="container">
-    <div style="display:grid;grid-template-columns:1fr 1.6fr;gap:40px;align-items:start">
-      <div>
-        <div class="card">
-          <h3 style="margin-bottom:20px">Registration Options</h3>
-          <div style="display:flex;flex-direction:column;gap:16px">
-            <div style="padding:16px;border:1.5px solid var(--primary);border-radius:var(--radius);background:rgba(232,65,24,.04)">
-              <h4 style="color:var(--primary)">Attendee</h4>
-              <p style="font-size:.85rem;margin:6px 0">Access to all sessions, lunch, and networking reception.</p>
-              <strong>Free (Members) / ₩10,000 (Guests)</strong>
-            </div>
-            <div style="padding:16px;border:1.5px solid var(--border);border-radius:var(--radius)">
-              <h4>Presenter</h4>
-              <p style="font-size:.85rem;margin:6px 0">Submit a talk or poster. Includes attendee access.</p>
-              <strong>Free for all</strong>
-            </div>
-          </div>
-          <hr class="form-divider">
-          <div style="display:flex;flex-direction:column;gap:10px">
-            <div style="display:flex;justify-content:space-between;font-size:.88rem"><span style="color:var(--text-muted)">Date</span><strong>May 20, 2025</strong></div>
-            <div style="display:flex;justify-content:space-between;font-size:.88rem"><span style="color:var(--text-muted)">Venue</span><strong>University Auditorium</strong></div>
-            <div style="display:flex;justify-content:space-between;font-size:.88rem"><span style="color:var(--text-muted)">Abstract Deadline</span><strong style="color:var(--danger)">Apr 15, 2025</strong></div>
-          </div>
-        </div>
+<section class="section section-light">
+  <div class="container" style="text-align:center;padding:80px 16px">
+    <div style="font-size:4rem;margin-bottom:24px">🎤</div>
+    <h2 style="margin-bottom:16px">TORCH Symposium 2025</h2>
+    <p style="font-size:1.1rem;color:var(--text-muted);margin-bottom:12px">2025년 11월 예정</p>
+    <p style="max-width:560px;margin:0 auto 40px;color:var(--text-muted);font-size:1rem;line-height:1.8">
+      TORCH 연례 심포지엄은 회원들의 임상 케이스 발표, 초청 강연, 네트워킹 리셉션으로 구성됩니다.<br>
+      상세 일정과 장소는 개최 2–3개월 전 공식 채널을 통해 안내됩니다.
+    </p>
+
+    <div class="grid-3" style="max-width:700px;margin:0 auto 48px;text-align:left">
+      <div class="card" style="text-align:center;padding:24px">
+        <div style="font-size:2rem;margin-bottom:12px">📅</div>
+        <h4>일정</h4>
+        <p style="font-size:.88rem;color:var(--text-muted)">2025년 11월 예정<br>추후 공지</p>
       </div>
-
-      <div class="form-card" style="max-width:100%">
-        <h3 style="margin-bottom:6px">Register for Symposium</h3>
-        <p style="font-size:.88rem;margin-bottom:24px">Complete the form below. Abstract submission is optional for attendees.</p>
-
-        <div id="form-alert" class="alert"><span class="alert-msg"></span></div>
-
-        <form id="symposium-form">
-          <div class="form-row">
-            <div class="form-group">
-              <label class="required">Full Name</label>
-              <input class="form-control" name="name" placeholder="Full Name" required>
-              <div class="error-msg"></div>
-            </div>
-            <div class="form-group">
-              <label class="required">Email</label>
-              <input class="form-control" type="email" name="email" data-validate="email" placeholder="you@example.com" required>
-              <div class="error-msg"></div>
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group">
-              <label class="required">Affiliation</label>
-              <input class="form-control" name="affiliation" placeholder="University / Company" required>
-              <div class="error-msg"></div>
-            </div>
-            <div class="form-group">
-              <label class="required">Registration Type</label>
-              <select class="form-control" name="regType" id="regType" required>
-                <option value="">Select…</option>
-                <option value="attendee">Attendee only</option>
-                <option value="presenter-talk">Presenter (Talk)</option>
-                <option value="presenter-poster">Presenter (Poster)</option>
-              </select>
-              <div class="error-msg"></div>
-            </div>
-          </div>
-          <div id="abstract-section" style="display:none">
-            <div class="form-group">
-              <label>Presentation Title</label>
-              <input class="form-control" name="presentationTitle" placeholder="Title of your talk or poster">
-            </div>
-            <div class="form-group">
-              <label>Abstract <span style="font-weight:400;color:var(--text-muted)">(200–500 words)</span></label>
-              <textarea class="form-control" name="abstract" rows="5" placeholder="Describe your research…"></textarea>
-            </div>
-            <div class="form-group">
-              <label>Research Area</label>
-              <select class="form-control" name="researchArea">
-                <option value="">Select…</option>
-                <option>NLP / Language Models</option>
-                <option>Computer Vision</option>
-                <option>Generative AI</option>
-                <option>Reinforcement Learning</option>
-                <option>AI Safety & Ethics</option>
-                <option>Efficient ML / Hardware</option>
-                <option>Other</option>
-              </select>
-            </div>
-          </div>
-          <div class="form-group">
-            <label>Dietary Requirements (optional)</label>
-            <select class="form-control" name="dietary">
-              <option value="">No restrictions</option>
-              <option>Vegetarian</option>
-              <option>Vegan</option>
-              <option>Halal</option>
-              <option>Gluten-free</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label class="check-item"><input type="checkbox" required> <label>I confirm my attendance and agree to the <a href="#">event policies</a></label></label>
-          </div>
-          <button type="submit" class="btn btn-primary btn-block btn-lg">Complete Registration</button>
-        </form>
+      <div class="card" style="text-align:center;padding:24px">
+        <div style="font-size:2rem;margin-bottom:12px">📍</div>
+        <h4>장소</h4>
+        <p style="font-size:.88rem;color:var(--text-muted)">미정<br>추후 공지</p>
+      </div>
+      <div class="card" style="text-align:center;padding:24px">
+        <div style="font-size:2rem;margin-bottom:12px">🎟</div>
+        <h4>참가</h4>
+        <p style="font-size:.88rem;color:var(--text-muted)">회원 및 외부 청강<br>모집 공고 예정</p>
       </div>
     </div>
-  </div>
-</section>
 
-<section id="reg-closed-msg" style="display:none" class="section section-light">
-  <div class="container" style="text-align:center;padding:80px 16px">
-    <div style="font-size:3rem;margin-bottom:20px">🔒</div>
-    <h2 style="margin-bottom:16px">현재는 모집 기간이 아닙니다</h2>
-    <p style="max-width:480px;margin:0 auto 32px;color:var(--text-muted);font-size:1.05rem">TORCH는 연 1회 회원을 모집합니다. 모집 공고는 인스타그램과 공식 채널을 통해 안내됩니다.</p>
     <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap">
-      <a href="https://www.instagram.com/t_o_r_c_h_study/" target="_blank" class="btn btn-primary">📷 Instagram 팔로우</a>
-      <a href="../contact.html" class="btn btn-dark">문의하기</a>
+      <a href="https://www.instagram.com/t_o_r_c_h_study/" target="_blank" class="btn btn-primary btn-lg">📷 Instagram에서 공지 받기</a>
+      <a href="../contact.html" class="btn btn-dark btn-lg">문의하기</a>
     </div>
   </div>
 </section>
@@ -160,22 +77,14 @@
 <footer class="footer">
   <div class="container">
     <div class="footer-grid">
-      <div class="footer-brand"><a href="../index.html" class="nav-logo"><div class="logo-icon">🔥</div>TORCH</a><p style="margin-top:12px">A collaborative AI & machine learning study group.</p></div>
+      <div class="footer-brand"><a href="../index.html" class="nav-logo"><div class="logo-icon">🔥</div>TORCH</a><p style="margin-top:12px">Korea Young Dental Technician Study<br>기술 · 기회 · 보완 · 도전 · 희망</p></div>
       <div class="footer-col"><h4>Pages</h4><ul><li><a href="../about.html">About</a></li><li><a href="../activity/index.html">Activity</a></li><li><a href="../sponsor.html">Sponsor</a></li></ul></div>
       <div class="footer-col"><h4>Registration</h4><ul><li><a href="study.html">Study Group</a></li><li><a href="symposium.html">Symposium</a></li><li><a href="workshop.html">Workshop</a></li></ul></div>
       <div class="footer-col"><h4>Community</h4><ul><li><a href="../news/index.html">News</a></li><li><a href="../contact.html">Contact</a></li></ul></div>
     </div>
-    <div class="footer-bottom"><span>© 2025 TorchStudy. All rights reserved.</span></div>
+    <div class="footer-bottom"><span>© 2025 TORCH – Korea Young Dental Technician Study. All rights reserved.</span></div>
   </div>
 </footer>
 <script src="../js/theme.js"></script>
-<script src="../js/registration.js"></script>
-<script>
-  Registration.attachForm('symposium-form', 'symposium');
-  document.getElementById('regType').addEventListener('change', function() {
-    document.getElementById('abstract-section').style.display =
-      this.value.startsWith('presenter') ? 'block' : 'none';
-  });
-</script>
 </body>
 </html>

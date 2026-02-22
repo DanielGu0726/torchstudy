@@ -5,6 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sponsor – TORCH</title>
   <link rel="stylesheet" href="css/style.css">
+  <style>
+    .sponsor-card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 24px; }
+    .sponsor-card-item { display: flex; flex-direction: column; align-items: center; justify-content: center; background: var(--white); border-radius: var(--radius-lg); padding: 28px 20px; box-shadow: var(--shadow); text-align: center; text-decoration: none; color: var(--text); transition: transform .2s, box-shadow .2s; border: 1.5px solid var(--border); }
+    .sponsor-card-item:hover { transform: translateY(-4px); box-shadow: 0 8px 32px rgba(0,0,0,.12); border-color: var(--primary); }
+    .sponsor-card-logo { width: 100%; max-height: 80px; object-fit: contain; margin-bottom: 12px; }
+    .sponsor-card-name { font-size: .9rem; font-weight: 600; color: var(--text-muted); }
+    .sponsor-card-placeholder { font-size: 2.5rem; margin-bottom: 12px; }
+  </style>
 </head>
 <body>
 <nav class="navbar">
@@ -13,7 +21,7 @@
     <div class="nav-links">
       <div class="nav-item"><a href="index.html" class="nav-link">Home</a></div>
       <div class="nav-item"><a href="about.html" class="nav-link">About</a></div>
-      <div class="nav-item"><span class="nav-link">Activity <svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l4 4 4-4"/></svg></span><div class="dropdown"><a href="activity/index.html">Overview</a><a href="activity/symposium.html">Symposium</a></div></div>
+      <div class="nav-item"><a href="activity/index.html" class="nav-link">Activity</a></div>
       <div class="nav-item"><span class="nav-link">Registration <svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l4 4 4-4"/></svg></span><div class="dropdown"><a href="registration/study.html">Study Group</a><a href="registration/symposium.html">Symposium</a><a href="registration/workshop.html">Workshop</a></div></div>
       <div class="nav-item"><a href="sponsor.html" class="nav-link active">Sponsor</a></div>
       <div class="nav-item"><a href="members/members.html" class="nav-link">Members</a></div>
@@ -60,90 +68,23 @@
   </div>
 </section>
 
-<!-- Tiers -->
+<!-- Sponsors Grid -->
 <section class="section section-light">
   <div class="container">
     <div class="section-header">
-      <span class="eyebrow">Packages</span>
-      <h2>후원 등급</h2>
+      <span class="eyebrow">Sponsors</span>
+      <h2>후원사</h2>
       <div class="divider"></div>
     </div>
 
-    <!-- Gold -->
-    <div class="sponsor-tier" style="border-top:4px solid #f9e79f">
-      <div class="sponsor-tier-header">
-        <h3>🥇 Gold 후원사</h3>
-        <span class="tier-badge tier-gold">연 300만원 이상</span>
-      </div>
-      <div class="grid-2" style="gap:24px;margin-bottom:24px">
-        <div>
-          <h4 style="margin-bottom:12px">혜택</h4>
-          <ul style="display:flex;flex-direction:column;gap:8px">
-            <li style="display:flex;gap:8px;font-size:.88rem"><span style="color:var(--success)">✓</span> 홈페이지 메인 및 모든 행사 자료에 대형 로고 게재</li>
-            <li style="display:flex;gap:8px;font-size:.88rem"><span style="color:var(--success)">✓</span> 심포지엄 키노트 발표 또는 특별 세션 운영 기회</li>
-            <li style="display:flex;gap:8px;font-size:.88rem"><span style="color:var(--success)">✓</span> 심포지엄 현장 부스 설치</li>
-            <li style="display:flex;gap:8px;font-size:.88rem"><span style="color:var(--success)">✓</span> 제품·재료 소개 세션 (스터디 2회)</li>
-            <li style="display:flex;gap:8px;font-size:.88rem"><span style="color:var(--success)">✓</span> Instagram 홍보 게시물 연 6회</li>
-            <li style="display:flex;gap:8px;font-size:.88rem"><span style="color:var(--success)">✓</span> 뉴스레터 스폰서십</li>
-          </ul>
-        </div>
-        <div>
-          <h4 style="margin-bottom:12px">현재 Gold 후원사</h4>
-          <div class="sponsor-logos">
-            <div class="sponsor-logo-box">후원사 모집 중</div>
-          </div>
-        </div>
-      </div>
+    <div id="sponsors-grid" class="sponsor-card-grid">
+      <!-- Loaded from API -->
     </div>
 
-    <!-- Silver -->
-    <div class="sponsor-tier" style="border-top:4px solid #d5d8dc">
-      <div class="sponsor-tier-header">
-        <h3>🥈 Silver 후원사</h3>
-        <span class="tier-badge tier-silver">연 150만원 이상</span>
-      </div>
-      <div class="grid-2" style="gap:24px;margin-bottom:24px">
-        <div>
-          <h4 style="margin-bottom:12px">혜택</h4>
-          <ul style="display:flex;flex-direction:column;gap:8px">
-            <li style="display:flex;gap:8px;font-size:.88rem"><span style="color:var(--success)">✓</span> 홈페이지 및 행사 자료에 중형 로고 게재</li>
-            <li style="display:flex;gap:8px;font-size:.88rem"><span style="color:var(--success)">✓</span> 제품·재료 소개 세션 (스터디 1회)</li>
-            <li style="display:flex;gap:8px;font-size:.88rem"><span style="color:var(--success)">✓</span> 심포지엄 부스 설치</li>
-            <li style="display:flex;gap:8px;font-size:.88rem"><span style="color:var(--success)">✓</span> Instagram 홍보 게시물 연 3회</li>
-          </ul>
-        </div>
-        <div>
-          <h4 style="margin-bottom:12px">현재 Silver 후원사</h4>
-          <div class="sponsor-logos">
-            <div class="sponsor-logo-box">후원사 모집 중</div>
-            <div class="sponsor-logo-box">후원사 모집 중</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Bronze -->
-    <div class="sponsor-tier" style="border-top:4px solid #f0c8a0">
-      <div class="sponsor-tier-header">
-        <h3>🥉 Bronze 후원사</h3>
-        <span class="tier-badge tier-bronze">연 50만원 이상</span>
-      </div>
-      <div class="grid-2" style="gap:24px;margin-bottom:24px">
-        <div>
-          <h4 style="margin-bottom:12px">혜택</h4>
-          <ul style="display:flex;flex-direction:column;gap:8px">
-            <li style="display:flex;gap:8px;font-size:.88rem"><span style="color:var(--success)">✓</span> 홈페이지 후원사 페이지에 로고 게재</li>
-            <li style="display:flex;gap:8px;font-size:.88rem"><span style="color:var(--success)">✓</span> 행사 프로그램 북 이름 표기</li>
-            <li style="display:flex;gap:8px;font-size:.88rem"><span style="color:var(--success)">✓</span> Instagram 홍보 게시물 연 1회</li>
-          </ul>
-        </div>
-        <div>
-          <h4 style="margin-bottom:12px">현재 Bronze 후원사</h4>
-          <div class="sponsor-logos">
-            <div class="sponsor-logo-box">후원사 모집 중</div>
-          </div>
-        </div>
-      </div>
+    <div id="sponsors-empty" style="display:none;text-align:center;padding:60px 20px;color:var(--text-muted)">
+      <div style="font-size:3rem;margin-bottom:16px">🤝</div>
+      <p>후원사를 모집 중입니다.</p>
+      <a href="contact.html" class="btn btn-primary" style="margin-top:16px">후원 문의하기</a>
     </div>
   </div>
 </section>
@@ -169,5 +110,38 @@
   </div>
 </footer>
 <script src="js/theme.js"></script>
+<script>
+(async () => {
+  try {
+    const res = await fetch('/api/sponsors');
+    if (!res.ok) throw new Error();
+    const { sponsors } = await res.json();
+    const grid = document.getElementById('sponsors-grid');
+
+    if (sponsors && sponsors.length) {
+      grid.innerHTML = sponsors.map(s => {
+        const inner = s.logo
+          ? `<img src="${esc(s.logo)}" alt="${esc(s.name)}" class="sponsor-card-logo">`
+          : `<div class="sponsor-card-placeholder">🏢</div>`;
+        const name = `<div class="sponsor-card-name">${esc(s.name)}</div>`;
+        if (s.website) {
+          return `<a href="${esc(s.website)}" target="_blank" rel="noopener" class="sponsor-card-item">${inner}${name}</a>`;
+        }
+        return `<div class="sponsor-card-item">${inner}${name}</div>`;
+      }).join('');
+    } else {
+      grid.style.display = 'none';
+      document.getElementById('sponsors-empty').style.display = '';
+    }
+  } catch {
+    document.getElementById('sponsors-grid').style.display = 'none';
+    document.getElementById('sponsors-empty').style.display = '';
+  }
+})();
+
+function esc(str) {
+  return (str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+</script>
 </body>
 </html>
