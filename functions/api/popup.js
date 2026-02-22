@@ -5,7 +5,7 @@ export async function onRequestGet({ env }) {
       'SELECT id, title, image FROM news_items WHERE popup=1 AND published=1 LIMIT 1'
     ).first();
     return Response.json({ popup: row || null });
-  } catch {
+  } catch(e) {
     return Response.json({ popup: null });
   }
 }
