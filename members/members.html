@@ -16,13 +16,9 @@
       <div class="nav-item"><span class="nav-link">Activity <svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l4 4 4-4"/></svg></span><div class="dropdown"><a href="../activity/index.html">Overview</a><a href="../activity/symposium.html">Symposium</a></div></div>
       <div class="nav-item"><span class="nav-link">Registration <svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l4 4 4-4"/></svg></span><div class="dropdown"><a href="../registration/study.html">Study Group</a><a href="../registration/symposium.html">Symposium</a><a href="../registration/workshop.html">Workshop</a></div></div>
       <div class="nav-item"><a href="../sponsor.html" class="nav-link">Sponsor</a></div>
-      <div class="nav-item"><span class="nav-link active">Members <svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l4 4 4-4"/></svg></span><div class="dropdown"><a href="members.html">Members 소개</a><a href="profile.html" data-auth="logout" style="display:none">내 프로필</a></div></div>
+      <div class="nav-item"><a href="members.html" class="nav-link active">Members</a></div>
       <div class="nav-item"><a href="../news/index.html" class="nav-link">News</a></div>
       <div class="nav-item"><a href="../contact.html" class="nav-link">Contact</a></div>
-    </div>
-    <div class="nav-cta" style="display:flex;gap:8px">
-      <a href="login.html" class="btn btn-outline btn-sm" data-auth="login">Login</a>
-      <a href="profile.html" class="btn btn-primary btn-sm" data-auth="logout" style="display:none">My Page</a>
     </div>
     <div class="hamburger"><span></span><span></span><span></span></div>
   </div>
@@ -30,9 +26,7 @@
 <div class="mobile-menu">
   <a href="../index.html" class="mobile-link">Home</a>
   <a href="../about.html" class="mobile-link">About</a>
-  <div class="mobile-section">Members</div>
   <a href="members.html" class="mobile-link">Members 소개</a>
-  <a href="profile.html" class="mobile-link" data-auth="logout" style="display:none">내 프로필</a>
   <a href="../contact.html" class="mobile-link">Contact</a>
 </div>
 
@@ -97,15 +91,11 @@
 
     <!-- ── Tab 3: 2026 TORCH Members ─────────────────── -->
     <div id="tab-current" class="tab-pane">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:28px;flex-wrap:wrap;gap:12px">
-        <p style="margin:0;font-size:.95rem">현재 <strong id="member-count">0</strong>명의 회원이 활동 중입니다.</p>
-        <a href="login.html" class="btn btn-primary btn-sm" data-auth="login">로그인하여 프로필 등록</a>
-        <a href="profile.html" class="btn btn-outline btn-sm" data-auth="logout" style="display:none;border-color:var(--primary);color:var(--primary)">내 프로필 수정</a>
-      </div>
-      <div class="members-grid" id="members-grid-2026">
+      <div id="members-grid-2026" class="members-grid">
         <div style="grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--text-muted)">
           <div style="font-size:3rem;margin-bottom:16px">👥</div>
-          <p>아직 등록된 프로필이 없습니다.</p>
+          <p>2026 회원 소개를 준비 중입니다.</p>
+          <p style="font-size:.88rem">문의: <a href="../contact.html">contact 페이지</a> 또는 <a href="https://www.instagram.com/t_o_r_c_h_study/" target="_blank">Instagram</a></p>
         </div>
       </div>
     </div>
@@ -134,7 +124,6 @@
   </div>
 </footer>
 
-<script src="../js/auth.js"></script>
 <script src="../js/theme.js"></script>
 <script>
 /* ── Tab switching ──────────────────────────── */
@@ -153,37 +142,20 @@ function buildMemberCard(profile) {
   const avatarHtml = profile.photo
     ? `<img src="${profile.photo}" alt="${profile.name}">`
     : initial;
-  const artworkHtml = profile.artworks && profile.artworks.length
-    ? `<div class="member-artworks">${profile.artworks.slice(0,3).map(a => `<img src="${a}" alt="artwork">`).join('')}</div>`
-    : '';
   const websiteHtml = profile.website
     ? `<a href="${profile.website}" target="_blank" class="btn btn-sm btn-dark" style="font-size:.78rem;padding:5px 12px">🌐 웹사이트</a>`
     : '';
   return `
     <div class="member-card">
-      ${artworkHtml}
       <div class="member-avatar">${avatarHtml}</div>
       <div class="member-name">${profile.name || '이름 없음'}</div>
       <div class="member-workplace">${profile.workplace || ''}</div>
       <div class="member-bio">${profile.bio || ''}</div>
-      ${websiteHtml || profile.website ? `<div class="member-links">${websiteHtml}</div>` : ''}
+      ${websiteHtml ? `<div class="member-links">${websiteHtml}</div>` : ''}
     </div>`;
 }
 
-/* ── Load 2026 members from localStorage ──── */
-function loadCurrentMembers() {
-  const profiles = JSON.parse(localStorage.getItem('ts_member_profiles') || '{}');
-  const grid = document.getElementById('members-grid-2026');
-  const keys = Object.keys(profiles).filter(k => profiles[k].year === '2026' || !profiles[k].year);
-
-  document.getElementById('member-count').textContent = keys.length;
-
-  if (!keys.length) return; // keep placeholder
-
-  grid.innerHTML = keys.map(email => buildMemberCard(profiles[email])).join('');
-}
-
-/* ── Alumni placeholder data ─────────────────── */
+/* ── Alumni data ─────────────────────────────── */
 const ALUMNI_DATA = {
   '2025': [
     { name: '이수진', workplace: '서울치과기공소', bio: '고정성 보철 전문. 세라믹 케이스 발표.' },
@@ -201,13 +173,11 @@ const ALUMNI_DATA = {
 function loadAlumni(year) {
   const grid = document.getElementById(`alumni-${year}`);
   if (!grid) return;
-  const data = ALUMNI_DATA[year] || [];
-  grid.innerHTML = data.map(m => buildMemberCard(m)).join('');
+  grid.innerHTML = (ALUMNI_DATA[year] || []).map(m => buildMemberCard(m)).join('');
 }
 
 loadAlumni('2025');
 loadAlumni('2024');
-loadCurrentMembers();
 </script>
 </body>
 </html>
