@@ -240,6 +240,18 @@
   </div>
 </section>
 
+<!-- ── 공지 팝업 ─────────────────────────────────── -->
+<div id="notice-popup" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.72);z-index:10000;align-items:center;justify-content:center;padding:20px">
+  <div style="background:#fff;border-radius:16px;overflow:hidden;max-width:440px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.5);position:relative">
+    <button onclick="closePopup()" style="position:absolute;top:10px;right:14px;background:rgba(0,0,0,.45);color:#fff;border:none;border-radius:50%;width:32px;height:32px;font-size:1.1rem;cursor:pointer;z-index:1;line-height:1">✕</button>
+    <img id="notice-popup-img" src="" alt="공지" style="width:100%;display:block;max-height:520px;object-fit:contain;background:#111">
+    <div style="display:flex;border-top:1px solid #e8e8e8">
+      <button onclick="closePopupToday()" style="flex:1;padding:15px;border:none;background:#f7f7f7;cursor:pointer;font-size:.88rem;color:#555;border-right:1px solid #e8e8e8;transition:background .15s" onmouseover="this.style.background='#eee'" onmouseout="this.style.background='#f7f7f7'">오늘 하루 보지않음</button>
+      <button onclick="closePopupForever()" style="flex:1;padding:15px;border:none;background:#f7f7f7;cursor:pointer;font-size:.88rem;color:#555;transition:background .15s" onmouseover="this.style.background='#eee'" onmouseout="this.style.background='#f7f7f7'">다시 보지 않음</button>
+    </div>
+  </div>
+</div>
+
 <!-- ── Sponsor Banner ─────────────────────────────── -->
 <section id="sponsor-banner-section" class="section" style="padding:32px 0;background:var(--light);display:none">
   <div class="container">
@@ -333,6 +345,36 @@
     document.getElementById('sponsor-banner-section').style.display = '';
   } catch {}
 })();
+
+/* ── 공지 팝업 ─── */
+(async () => {
+  if (localStorage.getItem('torch_popup_forever') === '1') return;
+  const until = localStorage.getItem('torch_popup_until');
+  if (until && new Date(until) > new Date()) return;
+  try {
+    const res = await fetch('/api/popup');
+    if (!res.ok) return;
+    const { popup } = await res.json();
+    if (!popup || !popup.image) return;
+    document.getElementById('notice-popup-img').src = popup.image;
+    const overlay = document.getElementById('notice-popup');
+    overlay.style.display = 'flex';
+    overlay.addEventListener('click', function(e) { if (e.target === this) closePopup(); });
+  } catch {}
+})();
+
+function closePopup() {
+  document.getElementById('notice-popup').style.display = 'none';
+}
+function closePopupToday() {
+  const t = new Date(); t.setDate(t.getDate() + 1); t.setHours(0, 0, 0, 0);
+  localStorage.setItem('torch_popup_until', t.toISOString());
+  closePopup();
+}
+function closePopupForever() {
+  localStorage.setItem('torch_popup_forever', '1');
+  closePopup();
+}
 
 function normalizeUrl(url) {
   if (!url) return '#';

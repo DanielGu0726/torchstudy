@@ -41,11 +41,16 @@
     }
 
     /* ── Lightbox ──────────────────────────── */
-    #artwork-lightbox { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.93); z-index: 9999; align-items: center; justify-content: center; cursor: zoom-out; }
+    #artwork-lightbox { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.93); z-index: 9999; align-items: center; justify-content: center; }
     #artwork-lightbox.open { display: flex; }
-    #artwork-lightbox img { max-width: 95vw; max-height: 92vh; object-fit: contain; border-radius: 6px; box-shadow: 0 8px 48px rgba(0,0,0,.6); pointer-events: none; }
+    #artwork-lightbox img { max-width: 90vw; max-height: 88vh; object-fit: contain; border-radius: 6px; box-shadow: 0 8px 48px rgba(0,0,0,.6); pointer-events: none; display: block; }
     #lightbox-close { position: absolute; top: 20px; right: 28px; color: #fff; font-size: 2.4rem; line-height: 1; cursor: pointer; background: none; border: none; padding: 0; opacity: .8; transition: opacity .15s; }
     #lightbox-close:hover { opacity: 1; }
+    .lightbox-nav { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,.15); color: #fff; border: none; border-radius: 50%; width: 48px; height: 48px; font-size: 1.6rem; cursor: pointer; transition: background .15s; display: none; align-items: center; justify-content: center; }
+    .lightbox-nav:hover { background: rgba(255,255,255,.3); }
+    #lightbox-prev { left: 20px; }
+    #lightbox-next { right: 20px; }
+    #lightbox-counter { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); color: rgba(255,255,255,.8); font-size: .88rem; font-weight: 600; display: none; background: rgba(0,0,0,.4); padding: 4px 12px; border-radius: 20px; }
   </style>
 </head>
 <body>
@@ -143,7 +148,10 @@
 <!-- ── Artwork Lightbox ─────────────────────── -->
 <div id="artwork-lightbox" onclick="closeLightbox()">
   <button id="lightbox-close" onclick="closeLightbox()" aria-label="닫기">✕</button>
+  <button id="lightbox-prev" class="lightbox-nav" onclick="event.stopPropagation();lightboxNav(-1)" aria-label="이전">‹</button>
   <img id="lightbox-img" src="" alt="Artwork">
+  <button id="lightbox-next" class="lightbox-nav" onclick="event.stopPropagation();lightboxNav(1)" aria-label="다음">›</button>
+  <div id="lightbox-counter"></div>
 </div>
 
 <footer class="footer">
@@ -317,9 +325,16 @@ async function loadCurrentMembers() {
 }
 
 /* ── Build member card ──────────────────────── */
-// Artwork stored by card index to avoid base64-in-onclick issues
 const _artworkStore = {};
 let _cardIdx = 0;
+
+function parseArtworks(raw) {
+  if (!raw) return [];
+  try {
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) ? parsed : [raw];
+  } catch { return [raw]; }
+}
 
 function buildMemberCard(m) {
   const initial = (m.name || '?').replace(/\s/g, '')[0] || '?';
@@ -331,16 +346,14 @@ function buildMemberCard(m) {
     ? `<div style="margin-top:14px"><a href="${esc(m.webpage)}" target="_blank" rel="noopener" class="btn btn-sm btn-dark" style="font-size:.78rem;padding:5px 12px" onclick="event.stopPropagation()">🌐 웹사이트</a></div>`
     : '';
 
-  // Artwork: hidden from card; card click opens lightbox
-  let cardAttrs = '';
+  const artworks = parseArtworks(m.artwork);
+  let cardAttrs = 'class="member-row-card"';
   let artworkHint = '';
-  if (m.artwork) {
+  if (artworks.length > 0) {
     const idx = _cardIdx++;
-    _artworkStore[idx] = m.artwork;
+    _artworkStore[idx] = m.artwork; // raw string (single b64 or JSON array)
     cardAttrs = `class="member-row-card has-artwork" onclick="openLightbox(_artworkStore[${idx}])"`;
-    artworkHint = `<div class="artwork-hint">🖼 Artwork 보기</div>`;
-  } else {
-    cardAttrs = `class="member-row-card"`;
+    artworkHint = `<div class="artwork-hint">🖼 Artwork${artworks.length > 1 ? ' ' + artworks.length + '장' : ''} 보기</div>`;
   }
 
   return `
@@ -357,18 +370,52 @@ function buildMemberCard(m) {
     </div>`;
 }
 
-/* ── Lightbox ───────────────────────────────── */
-function openLightbox(src) {
-  document.getElementById('lightbox-img').src = src;
+/* ── Lightbox (carousel) ────────────────────── */
+let _lightboxImages = [];
+let _lightboxIdx = 0;
+
+function openLightbox(artworkRaw) {
+  _lightboxImages = parseArtworks(artworkRaw);
+  _lightboxIdx = 0;
+  _renderLightbox();
   document.getElementById('artwork-lightbox').classList.add('open');
   document.body.style.overflow = 'hidden';
 }
+
+function _renderLightbox() {
+  document.getElementById('lightbox-img').src = _lightboxImages[_lightboxIdx] || '';
+  const multi = _lightboxImages.length > 1;
+  const prev = document.getElementById('lightbox-prev');
+  const next = document.getElementById('lightbox-next');
+  const counter = document.getElementById('lightbox-counter');
+  prev.style.display = multi && _lightboxIdx > 0 ? 'flex' : 'none';
+  next.style.display = multi && _lightboxIdx < _lightboxImages.length - 1 ? 'flex' : 'none';
+  if (multi) {
+    counter.textContent = `${_lightboxIdx + 1} / ${_lightboxImages.length}`;
+    counter.style.display = 'block';
+  } else {
+    counter.style.display = 'none';
+  }
+}
+
+function lightboxNav(dir) {
+  _lightboxIdx = Math.max(0, Math.min(_lightboxImages.length - 1, _lightboxIdx + dir));
+  _renderLightbox();
+}
+
 function closeLightbox() {
   document.getElementById('artwork-lightbox').classList.remove('open');
   document.getElementById('lightbox-img').src = '';
+  _lightboxImages = [];
   document.body.style.overflow = '';
 }
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+
+document.addEventListener('keydown', e => {
+  if (!document.getElementById('artwork-lightbox').classList.contains('open')) return;
+  if (e.key === 'Escape') closeLightbox();
+  if (e.key === 'ArrowLeft')  lightboxNav(-1);
+  if (e.key === 'ArrowRight') lightboxNav(1);
+});
 
 /* ── Init ───────────────────────────────────── */
 loadPresident();

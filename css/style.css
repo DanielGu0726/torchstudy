@@ -816,8 +816,8 @@ tbody tr:last-child td { border-bottom: none; }
      버튼·히어로·thead 등은 명시적으로 #fff 고정
    ═══════════════════════════════════════════════════ */
 [data-theme="dark"] {
-  --white:     #1e2235;   /* 카드·패널·폼 배경 */
-  --light:     #14162a;   /* 페이지·섹션 배경  */
+  --white:     #181929;   /* 카드·패널·폼 배경 */
+  --light:     #09091a;   /* 페이지·섹션 배경  */
   --text:      #e2e8f0;
   --text-muted:#8892a4;
   --border:    #2c3157;

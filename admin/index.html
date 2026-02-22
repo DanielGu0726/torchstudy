@@ -275,8 +275,8 @@
             </div>
             <div class="table-wrap">
               <table>
-                <thead><tr><th>#</th><th>제목</th><th>카테고리</th><th>날짜</th><th>공개</th><th>관리</th></tr></thead>
-                <tbody id="news-tbody"><tr><td colspan="6" style="text-align:center;padding:24px;color:var(--text-muted)">불러오는 중…</td></tr></tbody>
+                <thead><tr><th>#</th><th>제목</th><th>카테고리</th><th>날짜</th><th>공개</th><th>팝업</th><th>관리</th></tr></thead>
+                <tbody id="news-tbody"><tr><td colspan="7" style="text-align:center;padding:24px;color:var(--text-muted)">불러오는 중…</td></tr></tbody>
               </table>
             </div>
           </div>
@@ -721,7 +721,7 @@ async function loadNewsAdmin(){
   const {news}=await res.json();
   const tbody=document.getElementById('news-tbody');
   if(!news||!news.length){
-    tbody.innerHTML='<tr><td colspan="6" style="text-align:center;padding:24px;color:var(--text-muted)">공지 없음</td></tr>';
+    tbody.innerHTML='<tr><td colspan="7" style="text-align:center;padding:24px;color:var(--text-muted)">공지 없음</td></tr>';
     return;
   }
   news.forEach(n => { _store['n_'+n.id] = n; });
@@ -732,9 +732,11 @@ async function loadNewsAdmin(){
       <td><span class="badge badge-info">${esc(n.category)}</span></td>
       <td style="font-size:.82rem">${(n.created_at||'').slice(0,10)}</td>
       <td>${n.published?'✅':'—'}</td>
+      <td>${n.popup?'<span style="color:#e84118;font-weight:700">📢 ON</span>':'—'}</td>
       <td><div class="table-actions">
         <button onclick="editNews(${n.id})">✏️</button>
         <button onclick="toggleNews(${n.id},${n.published?0:1})">${n.published?'숨기기':'공개'}</button>
+        <button onclick="toggleNewsPopup(${n.id},${n.popup?0:1})" title="홈 팝업 on/off" style="${n.popup?'color:var(--primary)':''}">${n.popup?'📢끄기':'📢팝업'}</button>
         <button onclick="delNews(${n.id})" style="color:var(--danger)">🗑</button>
       </div></td>
     </tr>
@@ -744,6 +746,11 @@ async function loadNewsAdmin(){
 async function toggleNews(id,published){
   await fetch('/api/admin/news',{method:'PATCH',headers:{'Content-Type':'application/json'},body:JSON.stringify({id,published:!!published})});
   toast('변경됨'); loadNewsAdmin();
+}
+
+async function toggleNewsPopup(id,popup){
+  await fetch('/api/admin/news',{method:'PATCH',headers:{'Content-Type':'application/json'},body:JSON.stringify({id,popup:!!popup})});
+  toast(popup?'팝업 설정됨':'팝업 해제됨'); loadNewsAdmin();
 }
 
 async function delNews(id){
@@ -977,14 +984,20 @@ function openModal(type, data=null){
       <div class="form-group"><label>프로필 사진</label><input type="file" accept="image/*" id="m-photo-input" style="display:block;margin-top:6px"><input type="hidden" id="m-photo" value="${esc(data?.photo||'')}">
         ${data?.photo?`<img src="${esc(data.photo)}" class="img-preview">`:''}
       </div>
-      <div class="form-group"><label>Artwork 이미지</label><input type="file" accept="image/*" id="m-artwork-input" style="display:block;margin-top:6px"><input type="hidden" id="m-artwork" value="${esc(data?.artwork||'')}">
-        ${data?.artwork?`<img src="${esc(data.artwork)}" class="img-preview">`:''}
+      <div class="form-group"><label>Artwork 이미지 <span style="font-size:.78rem;color:var(--text-muted)">(여러 장 가능)</span></label>
+        <div id="artwork-thumbs" style="display:flex;flex-wrap:wrap;gap:8px;margin:8px 0"></div>
+        <button type="button" onclick="addArtworkFile()" class="btn btn-dark btn-sm">+ 이미지 추가</button>
+        <input type="file" accept="image/*" id="m-artwork-picker" style="display:none">
+        <input type="hidden" id="m-artwork" value="${esc(data?.artwork||'')}">
       </div>`;
     document.getElementById('m-photo-input').addEventListener('change',function(){
       resizeImage(this.files[0],400,400,(b64)=>{ document.getElementById('m-photo').value=b64; });
     });
-    document.getElementById('m-artwork-input').addEventListener('change',function(){
-      resizeImage(this.files[0],800,600,(b64)=>{ document.getElementById('m-artwork').value=b64; });
+    initArtworks(data);
+    document.getElementById('m-artwork-picker').addEventListener('change',function(){
+      if(!this.files[0]) return;
+      resizeImage(this.files[0],900,700,(b64)=>{ _artworksList.push(b64); renderArtworkThumbs(); });
+      this.value='';
     });
   } else if(type==='news'){
     title.textContent=(data?'공지 수정':'공지 작성');
@@ -993,8 +1006,18 @@ function openModal(type, data=null){
       <div class="form-group"><label>카테고리</label><select class="form-control" id="m-category">
         ${['공지','행사','워크샵','소식'].map(c=>`<option${data?.category===c?' selected':''}>${c}</option>`).join('')}
       </select></div>
-      <div class="form-group"><label>내용</label><textarea class="form-control" id="m-content" rows="6">${esc(data?.content||'')}</textarea></div>
+      <div class="form-group"><label>내용</label><textarea class="form-control" id="m-content" rows="5">${esc(data?.content||'')}</textarea></div>
+      <div class="form-group"><label>첨부 이미지 <span style="font-size:.78rem;color:var(--text-muted)">(팝업에 표시될 이미지)</span></label>
+        <input type="file" accept="image/*" id="m-news-img-input" style="display:block;margin-top:6px">
+        <input type="hidden" id="m-news-img" value="${esc(data?.image||'')}">
+        ${data?.image?`<img src="${esc(data.image)}" class="img-preview" style="max-height:140px">`:''}</div>
+      <div class="form-group" style="background:rgba(232,65,24,.06);border:1px solid rgba(232,65,24,.2);border-radius:var(--radius);padding:12px">
+        <label class="check-item" style="display:flex;align-items:center;gap:8px;cursor:pointer"><input type="checkbox" id="m-popup" ${data?.popup?'checked':''}> <span>📢 홈 화면 팝업으로 표시 <span style="font-size:.78rem;color:var(--text-muted)">(이미지 필수, 기존 팝업 대체)</span></span></label>
+      </div>
       <div class="form-group"><label class="check-item"><input type="checkbox" id="m-published" ${!data||data.published?'checked':''}> <span>즉시 공개</span></label></div>`;
+    document.getElementById('m-news-img-input').addEventListener('change',function(){
+      resizeImage(this.files[0],900,1200,(b64)=>{ document.getElementById('m-news-img').value=b64; });
+    });
   } else if(type==='sponsor'){
     title.textContent=(data?'후원사 수정':'후원사 추가');
     body.innerHTML=`
@@ -1034,7 +1057,7 @@ async function modalSave(){
     if(isEdit){ body.id=data.id; url='/api/admin/members-list'; method='PATCH'; }
     else{ url='/api/admin/members-list'; method='POST'; }
   } else if(modalType==='news'){
-    body={ title:val('m-title'),content:val('m-content'),category:val('m-category'),published:document.getElementById('m-published').checked };
+    body={ title:val('m-title'),content:val('m-content'),category:val('m-category'),image:val('m-news-img'),popup:document.getElementById('m-popup').checked,published:document.getElementById('m-published').checked };
     if(isEdit){ body.id=data.id; url='/api/admin/news'; method='PATCH'; }
     else{ url='/api/admin/news'; method='POST'; }
   } else if(modalType==='sponsor'){
@@ -1061,6 +1084,38 @@ function editSession(id){ openModal('session', _store['s_' +id]); }
 function editMember(id) { openModal('member',  _store['m_' +id]); }
 function editNews(id)   { openModal('news',    _store['n_' +id]); }
 function editSponsor(id){ openModal('sponsor', _store['sp_'+id]); }
+
+/* ══════════════════════════════════════════
+   MULTI-ARTWORK HELPERS
+══════════════════════════════════════════ */
+let _artworksList = [];
+
+function initArtworks(data) {
+  _artworksList = [];
+  if (data?.artwork) {
+    try {
+      const parsed = JSON.parse(data.artwork);
+      _artworksList = Array.isArray(parsed) ? parsed : [data.artwork];
+    } catch { _artworksList = [data.artwork]; }
+  }
+  renderArtworkThumbs();
+}
+
+function renderArtworkThumbs() {
+  const container = document.getElementById('artwork-thumbs');
+  if (!container) return;
+  container.innerHTML = _artworksList.map((src, i) => `
+    <div style="position:relative;display:inline-block">
+      <img src="${src}" style="width:76px;height:58px;object-fit:cover;border-radius:6px;border:1px solid var(--border)">
+      <button type="button" onclick="removeArtwork(${i})" style="position:absolute;top:-6px;right:-6px;background:var(--danger);color:#fff;border:none;border-radius:50%;width:18px;height:18px;font-size:.65rem;cursor:pointer;line-height:18px;padding:0;text-align:center">✕</button>
+    </div>`).join('');
+  const hidden = document.getElementById('m-artwork');
+  if (hidden) hidden.value = JSON.stringify(_artworksList);
+}
+
+function addArtworkFile() { document.getElementById('m-artwork-picker').click(); }
+
+function removeArtwork(i) { _artworksList.splice(i, 1); renderArtworkThumbs(); }
 
 /* ══════════════════════════════════════════
    IMAGE RESIZE HELPER
