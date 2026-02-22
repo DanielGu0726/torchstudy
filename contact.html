@@ -20,6 +20,10 @@
       <div class="nav-item"><a href="news/index.html" class="nav-link">News</a></div>
       <div class="nav-item"><a href="contact.html" class="nav-link active">Contact</a></div>
     </div>
+    <div class="lang-toggle">
+      <button class="lang-btn active" id="btn-ko" onclick="I18n.setLang('ko')">KOR</button>
+      <button class="lang-btn" id="btn-en" onclick="I18n.setLang('en')">ENG</button>
+    </div>
     <div class="hamburger"><span></span><span></span><span></span></div>
   </div>
 </nav>
@@ -28,14 +32,14 @@
   <a href="about.html" class="mobile-link">About</a>
   <a href="sponsor.html" class="mobile-link">Sponsor</a>
   <a href="contact.html" class="mobile-link">Contact</a>
-  <a href="members/members.html" class="mobile-link">Members 소개</a>
+  <a href="members/members.html" class="mobile-link" data-i18n="mobile.members">Members 소개</a>
 </div>
 
 <div class="page-header">
   <div class="container">
     <span class="eyebrow">Get in Touch</span>
-    <h1>문의하기</h1>
-    <p>스터디 참가, 후원, 협업, 또는 궁금한 점이 있으시면 편하게 연락주세요.</p>
+    <h1 data-i18n="contact.header.h1">문의하기</h1>
+    <p data-i18n="contact.header.p">스터디 참가, 후원, 협업, 또는 궁금한 점이 있으시면 편하게 연락주세요.</p>
     <div class="breadcrumb"><a href="index.html">Home</a><span>/</span><span>Contact</span></div>
   </div>
 </div>
@@ -45,48 +49,48 @@
     <div class="contact-grid">
       <!-- Info -->
       <div>
-        <h3 style="margin-bottom:24px">연락처</h3>
+        <h3 style="margin-bottom:24px" data-i18n="contact.info.h3">연락처</h3>
         <div class="contact-info">
           <div class="contact-item">
             <div class="contact-icon">📷</div>
             <div>
               <h4>Instagram</h4>
-              <p><a href="https://www.instagram.com/t_o_r_c_h_study/" target="_blank">@t_o_r_c_h_study</a><br>가장 빠르게 소식을 확인할 수 있습니다.</p>
+              <p><a href="https://www.instagram.com/t_o_r_c_h_study/" target="_blank">@t_o_r_c_h_study</a><br><span data-i18n="contact.instagram.p">가장 빠르게 소식을 확인할 수 있습니다.</span></p>
             </div>
           </div>
         </div>
 
         <div style="margin-top:32px;padding:24px;background:var(--dark);border-radius:var(--radius-lg)">
-          <h4 class="text-white" style="margin-bottom:12px">자주 묻는 질문</h4>
+          <h4 class="text-white" style="margin-bottom:12px" data-i18n="contact.faq.h4">자주 묻는 질문</h4>
           <div style="display:flex;flex-direction:column;gap:12px">
-            <div><p style="font-size:.85rem;font-weight:600;color:rgba(255,255,255,.9);margin-bottom:2px">TORCH에 가입하려면?</p><p style="font-size:.82rem"><a href="registration/study.html">스터디 참가 신청서</a>를 작성해주세요.</p></div>
-            <div><p style="font-size:.85rem;font-weight:600;color:rgba(255,255,255,.9);margin-bottom:2px">스폰서십 문의는?</p><p style="font-size:.82rem"><a href="sponsor.html">후원 안내 페이지</a>를 먼저 확인 후 문의해주세요.</p></div>
+            <div><p style="font-size:.85rem;font-weight:600;color:rgba(255,255,255,.9);margin-bottom:2px" data-i18n="contact.faq.q1">TORCH에 가입하려면?</p><p style="font-size:.82rem" data-i18n-html="contact.faq.a1"><a href="registration/study.html">스터디 참가 신청서</a>를 작성해주세요.</p></div>
+            <div><p style="font-size:.85rem;font-weight:600;color:rgba(255,255,255,.9);margin-bottom:2px" data-i18n="contact.faq.q2">스폰서십 문의는?</p><p style="font-size:.82rem" data-i18n-html="contact.faq.a2"><a href="sponsor.html">후원 안내 페이지</a>를 먼저 확인 후 문의해주세요.</p></div>
           </div>
         </div>
       </div>
 
       <!-- Form -->
       <div class="form-card" style="max-width:100%">
-        <h3 style="margin-bottom:6px">메시지 보내기</h3>
-        <p style="font-size:.88rem;margin-bottom:24px">궁금하신 점을 남겨주시면 빠르게 답변드리겠습니다.</p>
+        <h3 style="margin-bottom:6px" data-i18n="contact.form.h3">메시지 보내기</h3>
+        <p style="font-size:.88rem;margin-bottom:24px" data-i18n="contact.form.p">궁금하신 점을 남겨주시면 빠르게 답변드리겠습니다.</p>
 
         <div id="form-alert" class="alert"><span class="alert-msg"></span></div>
 
         <form id="contact-form">
           <div class="form-row">
             <div class="form-group">
-              <label class="required">이름</label>
-              <input class="form-control" name="name" placeholder="홍길동" required>
+              <label class="required" data-i18n="form.name">이름</label>
+              <input class="form-control" name="name" data-i18n-placeholder="form.name.ph" placeholder="홍길동" required>
               <div class="error-msg"></div>
             </div>
             <div class="form-group">
-              <label class="required">연락처</label>
-              <input class="form-control" name="phone" data-validate="phone" placeholder="010-0000-0000" required>
+              <label class="required" data-i18n="form.phone">연락처</label>
+              <input class="form-control" name="phone" data-validate="phone" data-i18n-placeholder="form.phone.ph" placeholder="010-0000-0000" required>
               <div class="error-msg"></div>
             </div>
           </div>
           <div class="form-group">
-            <label class="required">문의 유형</label>
+            <label class="required" data-i18n="contact.form.subject.label">문의 유형</label>
             <select class="form-control" name="subject" required>
               <option value="">선택…</option>
               <option>스터디 참가 문의</option>
@@ -98,14 +102,14 @@
             <div class="error-msg"></div>
           </div>
           <div class="form-group">
-            <label class="required">메시지</label>
-            <textarea class="form-control" name="message" rows="6" placeholder="문의 내용을 자유롭게 작성해주세요." required></textarea>
+            <label class="required" data-i18n="contact.form.message.label">메시지</label>
+            <textarea class="form-control" name="message" rows="6" data-i18n-placeholder="contact.form.message.ph" placeholder="문의 내용을 자유롭게 작성해주세요." required></textarea>
             <div class="error-msg"></div>
           </div>
           <div class="form-group">
-            <label class="check-item"><input type="checkbox" required> <span><a href="#">개인정보 처리방침</a>에 동의합니다</span></label>
+            <label class="check-item"><input type="checkbox" required> <span data-i18n-html="contact.form.privacy"><a href="#">개인정보 처리방침</a>에 동의합니다</span></label>
           </div>
-          <button type="submit" class="btn btn-primary btn-block btn-lg">메시지 전송</button>
+          <button type="submit" class="btn btn-primary btn-block btn-lg" data-i18n="contact.form.submit">메시지 전송</button>
         </form>
       </div>
     </div>
@@ -117,14 +121,14 @@
     <div class="footer-grid">
       <div class="footer-brand">
         <a href="index.html" class="nav-logo"><div class="logo-icon">🔥</div>TORCH</a>
-        <p style="margin-top:12px">Korea Young Dental Technician Study<br>기술 · 기회 · 보완 · 도전 · 희망</p>
+        <p style="margin-top:12px" data-i18n-html="footer.brand.p">Korea Young Dental Technician Study<br>기술 · 기회 · 보완 · 도전 · 희망</p>
         <div style="margin-top:16px"><a href="https://www.instagram.com/t_o_r_c_h_study/" target="_blank" class="btn btn-sm" style="background:rgba(255,255,255,.08);color:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.15)">📷 @t_o_r_c_h_study</a></div>
       </div>
       <div class="footer-col"><h4>Pages</h4><ul><li><a href="about.html">About</a></li><li><a href="activity/index.html">Activity</a></li><li><a href="sponsor.html">Sponsor</a></li></ul></div>
       <div class="footer-col"><h4>Registration</h4><ul><li><a href="registration/study.html">Study Group</a></li><li><a href="registration/symposium.html">Symposium</a></li><li><a href="registration/workshop.html">Workshop</a></li></ul></div>
       <div class="footer-col"><h4>Community</h4><ul><li><a href="news/index.html">News</a></li><li><a href="contact.html">Contact</a></li></ul></div>
     </div>
-    <div class="footer-bottom"><span>© 2025 TORCH – Korea Young Dental Technician Study. All rights reserved.</span></div>
+    <div class="footer-bottom"><span data-i18n="footer.copyright">© 2025 TORCH – Korea Young Dental Technician Study. All rights reserved.</span></div>
   </div>
 </footer>
 
@@ -155,5 +159,6 @@ document.getElementById('contact-form').addEventListener('submit', async functio
 });
 </script>
 <script src="js/theme.js"></script>
+<script src="js/i18n.js"></script>
 </body>
 </html>

@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
@@ -23,6 +23,10 @@
       <div class="nav-item"><a href="news/index.html" class="nav-link">News</a></div>
       <div class="nav-item"><a href="contact.html" class="nav-link">Contact</a></div>
     </div>
+    <div class="lang-toggle">
+      <button class="lang-btn active" id="btn-ko" onclick="I18n.setLang('ko')">KOR</button>
+      <button class="lang-btn" id="btn-en" onclick="I18n.setLang('en')">ENG</button>
+    </div>
     <div class="hamburger"><span></span><span></span><span></span></div>
   </div>
 </nav>
@@ -30,18 +34,18 @@
   <a href="index.html" class="mobile-link">Home</a>
   <a href="about.html" class="mobile-link">About</a>
   <a href="activity/index.html" class="mobile-link">Activity</a>
-  <a href="registration/study.html" class="mobile-link">Study 신청</a>
+  <a href="registration/study.html" class="mobile-link" data-i18n="mobile.study">Study 신청</a>
   <a href="sponsor.html" class="mobile-link">Sponsor</a>
   <a href="news/index.html" class="mobile-link">News</a>
   <a href="contact.html" class="mobile-link">Contact</a>
-  <a href="members/members.html" class="mobile-link">Members 소개</a>
+  <a href="members/members.html" class="mobile-link" data-i18n="mobile.members">Members 소개</a>
 </div>
 
 <div class="page-header">
   <div class="container">
     <span class="eyebrow">Who We Are</span>
     <h1>About TORCH</h1>
-    <p>대한민국의 젊은 치과기공사들이 기술 향상과 상호 성장을 위해 뭉쳤습니다.</p>
+    <p data-i18n="about.header.p">대한민국의 젊은 치과기공사들이 기술 향상과 상호 성장을 위해 뭉쳤습니다.</p>
     <div class="breadcrumb"><a href="index.html">Home</a><span>/</span><span>About</span></div>
   </div>
 </div>
@@ -51,39 +55,39 @@
   <div class="container">
     <div class="section-header">
       <span class="eyebrow">Our Name</span>
-      <h2>TORCH란?</h2>
+      <h2 data-i18n="about.name.h2">TORCH란?</h2>
       <div class="divider"></div>
-      <p>TORCH는 단순한 이름이 아닙니다. 우리가 추구하는 다섯 가지 핵심 가치의 머리글자입니다.</p>
+      <p data-i18n="about.name.p">TORCH는 단순한 이름이 아닙니다. 우리가 추구하는 다섯 가지 핵심 가치의 머리글자입니다.</p>
     </div>
     <div class="grid-5" style="display:grid;grid-template-columns:repeat(5,1fr);gap:16px">
       <div class="card text-center" style="border-top:3px solid var(--primary)">
         <div style="font-size:2.5rem;font-weight:900;color:var(--primary);margin-bottom:8px">T</div>
         <h3 style="font-size:1rem;margin-bottom:8px">Technology</h3>
-        <p style="font-size:.82rem">최신 치과기공 기술을 꾸준히 습득하고 실력을 키운다</p>
+        <p style="font-size:.82rem" data-i18n="about.t.p">최신 치과기공 기술을 꾸준히 습득하고 실력을 키운다</p>
       </div>
       <div class="card text-center" style="border-top:3px solid var(--primary)">
         <div style="font-size:2.5rem;font-weight:900;color:var(--primary);margin-bottom:8px">O</div>
         <h3 style="font-size:1rem;margin-bottom:8px">Opportunity</h3>
-        <p style="font-size:.82rem">모든 기회를 놓치지 않고 성장의 발판으로 삼는다</p>
+        <p style="font-size:.82rem" data-i18n="about.o.p">모든 기회를 놓치지 않고 성장의 발판으로 삼는다</p>
       </div>
       <div class="card text-center" style="border-top:3px solid var(--primary)">
         <div style="font-size:2.5rem;font-weight:900;color:var(--primary);margin-bottom:8px">R</div>
         <h3 style="font-size:1rem;margin-bottom:8px">Redeem</h3>
-        <p style="font-size:.82rem">부족함을 인정하고 끊임없이 보완하며 발전한다</p>
+        <p style="font-size:.82rem" data-i18n="about.r.p">부족함을 인정하고 끊임없이 보완하며 발전한다</p>
       </div>
       <div class="card text-center" style="border-top:3px solid var(--primary)">
         <div style="font-size:2.5rem;font-weight:900;color:var(--primary);margin-bottom:8px">C</div>
         <h3 style="font-size:1rem;margin-bottom:8px">Challenge</h3>
-        <p style="font-size:.82rem">새로운 도전을 두려워하지 않는 진취적 자세를 갖는다</p>
+        <p style="font-size:.82rem" data-i18n="about.c.p">새로운 도전을 두려워하지 않는 진취적 자세를 갖는다</p>
       </div>
       <div class="card text-center" style="border-top:3px solid var(--primary)">
         <div style="font-size:2.5rem;font-weight:900;color:var(--primary);margin-bottom:8px">H</div>
         <h3 style="font-size:1rem;margin-bottom:8px">Hope</h3>
-        <p style="font-size:.82rem">희망을 품고 치과기공의 미래를 함께 만들어 나간다</p>
+        <p style="font-size:.82rem" data-i18n="about.h.p">희망을 품고 치과기공의 미래를 함께 만들어 나간다</p>
       </div>
     </div>
     <div style="margin-top:40px;padding:32px;background:var(--light);border-radius:var(--radius-lg);text-align:center;border-left:4px solid var(--primary)">
-      <p style="font-size:1.1rem;font-style:italic;color:var(--text);line-height:1.8;max-width:700px;margin:0 auto">
+      <p style="font-size:1.1rem;font-style:italic;color:var(--text);line-height:1.8;max-width:700px;margin:0 auto" data-i18n-html="about.quote">
         "우리는 기술을 늘리기 위해 기회를 놓치지 않고 보완하며,<br>도전에 마다하지 않으며 희망에 도약한다."
       </p>
     </div>
@@ -96,31 +100,31 @@
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center">
       <div>
         <span class="eyebrow" style="color:var(--primary)">Our Mission</span>
-        <h2 class="text-white" style="margin:12px 0 18px">대한민국 치과기공의<br>미래를 함께 만든다</h2>
-        <p style="margin-bottom:16px">TORCH는 대한민국의 젊은 치과기공사들이 더 나은 내일을 위해 스스로 모인 자발적 학습 공동체입니다. 임상 현장에서 마주하는 어려움을 함께 해결하고, 국내외 최신 트렌드를 공유하며, 치과기공 직업의 전문성과 사회적 위상을 높이기 위해 노력합니다.</p>
-        <p>학벌이나 경력보다는 배우고자 하는 열정, 그리고 동료를 돕고자 하는 마음을 가진 분이라면 누구든 환영합니다.</p>
-        <a href="registration/study.html" class="btn btn-primary mt-3">지금 가입 신청하기</a>
+        <h2 class="text-white" style="margin:12px 0 18px" data-i18n-html="about.mission.h2">대한민국 치과기공의<br>미래를 함께 만든다</h2>
+        <p style="margin-bottom:16px" data-i18n="about.mission.p1">TORCH는 대한민국의 젊은 치과기공사들이 더 나은 내일을 위해 스스로 모인 자발적 학습 공동체입니다. 임상 현장에서 마주하는 어려움을 함께 해결하고, 국내외 최신 트렌드를 공유하며, 치과기공 직업의 전문성과 사회적 위상을 높이기 위해 노력합니다.</p>
+        <p data-i18n="about.mission.p2">학벌이나 경력보다는 배우고자 하는 열정, 그리고 동료를 돕고자 하는 마음을 가진 분이라면 누구든 환영합니다.</p>
+        <a href="registration/study.html" class="btn btn-primary mt-3" data-i18n="about.mission.btn">지금 가입 신청하기</a>
       </div>
       <div class="grid-2" style="gap:16px">
         <div class="card" style="text-align:center">
           <div style="font-size:2rem;margin-bottom:8px">🦷</div>
-          <h4>임상 중심</h4>
-          <p style="font-size:.85rem">이론보다 실제 임상에서 적용 가능한 지식과 기술을 우선합니다.</p>
+          <h4 data-i18n="about.mission.c1.h4">임상 중심</h4>
+          <p style="font-size:.85rem" data-i18n="about.mission.c1.p">이론보다 실제 임상에서 적용 가능한 지식과 기술을 우선합니다.</p>
         </div>
         <div class="card" style="text-align:center">
           <div style="font-size:2rem;margin-bottom:8px">🌐</div>
-          <h4>열린 공동체</h4>
-          <p style="font-size:.85rem">치과기공사라면 경력·지역에 상관없이 누구에게나 열려 있습니다.</p>
+          <h4 data-i18n="about.mission.c2.h4">열린 공동체</h4>
+          <p style="font-size:.85rem" data-i18n="about.mission.c2.p">치과기공사라면 경력·지역에 상관없이 누구에게나 열려 있습니다.</p>
         </div>
         <div class="card" style="text-align:center">
           <div style="font-size:2rem;margin-bottom:8px">💡</div>
-          <h4>지식 공유</h4>
-          <p style="font-size:.85rem">아는 것을 나눌수록 커지는 것을 믿습니다. 함께 배우고 가르칩니다.</p>
+          <h4 data-i18n="about.mission.c3.h4">지식 공유</h4>
+          <p style="font-size:.85rem" data-i18n="about.mission.c3.p">아는 것을 나눌수록 커지는 것을 믿습니다. 함께 배우고 가르칩니다.</p>
         </div>
         <div class="card" style="text-align:center">
           <div style="font-size:2rem;margin-bottom:8px">🚀</div>
-          <h4>디지털 전환</h4>
-          <p style="font-size:.85rem">아날로그와 디지털을 함께 이해하는 균형 있는 치과기공사를 지향합니다.</p>
+          <h4 data-i18n="about.mission.c4.h4">디지털 전환</h4>
+          <p style="font-size:.85rem" data-i18n="about.mission.c4.p">아날로그와 디지털을 함께 이해하는 균형 있는 치과기공사를 지향합니다.</p>
         </div>
       </div>
     </div>
@@ -132,35 +136,35 @@
   <div class="container">
     <div class="section-header">
       <span class="eyebrow">Our Story</span>
-      <h2>TORCH의 발자취</h2>
+      <h2 data-i18n="about.timeline.h2">TORCH의 발자취</h2>
       <div class="divider"></div>
     </div>
     <div style="max-width:640px;margin:0 auto">
       <div class="timeline">
         <div class="timeline-item">
-          <div class="timeline-date">2022년 창립</div>
-          <div class="timeline-title">TORCH 창립</div>
-          <div class="timeline-body"><p>뜻이 맞는 젊은 치과기공사 몇 명이 모여 자발적 학습 모임을 시작했습니다. 첫 번째 스터디 주제는 '전치부 세라믹 수복의 색조 재현'이었습니다.</p></div>
+          <div class="timeline-date" data-i18n="about.tl1.date">2022년 창립</div>
+          <div class="timeline-title" data-i18n="about.tl1.title">TORCH 창립</div>
+          <div class="timeline-body"><p data-i18n="about.tl1.p">뜻이 맞는 젊은 치과기공사 몇 명이 모여 자발적 학습 모임을 시작했습니다. 첫 번째 스터디 주제는 '전치부 세라믹 수복의 색조 재현'이었습니다.</p></div>
         </div>
         <div class="timeline-item">
-          <div class="timeline-date">2022년 하반기</div>
-          <div class="timeline-title">공개 스터디 첫 개최</div>
-          <div class="timeline-body"><p>SNS를 통해 첫 공개 스터디를 모집하여 30여 명이 참가했고, TORCH의 이름이 치과기공 커뮤니티에 알려지기 시작했습니다.</p></div>
+          <div class="timeline-date" data-i18n="about.tl2.date">2022년 하반기</div>
+          <div class="timeline-title" data-i18n="about.tl2.title">공개 스터디 첫 개최</div>
+          <div class="timeline-body"><p data-i18n="about.tl2.p">SNS를 통해 첫 공개 스터디를 모집하여 30여 명이 참가했고, TORCH의 이름이 치과기공 커뮤니티에 알려지기 시작했습니다.</p></div>
         </div>
         <div class="timeline-item">
-          <div class="timeline-date">2023년</div>
-          <div class="timeline-title">제1회 TORCH 심포지엄</div>
-          <div class="timeline-body"><p>회원들의 임상 케이스 발표와 초청 강사의 특별 강연으로 구성된 첫 번째 심포지엄을 성공적으로 개최했습니다.</p></div>
+          <div class="timeline-date" data-i18n="about.tl3.date">2023년</div>
+          <div class="timeline-title" data-i18n="about.tl3.title">제1회 TORCH 심포지엄</div>
+          <div class="timeline-body"><p data-i18n="about.tl3.p">회원들의 임상 케이스 발표와 초청 강사의 특별 강연으로 구성된 첫 번째 심포지엄을 성공적으로 개최했습니다.</p></div>
         </div>
         <div class="timeline-item">
-          <div class="timeline-date">2024년</div>
-          <div class="timeline-title">워크샵 프로그램 론칭</div>
-          <div class="timeline-body"><p>CAD/CAM 실습, 교합 세미나, 임플란트 보철 워크샵 등 다양한 실습 중심 프로그램을 정기적으로 운영하기 시작했습니다.</p></div>
+          <div class="timeline-date" data-i18n="about.tl4.date">2024년</div>
+          <div class="timeline-title" data-i18n="about.tl4.title">워크샵 프로그램 론칭</div>
+          <div class="timeline-body"><p data-i18n="about.tl4.p">CAD/CAM 실습, 교합 세미나, 임플란트 보철 워크샵 등 다양한 실습 중심 프로그램을 정기적으로 운영하기 시작했습니다.</p></div>
         </div>
         <div class="timeline-item">
-          <div class="timeline-date">2025년 – 현재</div>
-          <div class="timeline-title">80명+ 활동 회원과 함께</div>
-          <div class="timeline-body"><p>전국 각지의 치과기공사, 치과기공과 학생, 치과기공소 관계자들과 함께하는 활발한 커뮤니티로 성장했습니다.</p></div>
+          <div class="timeline-date" data-i18n="about.tl5.date">2025년 – 현재</div>
+          <div class="timeline-title" data-i18n="about.tl5.title">80명+ 활동 회원과 함께</div>
+          <div class="timeline-body"><p data-i18n="about.tl5.p">전국 각지의 치과기공사, 치과기공과 학생, 치과기공소 관계자들과 함께하는 활발한 커뮤니티로 성장했습니다.</p></div>
         </div>
       </div>
     </div>
@@ -172,24 +176,24 @@
   <div class="container">
     <div class="section-header">
       <span class="eyebrow">Our Values</span>
-      <h2>우리가 추구하는 가치</h2>
+      <h2 data-i18n="about.values.h2">우리가 추구하는 가치</h2>
       <div class="divider"></div>
     </div>
     <div class="grid-3">
       <div class="card">
         <div class="card-icon">🤝</div>
-        <h3>상호 성장</h3>
-        <p>나 혼자의 성장이 아닌, 함께 성장하는 것을 추구합니다. 동료의 성공이 곧 나의 성공입니다.</p>
+        <h3 data-i18n="about.values.c1.h3">상호 성장</h3>
+        <p data-i18n="about.values.c1.p">나 혼자의 성장이 아닌, 함께 성장하는 것을 추구합니다. 동료의 성공이 곧 나의 성공입니다.</p>
       </div>
       <div class="card">
         <div class="card-icon">🔬</div>
-        <h3>근거 기반 학습</h3>
-        <p>임상 경험과 학술적 근거를 함께 고려합니다. 트렌드를 따르되 원리를 이해하는 치과기공사를 지향합니다.</p>
+        <h3 data-i18n="about.values.c2.h3">근거 기반 학습</h3>
+        <p data-i18n="about.values.c2.p">임상 경험과 학술적 근거를 함께 고려합니다. 트렌드를 따르되 원리를 이해하는 치과기공사를 지향합니다.</p>
       </div>
       <div class="card">
         <div class="card-icon">🌱</div>
-        <h3>지속적 발전</h3>
-        <p>치과기공 기술과 디지털 환경은 빠르게 변합니다. 변화를 두려워하지 않고 끊임없이 배우겠습니다.</p>
+        <h3 data-i18n="about.values.c3.h3">지속적 발전</h3>
+        <p data-i18n="about.values.c3.p">치과기공 기술과 디지털 환경은 빠르게 변합니다. 변화를 두려워하지 않고 끊임없이 배우겠습니다.</p>
       </div>
     </div>
   </div>
@@ -200,15 +204,16 @@
     <div class="footer-grid">
       <div class="footer-brand">
         <a href="index.html" class="nav-logo"><div class="logo-icon">🔥</div>TORCH</a>
-        <p style="margin-top:12px">Korea Young Dental Technician Study<br>기술 · 기회 · 보완 · 도전 · 희망</p>
+        <p style="margin-top:12px" data-i18n-html="footer.brand.p">Korea Young Dental Technician Study<br>기술 · 기회 · 보완 · 도전 · 희망</p>
       </div>
       <div class="footer-col"><h4>Pages</h4><ul><li><a href="about.html">About</a></li><li><a href="activity/index.html">Activity</a></li><li><a href="sponsor.html">Sponsor</a></li></ul></div>
       <div class="footer-col"><h4>Registration</h4><ul><li><a href="registration/study.html">Study Group</a></li><li><a href="registration/symposium.html">Symposium</a></li><li><a href="registration/workshop.html">Workshop</a></li></ul></div>
       <div class="footer-col"><h4>Community</h4><ul><li><a href="news/index.html">News</a></li><li><a href="contact.html">Contact</a></li></ul></div>
     </div>
-    <div class="footer-bottom"><span>© 2025 TORCH – Korea Young Dental Technician Study. All rights reserved.</span></div>
+    <div class="footer-bottom"><span data-i18n="footer.copyright">© 2025 TORCH – Korea Young Dental Technician Study. All rights reserved.</span></div>
   </div>
 </footer>
 <script src="js/theme.js"></script>
+<script src="js/i18n.js"></script>
 </body>
 </html>

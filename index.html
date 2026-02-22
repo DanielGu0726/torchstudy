@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
@@ -32,6 +32,10 @@
       <div class="nav-item"><a href="news/index.html" class="nav-link">News</a></div>
       <div class="nav-item"><a href="contact.html" class="nav-link">Contact</a></div>
     </div>
+    <div class="lang-toggle">
+      <button class="lang-btn active" id="btn-ko" onclick="I18n.setLang('ko')">KOR</button>
+      <button class="lang-btn" id="btn-en" onclick="I18n.setLang('en')">ENG</button>
+    </div>
     <div class="hamburger" aria-label="Menu">
       <span></span><span></span><span></span>
     </div>
@@ -43,13 +47,13 @@
   <a href="index.html" class="mobile-link">Home</a>
   <a href="about.html" class="mobile-link">About</a>
   <a href="activity/index.html" class="mobile-link">Activity</a>
-  <a href="registration/study.html" class="mobile-link">Study 신청</a>
+  <a href="registration/study.html" class="mobile-link" data-i18n="mobile.study">Study 신청</a>
   <a href="registration/symposium.html" class="mobile-link">Symposium</a>
-  <a href="registration/workshop.html" class="mobile-link">Workshop</a>
+  <a href="registration/workshop.html" class="mobile-link" data-i18n="mobile.workshop">Workshop 신청</a>
   <a href="sponsor.html" class="mobile-link">Sponsor</a>
   <a href="news/index.html" class="mobile-link">News</a>
   <a href="contact.html" class="mobile-link">Contact</a>
-  <a href="members/members.html" class="mobile-link">Members 소개</a>
+  <a href="members/members.html" class="mobile-link" data-i18n="mobile.members">Members 소개</a>
 </div>
 
 <!-- ── Hero ─────────────────────────────────────── -->
@@ -61,8 +65,8 @@
   <div class="container" style="position:relative;z-index:2">
     <div class="hero-content">
       <div class="hero-badge">🔥 Korea Young Dental Technician Study</div>
-      <h1>기회를 잡고,<br><span>희망을 향해 도약한다</span></h1>
-      <p>우리는 기술을 늘리기 위해 기회를 놓치지 않고 보완하며, 도전에 마다하지 않으며 희망에 도약한다.</p>
+      <h1 data-i18n-html="home.hero.h1">기회를 잡고,<br><span>희망을 향해 도약한다</span></h1>
+      <p data-i18n="home.hero.p">우리는 기술을 늘리기 위해 기회를 놓치지 않고 보완하며, 도전에 마다하지 않으며 희망에 도약한다.</p>
       <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:36px">
         <div style="padding:8px 16px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:8px;text-align:center">
           <div style="font-size:.7rem;font-weight:700;color:var(--primary);letter-spacing:.1em">T</div>
@@ -86,8 +90,8 @@
         </div>
       </div>
       <div class="hero-buttons">
-        <a href="about.html" class="btn btn-primary btn-lg">TORCH 소개</a>
-        <a href="contact.html" class="btn btn-outline btn-lg">문의하기</a>
+        <a href="about.html" class="btn btn-primary btn-lg" data-i18n="home.hero.btn1">TORCH 소개</a>
+        <a href="contact.html" class="btn btn-outline btn-lg" data-i18n="common.contact">문의하기</a>
       </div>
     </div>
   </div>
@@ -111,35 +115,35 @@
   <div class="container">
     <div class="section-header">
       <span class="eyebrow">What We Do</span>
-      <h2>치과기공사로 함께 성장하는 공간</h2>
+      <h2 data-i18n="home.do.h2">치과기공사로 함께 성장하는 공간</h2>
       <div class="divider"></div>
-      <p>TORCH는 대한민국의 젊은 치과기공사들이 모여 기술을 연마하고, 서로의 경험을 나누며 함께 발전하는 스터디 그룹입니다.</p>
+      <p data-i18n="home.do.p">TORCH는 대한민국의 젊은 치과기공사들이 모여 기술을 연마하고, 서로의 경험을 나누며 함께 발전하는 스터디 그룹입니다.</p>
     </div>
     <div class="grid-3">
       <div class="card">
         <div class="card-icon">🦷</div>
-        <h3>임상 케이스 스터디</h3>
-        <p>실제 임상 케이스를 바탕으로 보철물 제작 과정을 분석하고, 더 나은 술기 향상 방법을 함께 연구합니다.</p>
+        <h3 data-i18n="home.do.card1.h3">임상 케이스 스터디</h3>
+        <p data-i18n="home.do.card1.p">실제 임상 케이스를 바탕으로 보철물 제작 과정을 분석하고, 더 나은 술기 향상 방법을 함께 연구합니다.</p>
       </div>
       <div class="card">
         <div class="card-icon">💻</div>
-        <h3>디지털 치과기공</h3>
-        <p>CAD/CAM 시스템, 구강 스캐너, 3D 프린팅 등 최신 디지털 기술의 동향과 실무 적용법을 학습합니다.</p>
+        <h3 data-i18n="home.do.card2.h3">디지털 치과기공</h3>
+        <p data-i18n="home.do.card2.p">CAD/CAM 시스템, 구강 스캐너, 3D 프린팅 등 최신 디지털 기술의 동향과 실무 적용법을 학습합니다.</p>
       </div>
       <div class="card">
         <div class="card-icon">🎤</div>
-        <h3>심포지엄</h3>
-        <p>연 1회 개최하는 심포지엄에서 회원들의 연구 발표, 초청 강연, 네트워킹을 통해 견문을 넓힙니다.</p>
+        <h3 data-i18n="home.do.card3.h3">심포지엄</h3>
+        <p data-i18n="home.do.card3.p">연 1회 개최하는 심포지엄에서 회원들의 연구 발표, 초청 강연, 네트워킹을 통해 견문을 넓힙니다.</p>
       </div>
       <div class="card">
         <div class="card-icon">🛠️</div>
-        <h3>실습 워크샵</h3>
-        <p>세라믹, 교합, 임플란트 보철 등 특정 분야를 집중적으로 학습하는 핸즈온 워크샵을 정기적으로 진행합니다.</p>
+        <h3 data-i18n="home.do.card4.h3">실습 워크샵</h3>
+        <p data-i18n="home.do.card4.p">세라믹, 교합, 임플란트 보철 등 특정 분야를 집중적으로 학습하는 핸즈온 워크샵을 정기적으로 진행합니다.</p>
       </div>
       <div class="card">
         <div class="card-icon">🤝</div>
-        <h3>네트워킹</h3>
-        <p>전국의 치과기공사, 치과기공소, 치과병원 관계자들과의 교류를 통해 커리어를 함께 성장시킵니다.</p>
+        <h3 data-i18n="home.do.card5.h3">네트워킹</h3>
+        <p data-i18n="home.do.card5.p">전국의 치과기공사, 치과기공소, 치과병원 관계자들과의 교류를 통해 커리어를 함께 성장시킵니다.</p>
       </div>
     </div>
   </div>
@@ -153,31 +157,31 @@
         <img src="images/torch1.jpg" alt="TORCH" style="width:180px;height:auto;border-radius:16px;flex-shrink:0;object-fit:cover;box-shadow:0 8px 32px rgba(0,0,0,.4)">
         <div>
           <span class="eyebrow" style="color:var(--primary)">About TORCH</span>
-          <h2 class="text-white" style="margin:12px 0 20px">젊은 치과기공사들의,<br>젊은 치과기공사들을 위한</h2>
-          <p style="margin-bottom:24px">TORCH는 대한민국의 젊은 치과기공사들이 기술 향상과 상호 성장을 위해 결성한 스터디 그룹입니다. Technology · Opportunity · Redeem · Challenge · Hope — 이 다섯 가지 가치 아래 함께 배우고 도전합니다.</p>
-          <a href="about.html" class="btn btn-primary">자세히 보기 →</a>
+          <h2 class="text-white" style="margin:12px 0 20px" data-i18n-html="home.about.h2">젊은 치과기공사들의,<br>젊은 치과기공사들을 위한</h2>
+          <p style="margin-bottom:24px" data-i18n="home.about.p">TORCH는 대한민국의 젊은 치과기공사들이 기술 향상과 상호 성장을 위해 결성한 스터디 그룹입니다. Technology · Opportunity · Redeem · Challenge · Hope — 이 다섯 가지 가치 아래 함께 배우고 도전합니다.</p>
+          <a href="about.html" class="btn btn-primary" data-i18n="home.about.btn">자세히 보기 →</a>
         </div>
       </div>
       <div class="feature-list">
         <div class="feature-item">
           <div class="feature-icon">🔥</div>
-          <div><h4 class="text-white">Technology – 기술</h4><p>최신 치과기공 기술을 꾸준히 습득하고 실력을 키웁니다.</p></div>
+          <div><h4 class="text-white" data-i18n="home.feature.t.h4">Technology – 기술</h4><p data-i18n="home.feature.t.p">최신 치과기공 기술을 꾸준히 습득하고 실력을 키웁니다.</p></div>
         </div>
         <div class="feature-item">
           <div class="feature-icon">🔥</div>
-          <div><h4 class="text-white">Opportunity – 기회</h4><p>모든 기회를 놓치지 않고 성장의 발판으로 삼습니다.</p></div>
+          <div><h4 class="text-white" data-i18n="home.feature.o.h4">Opportunity – 기회</h4><p data-i18n="home.feature.o.p">모든 기회를 놓치지 않고 성장의 발판으로 삼습니다.</p></div>
         </div>
         <div class="feature-item">
           <div class="feature-icon">🔥</div>
-          <div><h4 class="text-white">Redeem – 보완</h4><p>부족함을 인정하고 끊임없이 보완하며 발전합니다.</p></div>
+          <div><h4 class="text-white" data-i18n="home.feature.r.h4">Redeem – 보완</h4><p data-i18n="home.feature.r.p">부족함을 인정하고 끊임없이 보완하며 발전합니다.</p></div>
         </div>
         <div class="feature-item">
           <div class="feature-icon">🔥</div>
-          <div><h4 class="text-white">Challenge – 도전</h4><p>새로운 도전을 두려워하지 않는 진취적인 자세를 갖습니다.</p></div>
+          <div><h4 class="text-white" data-i18n="home.feature.c.h4">Challenge – 도전</h4><p data-i18n="home.feature.c.p">새로운 도전을 두려워하지 않는 진취적인 자세를 갖습니다.</p></div>
         </div>
         <div class="feature-item">
           <div class="feature-icon">🔥</div>
-          <div><h4 class="text-white">Hope – 희망</h4><p>희망을 품고 치과기공의 미래를 함께 만들어 나갑니다.</p></div>
+          <div><h4 class="text-white" data-i18n="home.feature.h.h4">Hope – 희망</h4><p data-i18n="home.feature.h.p">희망을 품고 치과기공의 미래를 함께 만들어 나갑니다.</p></div>
         </div>
       </div>
     </div>
@@ -188,11 +192,11 @@
 <!-- ── CTA ───────────────────────────────────────── -->
 <section class="section" style="background:linear-gradient(135deg,var(--primary),var(--dark-3));text-align:center">
   <div class="container">
-    <h2 class="text-white" style="margin-bottom:14px">TORCH와 함께 성장하시겠습니까?</h2>
-    <p style="color:rgba(255,255,255,.8);max-width:480px;margin:0 auto 32px;font-size:1.05rem">도전을 두려워하지 않는 젊은 치과기공사라면 누구든 환영합니다. 연 1회 회원을 모집합니다.</p>
+    <h2 class="text-white" style="margin-bottom:14px" data-i18n="home.cta.h2">TORCH와 함께 성장하시겠습니까?</h2>
+    <p style="color:rgba(255,255,255,.8);max-width:480px;margin:0 auto 32px;font-size:1.05rem" data-i18n="home.cta.p">도전을 두려워하지 않는 젊은 치과기공사라면 누구든 환영합니다. 연 1회 회원을 모집합니다.</p>
     <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap">
-      <a href="members/members.html" class="btn btn-outline btn-lg">Members 소개</a>
-      <a href="contact.html" class="btn btn-lg" style="background:rgba(255,255,255,.15);color:white;border-color:transparent">문의하기</a>
+      <a href="members/members.html" class="btn btn-outline btn-lg" data-i18n="home.cta.btn1">Members 소개</a>
+      <a href="contact.html" class="btn btn-lg" style="background:rgba(255,255,255,.15);color:white;border-color:transparent" data-i18n="common.contact">문의하기</a>
     </div>
   </div>
 </section>
@@ -203,8 +207,8 @@
     <button onclick="closePopup()" style="position:absolute;top:10px;right:14px;background:rgba(0,0,0,.45);color:#fff;border:none;border-radius:50%;width:32px;height:32px;font-size:1.1rem;cursor:pointer;z-index:1;line-height:1">✕</button>
     <img id="notice-popup-img" src="" alt="공지" style="width:100%;display:block;max-height:520px;object-fit:contain;background:#111">
     <div style="display:flex;border-top:1px solid #e8e8e8">
-      <button onclick="closePopupToday()" style="flex:1;padding:15px;border:none;background:#f7f7f7;cursor:pointer;font-size:.88rem;color:#555;border-right:1px solid #e8e8e8;transition:background .15s" onmouseover="this.style.background='#eee'" onmouseout="this.style.background='#f7f7f7'">오늘 하루 보지않음</button>
-      <button onclick="closePopupForever()" style="flex:1;padding:15px;border:none;background:#f7f7f7;cursor:pointer;font-size:.88rem;color:#555;transition:background .15s" onmouseover="this.style.background='#eee'" onmouseout="this.style.background='#f7f7f7'">다시 보지 않음</button>
+      <button onclick="closePopupToday()" style="flex:1;padding:15px;border:none;background:#f7f7f7;cursor:pointer;font-size:.88rem;color:#555;border-right:1px solid #e8e8e8;transition:background .15s" onmouseover="this.style.background='#eee'" onmouseout="this.style.background='#f7f7f7'" data-i18n="home.popup.today">오늘 하루 보지않음</button>
+      <button onclick="closePopupForever()" style="flex:1;padding:15px;border:none;background:#f7f7f7;cursor:pointer;font-size:.88rem;color:#555;transition:background .15s" onmouseover="this.style.background='#eee'" onmouseout="this.style.background='#f7f7f7'" data-i18n="home.popup.never">다시 보지 않음</button>
     </div>
   </div>
 </div>
@@ -237,7 +241,7 @@
         <a href="index.html" class="nav-logo" style="text-decoration:none">
           <div class="logo-icon">🔥</div> TORCH
         </a>
-        <p style="margin-top:12px">Korea Young Dental Technician Study<br>기술 · 기회 · 보완 · 도전 · 희망</p>
+        <p style="margin-top:12px" data-i18n-html="footer.brand.p">Korea Young Dental Technician Study<br>기술 · 기회 · 보완 · 도전 · 희망</p>
         <div style="margin-top:16px">
           <a href="https://www.instagram.com/t_o_r_c_h_study/" target="_blank" class="btn btn-sm" style="background:rgba(255,255,255,.08);color:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.15)">📷 Instagram</a>
         </div>
@@ -268,7 +272,7 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <span>© 2025 TORCH – Korea Young Dental Technician Study. All rights reserved.</span>
+      <span data-i18n="footer.copyright">© 2025 TORCH – Korea Young Dental Technician Study. All rights reserved.</span>
       <div class="social-links">
         <a href="https://www.instagram.com/t_o_r_c_h_study/" target="_blank" class="social-link" title="Instagram">📷</a>
       </div>
@@ -277,6 +281,7 @@
 </footer>
 
 <script src="js/theme.js"></script>
+<script src="js/i18n.js"></script>
 <script>
 /* Sponsor ticker on homepage */
 (async () => {

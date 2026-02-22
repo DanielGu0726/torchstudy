@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
@@ -28,6 +28,10 @@
       <div class="nav-item"><a href="news/index.html" class="nav-link">News</a></div>
       <div class="nav-item"><a href="contact.html" class="nav-link">Contact</a></div>
     </div>
+    <div class="lang-toggle">
+      <button class="lang-btn active" id="btn-ko" onclick="I18n.setLang('ko')">KOR</button>
+      <button class="lang-btn" id="btn-en" onclick="I18n.setLang('en')">ENG</button>
+    </div>
     <div class="hamburger"><span></span><span></span><span></span></div>
   </div>
 </nav>
@@ -36,14 +40,14 @@
   <a href="about.html" class="mobile-link">About</a>
   <a href="sponsor.html" class="mobile-link">Sponsor</a>
   <a href="contact.html" class="mobile-link">Contact</a>
-  <a href="members/members.html" class="mobile-link">Members 소개</a>
+  <a href="members/members.html" class="mobile-link" data-i18n="mobile.members">Members 소개</a>
 </div>
 
 <div class="page-header">
   <div class="container">
     <span class="eyebrow">Partnership</span>
-    <h1>TORCH 후원 안내</h1>
-    <p>TORCH를 후원하여 대한민국 젊은 치과기공사들의 성장을 함께 응원해 주세요.</p>
+    <h1 data-i18n="sponsor.header.h1">TORCH 후원 안내</h1>
+    <p data-i18n="sponsor.header.p">TORCH를 후원하여 대한민국 젊은 치과기공사들의 성장을 함께 응원해 주세요.</p>
     <div class="breadcrumb"><a href="index.html">Home</a><span>/</span><span>Sponsor</span></div>
   </div>
 </div>
@@ -53,17 +57,17 @@
   <div class="container">
     <div class="section-header">
       <span class="eyebrow">Why Sponsor</span>
-      <h2>왜 TORCH를 후원해야 할까요?</h2>
+      <h2 data-i18n="sponsor.why.h2">왜 TORCH를 후원해야 할까요?</h2>
       <div class="divider"></div>
-      <p>TORCH 회원들은 대한민국 치과기공 업계의 미래를 이끌어갈 젊고 열정적인 전문가들입니다. 후원을 통해 브랜드 인지도를 높이고 핵심 타깃에 직접 다가가세요.</p>
+      <p data-i18n="sponsor.why.p">TORCH 회원들은 대한민국 치과기공 업계의 미래를 이끌어갈 젊고 열정적인 전문가들입니다. 후원을 통해 브랜드 인지도를 높이고 핵심 타깃에 직접 다가가세요.</p>
     </div>
     <div class="sponsor-benefits">
-      <div class="benefit-item"><div class="icon">🎯</div><h4>타깃 마케팅</h4><p>80명 이상의 현직 치과기공사·학생 회원에게 직접 브랜드를 노출할 수 있습니다.</p></div>
-      <div class="benefit-item"><div class="icon">🏆</div><h4>브랜드 노출</h4><p>행사 현수막, 홈페이지, SNS 등 모든 홍보물에 로고가 게재됩니다.</p></div>
-      <div class="benefit-item"><div class="icon">🤝</div><h4>인재 네트워크</h4><p>유망한 신진 치과기공사와의 직접적인 네트워킹 기회를 제공합니다.</p></div>
-      <div class="benefit-item"><div class="icon">🎤</div><h4>제품 소개 기회</h4><p>스터디 세션 또는 심포지엄에서 재료·장비를 소개할 수 있습니다.</p></div>
-      <div class="benefit-item"><div class="icon">📱</div><h4>SNS 홍보</h4><p>Instagram 등 SNS 채널을 통한 브랜드 홍보 게시물을 제공합니다.</p></div>
-      <div class="benefit-item"><div class="icon">🌱</div><h4>업계 기여</h4><p>젊은 치과기공사 교육을 후원함으로써 업계 발전에 기여하는 이미지를 높이세요.</p></div>
+      <div class="benefit-item"><div class="icon">🎯</div><h4 data-i18n="sponsor.b1.h4">타깃 마케팅</h4><p data-i18n="sponsor.b1.p">80명 이상의 현직 치과기공사·학생 회원에게 직접 브랜드를 노출할 수 있습니다.</p></div>
+      <div class="benefit-item"><div class="icon">🏆</div><h4 data-i18n="sponsor.b2.h4">브랜드 노출</h4><p data-i18n="sponsor.b2.p">행사 현수막, 홈페이지, SNS 등 모든 홍보물에 로고가 게재됩니다.</p></div>
+      <div class="benefit-item"><div class="icon">🤝</div><h4 data-i18n="sponsor.b3.h4">인재 네트워크</h4><p data-i18n="sponsor.b3.p">유망한 신진 치과기공사와의 직접적인 네트워킹 기회를 제공합니다.</p></div>
+      <div class="benefit-item"><div class="icon">🎤</div><h4 data-i18n="sponsor.b4.h4">제품 소개 기회</h4><p data-i18n="sponsor.b4.p">스터디 세션 또는 심포지엄에서 재료·장비를 소개할 수 있습니다.</p></div>
+      <div class="benefit-item"><div class="icon">📱</div><h4 data-i18n="sponsor.b5.h4">SNS 홍보</h4><p data-i18n="sponsor.b5.p">Instagram 등 SNS 채널을 통한 브랜드 홍보 게시물을 제공합니다.</p></div>
+      <div class="benefit-item"><div class="icon">🌱</div><h4 data-i18n="sponsor.b6.h4">업계 기여</h4><p data-i18n="sponsor.b6.p">젊은 치과기공사 교육을 후원함으로써 업계 발전에 기여하는 이미지를 높이세요.</p></div>
     </div>
   </div>
 </section>
@@ -73,7 +77,7 @@
   <div class="container">
     <div class="section-header">
       <span class="eyebrow">Sponsors</span>
-      <h2>후원사</h2>
+      <h2 data-i18n="sponsor.sponsors.h2">후원사</h2>
       <div class="divider"></div>
     </div>
 
@@ -83,8 +87,8 @@
 
     <div id="sponsors-empty" style="display:none;text-align:center;padding:60px 20px;color:var(--text-muted)">
       <div style="font-size:3rem;margin-bottom:16px">🤝</div>
-      <p>후원사를 모집 중입니다.</p>
-      <a href="contact.html" class="btn btn-primary" style="margin-top:16px">후원 문의하기</a>
+      <p data-i18n="sponsor.empty.p">후원사를 모집 중입니다.</p>
+      <a href="contact.html" class="btn btn-primary" style="margin-top:16px" data-i18n="sponsor.empty.btn">후원 문의하기</a>
     </div>
   </div>
 </section>
@@ -92,24 +96,25 @@
 <!-- CTA -->
 <section class="section" style="background:linear-gradient(135deg,var(--dark),var(--dark-3));text-align:center">
   <div class="container">
-    <h2 class="text-white" style="margin-bottom:14px">후원 문의</h2>
-    <p style="color:rgba(255,255,255,.75);max-width:500px;margin:0 auto 32px">규모나 방식에 관계없이 다양한 형태의 협력을 환영합니다. 먼저 편하게 연락 주세요.</p>
-    <a href="contact.html" class="btn btn-primary btn-lg">문의하기</a>
+    <h2 class="text-white" style="margin-bottom:14px" data-i18n="sponsor.cta.h2">후원 문의</h2>
+    <p style="color:rgba(255,255,255,.75);max-width:500px;margin:0 auto 32px" data-i18n="sponsor.cta.p">규모나 방식에 관계없이 다양한 형태의 협력을 환영합니다. 먼저 편하게 연락 주세요.</p>
+    <a href="contact.html" class="btn btn-primary btn-lg" data-i18n="common.contact">문의하기</a>
   </div>
 </section>
 
 <footer class="footer">
   <div class="container">
     <div class="footer-grid">
-      <div class="footer-brand"><a href="index.html" class="nav-logo"><div class="logo-icon">🔥</div>TORCH</a><p style="margin-top:12px">Korea Young Dental Technician Study<br>기술 · 기회 · 보완 · 도전 · 희망</p></div>
+      <div class="footer-brand"><a href="index.html" class="nav-logo"><div class="logo-icon">🔥</div>TORCH</a><p style="margin-top:12px" data-i18n-html="footer.brand.p">Korea Young Dental Technician Study<br>기술 · 기회 · 보완 · 도전 · 희망</p></div>
       <div class="footer-col"><h4>Pages</h4><ul><li><a href="about.html">About</a></li><li><a href="activity/index.html">Activity</a></li><li><a href="sponsor.html">Sponsor</a></li></ul></div>
       <div class="footer-col"><h4>Registration</h4><ul><li><a href="registration/study.html">Study Group</a></li><li><a href="registration/symposium.html">Symposium</a></li><li><a href="registration/workshop.html">Workshop</a></li></ul></div>
       <div class="footer-col"><h4>Community</h4><ul><li><a href="news/index.html">News</a></li><li><a href="contact.html">Contact</a></li></ul></div>
     </div>
-    <div class="footer-bottom"><span>© 2025 TORCH – Korea Young Dental Technician Study. All rights reserved.</span></div>
+    <div class="footer-bottom"><span data-i18n="footer.copyright">© 2025 TORCH – Korea Young Dental Technician Study. All rights reserved.</span></div>
   </div>
 </footer>
 <script src="js/theme.js"></script>
+<script src="js/i18n.js"></script>
 <script>
 (async () => {
   try {

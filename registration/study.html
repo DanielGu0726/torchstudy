@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
@@ -20,21 +20,25 @@
       <div class="nav-item"><a href="../news/index.html" class="nav-link">News</a></div>
       <div class="nav-item"><a href="../contact.html" class="nav-link">Contact</a></div>
     </div>
+    <div class="lang-toggle">
+      <button class="lang-btn active" id="btn-ko" onclick="I18n.setLang('ko')">KOR</button>
+      <button class="lang-btn" id="btn-en" onclick="I18n.setLang('en')">ENG</button>
+    </div>
     <div class="hamburger"><span></span><span></span><span></span></div>
   </div>
 </nav>
 <div class="mobile-menu">
   <a href="../index.html" class="mobile-link">Home</a>
-  <a href="study.html" class="mobile-link">Study 신청</a>
-  <a href="symposium.html" class="mobile-link">Symposium 신청</a>
-  <a href="workshop.html" class="mobile-link">Workshop 신청</a>
+  <a href="study.html" class="mobile-link" data-i18n="mobile.study">Study 신청</a>
+  <a href="symposium.html" class="mobile-link" data-i18n="mobile.symposium.reg">Symposium 신청</a>
+  <a href="workshop.html" class="mobile-link" data-i18n="mobile.workshop">Workshop 신청</a>
 </div>
 
 <div class="page-header">
   <div class="container">
     <span class="eyebrow">Registration</span>
     <h1>Study Group</h1>
-    <p>TORCH 스터디 그룹 신청 페이지입니다.</p>
+    <p data-i18n="reg.study.header.p">TORCH 스터디 그룹 신청 페이지입니다.</p>
     <div class="breadcrumb"><a href="../index.html">Home</a><span>/</span><a href="study.html">Registration</a><span>/</span><span>Study Group</span></div>
   </div>
 </div>
@@ -45,55 +49,55 @@
       <!-- Info -->
       <div>
         <div class="card">
-          <h3 style="margin-bottom:20px">스터디 안내</h3>
+          <h3 style="margin-bottom:20px" data-i18n="reg.study.info.h3">스터디 안내</h3>
           <div class="feature-list">
-            <div class="feature-item"><div class="feature-icon">📅</div><div><h4>격주 토요일</h4><p style="font-size:.85rem">오전 10시 – 오후 1시, 대면/온라인 병행</p></div></div>
-            <div class="feature-item"><div class="feature-icon">🦷</div><div><h4>임상 중심 커리큘럼</h4><p style="font-size:.85rem">케이스 발표, 논문 리뷰, 기술 세미나</p></div></div>
-            <div class="feature-item"><div class="feature-icon">💬</div><div><h4>커뮤니티 채널</h4><p style="font-size:.85rem">KakaoTalk 오픈채팅 및 회원 전용 자료실 제공</p></div></div>
-            <div class="feature-item"><div class="feature-icon">🤝</div><div><h4>네트워킹</h4><p style="font-size:.85rem">전국 치과기공사 및 치과기공과 학생과의 교류</p></div></div>
+            <div class="feature-item"><div class="feature-icon">📅</div><div><h4 data-i18n="reg.study.fi1.h4">격주 토요일</h4><p style="font-size:.85rem" data-i18n="reg.study.fi1.p">오전 10시 – 오후 1시, 대면/온라인 병행</p></div></div>
+            <div class="feature-item"><div class="feature-icon">🦷</div><div><h4 data-i18n="reg.study.fi2.h4">임상 중심 커리큘럼</h4><p style="font-size:.85rem" data-i18n="reg.study.fi2.p">케이스 발표, 논문 리뷰, 기술 세미나</p></div></div>
+            <div class="feature-item"><div class="feature-icon">💬</div><div><h4 data-i18n="reg.study.fi3.h4">커뮤니티 채널</h4><p style="font-size:.85rem" data-i18n="reg.study.fi3.p">KakaoTalk 오픈채팅 및 회원 전용 자료실 제공</p></div></div>
+            <div class="feature-item"><div class="feature-icon">🤝</div><div><h4 data-i18n="reg.study.fi4.h4">네트워킹</h4><p style="font-size:.85rem" data-i18n="reg.study.fi4.p">전국 치과기공사 및 치과기공과 학생과의 교류</p></div></div>
           </div>
           <hr class="form-divider">
           <div style="display:flex;flex-direction:column;gap:10px">
-            <div style="display:flex;justify-content:space-between;font-size:.88rem"><span style="color:var(--text-muted)">참가비</span><strong>무료</strong></div>
-            <div style="display:flex;justify-content:space-between;font-size:.88rem"><span style="color:var(--text-muted)">현재 모집</span><strong style="color:var(--success)">상시 모집 중</strong></div>
-            <div style="display:flex;justify-content:space-between;font-size:.88rem"><span style="color:var(--text-muted)">대상</span><strong>치과기공사 / 치과기공과 학생</strong></div>
+            <div style="display:flex;justify-content:space-between;font-size:.88rem"><span style="color:var(--text-muted)" data-i18n="reg.study.fee.label">참가비</span><strong data-i18n="reg.study.fee.value">무료</strong></div>
+            <div style="display:flex;justify-content:space-between;font-size:.88rem"><span style="color:var(--text-muted)" data-i18n="reg.study.status.label">현재 모집</span><strong style="color:var(--success)" data-i18n="reg.study.status.value">상시 모집 중</strong></div>
+            <div style="display:flex;justify-content:space-between;font-size:.88rem"><span style="color:var(--text-muted)" data-i18n="reg.study.target.label">대상</span><strong data-i18n="reg.study.target.value">치과기공사 / 치과기공과 학생</strong></div>
           </div>
         </div>
       </div>
 
       <!-- Form -->
       <div class="form-card" style="max-width:100%">
-        <h3 style="margin-bottom:6px">참가 신청서</h3>
-        <p style="font-size:.88rem;margin-bottom:24px">아래 양식을 작성해 주시면 검토 후 연락드리겠습니다.</p>
+        <h3 style="margin-bottom:6px" data-i18n="reg.study.form.h3">참가 신청서</h3>
+        <p style="font-size:.88rem;margin-bottom:24px" data-i18n="reg.study.form.p">아래 양식을 작성해 주시면 검토 후 연락드리겠습니다.</p>
 
         <div id="form-alert" class="alert"><span class="alert-msg"></span></div>
 
         <form id="study-form">
           <div class="form-row">
             <div class="form-group">
-              <label class="required">이름</label>
-              <input class="form-control" name="firstName" placeholder="홍길동" required>
+              <label class="required" data-i18n="form.name">이름</label>
+              <input class="form-control" name="firstName" data-i18n-placeholder="form.name.ph" placeholder="홍길동" required>
               <div class="error-msg"></div>
             </div>
             <div class="form-group">
-              <label class="required">연락처</label>
-              <input class="form-control" name="lastName" data-validate="phone" placeholder="010-0000-0000" required>
+              <label class="required" data-i18n="form.phone">연락처</label>
+              <input class="form-control" name="lastName" data-validate="phone" data-i18n-placeholder="form.phone.ph" placeholder="010-0000-0000" required>
               <div class="error-msg"></div>
             </div>
           </div>
           <div class="form-group">
-            <label class="required">이메일</label>
+            <label class="required" data-i18n="form.email">이메일</label>
             <input class="form-control" type="email" name="email" data-validate="email" placeholder="example@email.com" required>
             <div class="error-msg"></div>
           </div>
           <div class="form-row">
             <div class="form-group">
-              <label class="required">소속 (직장 / 학교)</label>
-              <input class="form-control" name="department" placeholder="○○치과기공소 / ○○대학교" required>
+              <label class="required" data-i18n="form.affiliation">소속 (직장 / 학교)</label>
+              <input class="form-control" name="department" data-i18n-placeholder="form.dept.ph" placeholder="○○치과기공소 / ○○대학교" required>
               <div class="error-msg"></div>
             </div>
             <div class="form-group">
-              <label class="required">현재 상태</label>
+              <label class="required" data-i18n="form.level">현재 상태</label>
               <select class="form-control" name="level" required>
                 <option value="">선택…</option>
                 <option>치과기공과 재학생 (1–2학년)</option>
@@ -107,7 +111,7 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="required">주로 담당하는 분야</label>
+            <label class="required" data-i18n="form.experience">주로 담당하는 분야</label>
             <select class="form-control" name="experience" required>
               <option value="">선택…</option>
               <option>고정성 보철 (크라운/브릿지)</option>
@@ -121,24 +125,24 @@
             <div class="error-msg"></div>
           </div>
           <div class="form-group">
-            <label>관심 있는 스터디 주제 (복수 선택 가능)</label>
+            <label data-i18n="form.topics">관심 있는 스터디 주제 (복수 선택 가능)</label>
             <div class="check-group">
-              <label class="check-item"><input type="checkbox" name="topics" value="ceramic"> <label>세라믹 / 심미 보철</label></label>
-              <label class="check-item"><input type="checkbox" name="topics" value="cadcam"> <label>CAD/CAM / 디지털 치과기공</label></label>
-              <label class="check-item"><input type="checkbox" name="topics" value="implant"> <label>임플란트 보철</label></label>
-              <label class="check-item"><input type="checkbox" name="topics" value="denture"> <label>총의치 / 국소의치</label></label>
-              <label class="check-item"><input type="checkbox" name="topics" value="occlusion"> <label>교합</label></label>
-              <label class="check-item"><input type="checkbox" name="topics" value="exam"> <label>국가시험 대비</label></label>
+              <label class="check-item"><input type="checkbox" name="topics" value="ceramic"> <label data-i18n="form.topic.ceramic">세라믹 / 심미 보철</label></label>
+              <label class="check-item"><input type="checkbox" name="topics" value="cadcam"> <label data-i18n="form.topic.cadcam">CAD/CAM / 디지털 치과기공</label></label>
+              <label class="check-item"><input type="checkbox" name="topics" value="implant"> <label data-i18n="form.topic.implant">임플란트 보철</label></label>
+              <label class="check-item"><input type="checkbox" name="topics" value="denture"> <label data-i18n="form.topic.denture">총의치 / 국소의치</label></label>
+              <label class="check-item"><input type="checkbox" name="topics" value="occlusion"> <label data-i18n="form.topic.occlusion">교합</label></label>
+              <label class="check-item"><input type="checkbox" name="topics" value="exam"> <label data-i18n="form.topic.exam">국가시험 대비</label></label>
             </div>
           </div>
           <div class="form-group">
-            <label>지원 동기 (선택)</label>
-            <textarea class="form-control" name="motivation" placeholder="TORCH에 참가하고 싶은 이유나 배우고 싶은 것을 자유롭게 적어주세요."></textarea>
+            <label data-i18n="form.motivation">지원 동기 (선택)</label>
+            <textarea class="form-control" name="motivation" data-i18n-placeholder="form.motivation.ph" placeholder="TORCH에 참가하고 싶은 이유나 배우고 싶은 것을 자유롭게 적어주세요."></textarea>
           </div>
           <div class="form-group">
-            <label class="check-item"><input type="checkbox" required> <label>스터디 활동 규정 및 <a href="#">개인정보 처리방침</a>에 동의합니다</label></label>
+            <label class="check-item"><input type="checkbox" required> <label data-i18n-html="form.study.privacy">스터디 활동 규정 및 <a href="#">개인정보 처리방침</a>에 동의합니다</label></label>
           </div>
-          <button type="submit" class="btn btn-primary btn-block btn-lg">신청서 제출</button>
+          <button type="submit" class="btn btn-primary btn-block btn-lg" data-i18n="reg.study.submit">신청서 제출</button>
         </form>
       </div>
     </div>
@@ -148,11 +152,11 @@
 <section id="reg-closed-msg" class="section section-light">
   <div class="container" style="text-align:center;padding:80px 16px">
     <div style="font-size:3rem;margin-bottom:20px">🔒</div>
-    <h2 style="margin-bottom:16px">현재는 모집 기간이 아닙니다</h2>
-    <p style="max-width:480px;margin:0 auto 32px;color:var(--text-muted);font-size:1.05rem">TORCH는 연 1회 회원을 모집합니다. 모집 공고는 인스타그램과 공식 채널을 통해 안내됩니다.</p>
+    <h2 style="margin-bottom:16px" data-i18n="reg.study.closed.h2">현재는 모집 기간이 아닙니다</h2>
+    <p style="max-width:480px;margin:0 auto 32px;color:var(--text-muted);font-size:1.05rem" data-i18n="reg.study.closed.p">TORCH는 연 1회 회원을 모집합니다. 모집 공고는 인스타그램과 공식 채널을 통해 안내됩니다.</p>
     <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap">
-      <a href="https://www.instagram.com/t_o_r_c_h_study/" target="_blank" class="btn btn-primary">📷 Instagram 팔로우</a>
-      <a href="../contact.html" class="btn btn-dark">문의하기</a>
+      <a href="https://www.instagram.com/t_o_r_c_h_study/" target="_blank" class="btn btn-primary" data-i18n="reg.study.closed.btn1">📷 Instagram 팔로우</a>
+      <a href="../contact.html" class="btn btn-dark" data-i18n="common.contact">문의하기</a>
     </div>
   </div>
 </section>
@@ -160,16 +164,17 @@
 <footer class="footer">
   <div class="container">
     <div class="footer-grid">
-      <div class="footer-brand"><a href="../index.html" class="nav-logo"><div class="logo-icon">🔥</div>TORCH</a><p style="margin-top:12px">Korea Young Dental Technician Study</p></div>
+      <div class="footer-brand"><a href="../index.html" class="nav-logo"><div class="logo-icon">🔥</div>TORCH</a><p style="margin-top:12px" data-i18n-html="footer.brand.p">Korea Young Dental Technician Study<br>기술 · 기회 · 보완 · 도전 · 희망</p></div>
       <div class="footer-col"><h4>Pages</h4><ul><li><a href="../about.html">About</a></li><li><a href="../activity/index.html">Activity</a></li><li><a href="../sponsor.html">Sponsor</a></li></ul></div>
       <div class="footer-col"><h4>Registration</h4><ul><li><a href="study.html">Study Group</a></li><li><a href="symposium.html">Symposium</a></li><li><a href="workshop.html">Workshop</a></li></ul></div>
       <div class="footer-col"><h4>Community</h4><ul><li><a href="../news/index.html">News</a></li><li><a href="../contact.html">Contact</a></li></ul></div>
     </div>
-    <div class="footer-bottom"><span>© 2025 TORCH – Korea Young Dental Technician Study. All rights reserved.</span></div>
+    <div class="footer-bottom"><span data-i18n="footer.copyright">© 2025 TORCH – Korea Young Dental Technician Study. All rights reserved.</span></div>
   </div>
 </footer>
 <script src="../js/theme.js"></script>
 <script src="../js/registration.js"></script>
 <script>Registration.attachForm('study-form', 'study');</script>
+<script src="../js/i18n.js"></script>
 </body>
 </html>

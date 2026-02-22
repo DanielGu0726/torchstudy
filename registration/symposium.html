@@ -20,21 +20,25 @@
       <div class="nav-item"><a href="../news/index.html" class="nav-link">News</a></div>
       <div class="nav-item"><a href="../contact.html" class="nav-link">Contact</a></div>
     </div>
+    <div class="lang-toggle">
+      <button class="lang-btn active" id="btn-ko" onclick="I18n.setLang('ko')">KOR</button>
+      <button class="lang-btn" id="btn-en" onclick="I18n.setLang('en')">ENG</button>
+    </div>
     <div class="hamburger"><span></span><span></span><span></span></div>
   </div>
 </nav>
 <div class="mobile-menu">
   <a href="../index.html" class="mobile-link">Home</a>
-  <a href="study.html" class="mobile-link">Study 신청</a>
-  <a href="symposium.html" class="mobile-link">Symposium</a>
-  <a href="workshop.html" class="mobile-link">Workshop 신청</a>
+  <a href="study.html" class="mobile-link" data-i18n="mobile.study">Study 신청</a>
+  <a href="symposium.html" class="mobile-link" data-i18n="mobile.symposium.reg">Symposium 신청</a>
+  <a href="workshop.html" class="mobile-link" data-i18n="mobile.workshop">Workshop 신청</a>
 </div>
 
 <div class="page-header">
   <div class="container">
     <span class="eyebrow">Annual Event</span>
     <h1>TORCH Symposium</h1>
-    <p>연 1회 개최하는 TORCH 연례 심포지엄입니다.</p>
+    <p data-i18n="reg.sym.header.p">연 1회 개최하는 TORCH 연례 심포지엄입니다.</p>
     <div class="breadcrumb"><a href="../index.html">Home</a><span>/</span><a href="study.html">Registration</a><span>/</span><span>Symposium</span></div>
   </div>
 </div>
@@ -44,7 +48,7 @@
     <div style="font-size:4rem;margin-bottom:24px">🎤</div>
     <h2 style="margin-bottom:16px">TORCH Symposium 2025</h2>
     <p style="font-size:1.1rem;color:var(--text-muted);margin-bottom:12px">2025년 11월 예정</p>
-    <p style="max-width:560px;margin:0 auto 40px;color:var(--text-muted);font-size:1rem;line-height:1.8">
+    <p style="max-width:560px;margin:0 auto 40px;color:var(--text-muted);font-size:1rem;line-height:1.8" data-i18n-html="reg.sym.body.p">
       TORCH 연례 심포지엄은 회원들의 임상 케이스 발표, 초청 강연, 네트워킹 리셉션으로 구성됩니다.<br>
       상세 일정과 장소는 개최 2–3개월 전 공식 채널을 통해 안내됩니다.
     </p>
@@ -52,24 +56,24 @@
     <div class="grid-3" style="max-width:700px;margin:0 auto 48px;text-align:left">
       <div class="card" style="text-align:center;padding:24px">
         <div style="font-size:2rem;margin-bottom:12px">📅</div>
-        <h4>일정</h4>
-        <p style="font-size:.88rem;color:var(--text-muted)">2025년 11월 예정<br>추후 공지</p>
+        <h4 data-i18n="reg.sym.c1.h4">일정</h4>
+        <p style="font-size:.88rem;color:var(--text-muted)" data-i18n-html="reg.sym.c1.p">2025년 11월 예정<br>추후 공지</p>
       </div>
       <div class="card" style="text-align:center;padding:24px">
         <div style="font-size:2rem;margin-bottom:12px">📍</div>
-        <h4>장소</h4>
-        <p style="font-size:.88rem;color:var(--text-muted)">미정<br>추후 공지</p>
+        <h4 data-i18n="reg.sym.c2.h4">장소</h4>
+        <p style="font-size:.88rem;color:var(--text-muted)" data-i18n-html="reg.sym.c2.p">미정<br>추후 공지</p>
       </div>
       <div class="card" style="text-align:center;padding:24px">
         <div style="font-size:2rem;margin-bottom:12px">🎟</div>
-        <h4>참가</h4>
-        <p style="font-size:.88rem;color:var(--text-muted)">회원 및 외부 청강<br>모집 공고 예정</p>
+        <h4 data-i18n="reg.sym.c3.h4">참가</h4>
+        <p style="font-size:.88rem;color:var(--text-muted)" data-i18n-html="reg.sym.c3.p">회원 및 외부 청강<br>모집 공고 예정</p>
       </div>
     </div>
 
     <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap">
-      <a href="https://www.instagram.com/t_o_r_c_h_study/" target="_blank" class="btn btn-primary btn-lg">📷 Instagram에서 공지 받기</a>
-      <a href="../contact.html" class="btn btn-dark btn-lg">문의하기</a>
+      <a href="https://www.instagram.com/t_o_r_c_h_study/" target="_blank" class="btn btn-primary btn-lg" data-i18n="reg.sym.btn1">📷 Instagram에서 공지 받기</a>
+      <a href="../contact.html" class="btn btn-dark btn-lg" data-i18n="common.contact">문의하기</a>
     </div>
   </div>
 </section>
@@ -77,14 +81,15 @@
 <footer class="footer">
   <div class="container">
     <div class="footer-grid">
-      <div class="footer-brand"><a href="../index.html" class="nav-logo"><div class="logo-icon">🔥</div>TORCH</a><p style="margin-top:12px">Korea Young Dental Technician Study<br>기술 · 기회 · 보완 · 도전 · 희망</p></div>
+      <div class="footer-brand"><a href="../index.html" class="nav-logo"><div class="logo-icon">🔥</div>TORCH</a><p style="margin-top:12px" data-i18n-html="footer.brand.p">Korea Young Dental Technician Study<br>기술 · 기회 · 보완 · 도전 · 희망</p></div>
       <div class="footer-col"><h4>Pages</h4><ul><li><a href="../about.html">About</a></li><li><a href="../activity/index.html">Activity</a></li><li><a href="../sponsor.html">Sponsor</a></li></ul></div>
       <div class="footer-col"><h4>Registration</h4><ul><li><a href="study.html">Study Group</a></li><li><a href="symposium.html">Symposium</a></li><li><a href="workshop.html">Workshop</a></li></ul></div>
       <div class="footer-col"><h4>Community</h4><ul><li><a href="../news/index.html">News</a></li><li><a href="../contact.html">Contact</a></li></ul></div>
     </div>
-    <div class="footer-bottom"><span>© 2025 TORCH – Korea Young Dental Technician Study. All rights reserved.</span></div>
+    <div class="footer-bottom"><span data-i18n="footer.copyright">© 2025 TORCH – Korea Young Dental Technician Study. All rights reserved.</span></div>
   </div>
 </footer>
 <script src="../js/theme.js"></script>
+<script src="../js/i18n.js"></script>
 </body>
 </html>

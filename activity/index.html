@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
@@ -31,6 +31,10 @@
       <div class="nav-item"><a href="../news/index.html" class="nav-link">News</a></div>
       <div class="nav-item"><a href="../contact.html" class="nav-link">Contact</a></div>
     </div>
+    <div class="lang-toggle">
+      <button class="lang-btn active" id="btn-ko" onclick="I18n.setLang('ko')">KOR</button>
+      <button class="lang-btn" id="btn-en" onclick="I18n.setLang('en')">ENG</button>
+    </div>
     <div class="hamburger"><span></span><span></span><span></span></div>
   </div>
 </nav>
@@ -38,16 +42,16 @@
   <a href="../index.html" class="mobile-link">Home</a>
   <a href="../about.html" class="mobile-link">About</a>
   <a href="index.html" class="mobile-link">Activity</a>
-  <a href="../registration/study.html" class="mobile-link">Study 신청</a>
+  <a href="../registration/study.html" class="mobile-link" data-i18n="mobile.study">Study 신청</a>
   <a href="../contact.html" class="mobile-link">Contact</a>
-  <a href="../members/members.html" class="mobile-link">Members 소개</a>
+  <a href="../members/members.html" class="mobile-link" data-i18n="mobile.members">Members 소개</a>
 </div>
 
 <div class="page-header">
   <div class="container">
     <span class="eyebrow">What We Do</span>
     <h1>Activity</h1>
-    <p>정기 스터디부터 심포지엄, 워크샵까지 — TORCH에서는 항상 배움이 이어집니다.</p>
+    <p data-i18n="activity.header.p">정기 스터디부터 심포지엄, 워크샵까지 — TORCH에서는 항상 배움이 이어집니다.</p>
     <div class="breadcrumb"><a href="../index.html">Home</a><span>/</span><span>Activity</span></div>
   </div>
 </div>
@@ -57,7 +61,7 @@
   <div class="container">
     <div class="section-header">
       <span class="eyebrow">Programs</span>
-      <h2>주요 활동 프로그램</h2>
+      <h2 data-i18n="activity.programs.h2">주요 활동 프로그램</h2>
       <div class="divider"></div>
     </div>
     <div id="cards-grid" class="activity-card-news">
@@ -67,32 +71,32 @@
     <div id="cards-fallback" class="grid-3" style="display:none">
       <div class="card">
         <div class="card-icon">🦷</div>
-        <h3>정기 스터디</h3>
-        <p>격주 또는 월 1회 진행하는 정기 스터디. 임상 케이스 발표, 논문 리뷰, 기술 세미나 등 다양한 형식으로 운영됩니다.</p>
+        <h3 data-i18n="activity.c1.h3">정기 스터디</h3>
+        <p data-i18n="activity.c1.p">격주 또는 월 1회 진행하는 정기 스터디. 임상 케이스 발표, 논문 리뷰, 기술 세미나 등 다양한 형식으로 운영됩니다.</p>
         <ul style="margin-top:16px;display:flex;flex-direction:column;gap:8px">
-          <li style="font-size:.85rem;color:var(--text-muted)">📅 격주 토요일</li>
-          <li style="font-size:.85rem;color:var(--text-muted)">⏱ 2–3시간</li>
-          <li style="font-size:.85rem;color:var(--text-muted)">📍 대면 / 온라인 병행</li>
+          <li style="font-size:.85rem;color:var(--text-muted)" data-i18n="activity.c1.m1">📅 격주 토요일</li>
+          <li style="font-size:.85rem;color:var(--text-muted)" data-i18n="activity.c1.m2">⏱ 2–3시간</li>
+          <li style="font-size:.85rem;color:var(--text-muted)" data-i18n="activity.c1.m3">📍 대면 / 온라인 병행</li>
         </ul>
       </div>
       <div class="card">
         <div class="card-icon">🛠️</div>
-        <h3>실습 워크샵</h3>
-        <p>CAD/CAM, 세라믹, 교합, 임플란트 보철 등 주제별 집중 실습 워크샵을 개최합니다. 소수 정원으로 밀도 높게 진행됩니다.</p>
+        <h3 data-i18n="activity.c2.h3">실습 워크샵</h3>
+        <p data-i18n="activity.c2.p">CAD/CAM, 세라믹, 교합, 임플란트 보철 등 주제별 집중 실습 워크샵을 개최합니다. 소수 정원으로 밀도 높게 진행됩니다.</p>
         <ul style="margin-top:16px;display:flex;flex-direction:column;gap:8px">
-          <li style="font-size:.85rem;color:var(--text-muted)">📅 분기별 1회</li>
-          <li style="font-size:.85rem;color:var(--text-muted)">⏱ 4–8시간</li>
-          <li style="font-size:.85rem;color:var(--text-muted)">📍 실습 공간 대면</li>
+          <li style="font-size:.85rem;color:var(--text-muted)" data-i18n="activity.c2.m1">📅 분기별 1회</li>
+          <li style="font-size:.85rem;color:var(--text-muted)" data-i18n="activity.c2.m2">⏱ 4–8시간</li>
+          <li style="font-size:.85rem;color:var(--text-muted)" data-i18n="activity.c2.m3">📍 실습 공간 대면</li>
         </ul>
       </div>
       <div class="card">
         <div class="card-icon">🎤</div>
-        <h3>연례 심포지엄</h3>
-        <p>연 1회 개최하는 TORCH 심포지엄. 회원 연구 발표, 외부 초청 강연, 포스터 세션, 네트워킹 리셉션으로 구성됩니다.</p>
+        <h3 data-i18n="activity.c3.h3">연례 심포지엄</h3>
+        <p data-i18n="activity.c3.p">연 1회 개최하는 TORCH 심포지엄. 회원 연구 발표, 외부 초청 강연, 포스터 세션, 네트워킹 리셉션으로 구성됩니다.</p>
         <ul style="margin-top:16px;display:flex;flex-direction:column;gap:8px">
-          <li style="font-size:.85rem;color:var(--text-muted)">📅 연 1회 (5월)</li>
-          <li style="font-size:.85rem;color:var(--text-muted)">⏱ 하루 종일</li>
-          <li style="font-size:.85rem;color:var(--text-muted)">📍 대형 강의장</li>
+          <li style="font-size:.85rem;color:var(--text-muted)" data-i18n="activity.c3.m1">📅 연 1회 (5월)</li>
+          <li style="font-size:.85rem;color:var(--text-muted)" data-i18n="activity.c3.m2">⏱ 하루 종일</li>
+          <li style="font-size:.85rem;color:var(--text-muted)" data-i18n="activity.c3.m3">📍 대형 강의장</li>
         </ul>
       </div>
     </div>
@@ -104,21 +108,21 @@
   <div class="container">
     <div class="section-header">
       <span class="eyebrow">Curriculum</span>
-      <h2>스터디 세션</h2>
+      <h2 data-i18n="activity.sessions.h2">스터디 세션</h2>
       <div class="divider"></div>
     </div>
 
     <div class="tabs">
-      <button class="tab-btn active" data-tab="tab-past">지난 세션</button>
-      <button class="tab-btn" data-tab="tab-upcoming">예정 세션</button>
+      <button class="tab-btn active" data-tab="tab-past" data-i18n="activity.tab.past">지난 세션</button>
+      <button class="tab-btn" data-tab="tab-upcoming" data-i18n="activity.tab.upcoming">예정 세션</button>
     </div>
 
     <div id="tab-past" class="tab-pane active">
       <div class="table-wrap">
         <table id="sessions-past-table">
-          <thead><tr><th>#</th><th>날짜</th><th>주제</th><th>발표자</th><th>형식</th><th>자료</th></tr></thead>
+          <thead><tr><th>#</th><th data-i18n="activity.th.date">날짜</th><th data-i18n="activity.th.topic">주제</th><th data-i18n="activity.th.presenter">발표자</th><th data-i18n="activity.th.format">형식</th><th data-i18n="activity.th.material">자료</th></tr></thead>
           <tbody id="past-tbody">
-            <tr><td colspan="6" style="text-align:center;padding:32px;color:var(--text-muted)">불러오는 중…</td></tr>
+            <tr><td colspan="6" style="text-align:center;padding:32px;color:var(--text-muted)" data-i18n="common.loading">불러오는 중…</td></tr>
           </tbody>
         </table>
       </div>
@@ -127,9 +131,9 @@
     <div id="tab-upcoming" class="tab-pane">
       <div class="table-wrap">
         <table>
-          <thead><tr><th>#</th><th>날짜</th><th>주제</th><th>형식</th><th>신청</th></tr></thead>
+          <thead><tr><th>#</th><th data-i18n="activity.th.date">날짜</th><th data-i18n="activity.th.topic">주제</th><th data-i18n="activity.th.format">형식</th><th data-i18n="activity.th.register">신청</th></tr></thead>
           <tbody id="upcoming-tbody">
-            <tr><td colspan="5" style="text-align:center;padding:32px;color:var(--text-muted)">불러오는 중…</td></tr>
+            <tr><td colspan="5" style="text-align:center;padding:32px;color:var(--text-muted)" data-i18n="common.loading">불러오는 중…</td></tr>
           </tbody>
         </table>
       </div>
@@ -142,17 +146,17 @@
   <div class="container">
     <div class="section-header">
       <span class="eyebrow">Fields</span>
-      <h2>다루는 분야</h2>
+      <h2 data-i18n="activity.fields.h2">다루는 분야</h2>
       <div class="divider"></div>
     </div>
     <div class="grid-4">
-      <div class="card text-center" style="padding:20px"><div style="font-size:2rem;margin-bottom:10px">🪥</div><h4>고정성 보철</h4><p style="font-size:.82rem">크라운, 브릿지, 인레이 등 고정성 보철물 제작 전반</p></div>
-      <div class="card text-center" style="padding:20px"><div style="font-size:2rem;margin-bottom:10px">😁</div><h4>가철성 보철</h4><p style="font-size:.82rem">총의치, 국소의치 등 가철성 보철물 제작 및 교합</p></div>
-      <div class="card text-center" style="padding:20px"><div style="font-size:2rem;margin-bottom:10px">🔩</div><h4>임플란트 보철</h4><p style="font-size:.82rem">임플란트 상부 보철물, Full Arch 케이스 등</p></div>
-      <div class="card text-center" style="padding:20px"><div style="font-size:2rem;margin-bottom:10px">✨</div><h4>심미 치과기공</h4><p style="font-size:.82rem">전치부 세라믹, 라미네이트, 색조 재현 기법</p></div>
-      <div class="card text-center" style="padding:20px"><div style="font-size:2rem;margin-bottom:10px">💻</div><h4>CAD/CAM</h4><p style="font-size:.82rem">디지털 보철 설계, 밀링, 구강 스캐너 활용</p></div>
-      <div class="card text-center" style="padding:20px"><div style="font-size:2rem;margin-bottom:10px">🖨️</div><h4>3D 프린팅</h4><p style="font-size:.82rem">레진 프린팅, 서지컬 가이드, 임시 보철 제작</p></div>
-      <div class="card text-center" style="padding:20px"><div style="font-size:2rem;margin-bottom:10px">🦴</div><h4>교정 장치</h4><p style="font-size:.82rem">교정용 레테이너, 악골 장치, 투명 교정 장치</p></div>
+      <div class="card text-center" style="padding:20px"><div style="font-size:2rem;margin-bottom:10px">🪥</div><h4 data-i18n="activity.f1.h4">고정성 보철</h4><p style="font-size:.82rem" data-i18n="activity.f1.p">크라운, 브릿지, 인레이 등 고정성 보철물 제작 전반</p></div>
+      <div class="card text-center" style="padding:20px"><div style="font-size:2rem;margin-bottom:10px">😁</div><h4 data-i18n="activity.f2.h4">가철성 보철</h4><p style="font-size:.82rem" data-i18n="activity.f2.p">총의치, 국소의치 등 가철성 보철물 제작 및 교합</p></div>
+      <div class="card text-center" style="padding:20px"><div style="font-size:2rem;margin-bottom:10px">🔩</div><h4 data-i18n="activity.f3.h4">임플란트 보철</h4><p style="font-size:.82rem" data-i18n="activity.f3.p">임플란트 상부 보철물, Full Arch 케이스 등</p></div>
+      <div class="card text-center" style="padding:20px"><div style="font-size:2rem;margin-bottom:10px">✨</div><h4 data-i18n="activity.f4.h4">심미 치과기공</h4><p style="font-size:.82rem" data-i18n="activity.f4.p">전치부 세라믹, 라미네이트, 색조 재현 기법</p></div>
+      <div class="card text-center" style="padding:20px"><div style="font-size:2rem;margin-bottom:10px">💻</div><h4 data-i18n="activity.f5.h4">CAD/CAM</h4><p style="font-size:.82rem" data-i18n="activity.f5.p">디지털 보철 설계, 밀링, 구강 스캐너 활용</p></div>
+      <div class="card text-center" style="padding:20px"><div style="font-size:2rem;margin-bottom:10px">🖨️</div><h4 data-i18n="activity.f6.h4">3D 프린팅</h4><p style="font-size:.82rem" data-i18n="activity.f6.p">레진 프린팅, 서지컬 가이드, 임시 보철 제작</p></div>
+      <div class="card text-center" style="padding:20px"><div style="font-size:2rem;margin-bottom:10px">🦴</div><h4 data-i18n="activity.f7.h4">교정 장치</h4><p style="font-size:.82rem" data-i18n="activity.f7.p">교정용 레테이너, 악골 장치, 투명 교정 장치</p></div>
     </div>
   </div>
 </section>
@@ -160,16 +164,17 @@
 <footer class="footer">
   <div class="container">
     <div class="footer-grid">
-      <div class="footer-brand"><a href="../index.html" class="nav-logo"><div class="logo-icon">🔥</div>TORCH</a><p style="margin-top:12px">Korea Young Dental Technician Study<br>기술 · 기회 · 보완 · 도전 · 희망</p></div>
+      <div class="footer-brand"><a href="../index.html" class="nav-logo"><div class="logo-icon">🔥</div>TORCH</a><p style="margin-top:12px" data-i18n-html="footer.brand.p">Korea Young Dental Technician Study<br>기술 · 기회 · 보완 · 도전 · 희망</p></div>
       <div class="footer-col"><h4>Pages</h4><ul><li><a href="../about.html">About</a></li><li><a href="index.html">Activity</a></li><li><a href="../sponsor.html">Sponsor</a></li></ul></div>
       <div class="footer-col"><h4>Registration</h4><ul><li><a href="../registration/study.html">Study Group</a></li><li><a href="../registration/symposium.html">Symposium</a></li><li><a href="../registration/workshop.html">Workshop</a></li></ul></div>
       <div class="footer-col"><h4>Community</h4><ul><li><a href="../news/index.html">News</a></li><li><a href="../contact.html">Contact</a></li></ul></div>
     </div>
-    <div class="footer-bottom"><span>© 2025 TORCH – Korea Young Dental Technician Study. All rights reserved.</span></div>
+    <div class="footer-bottom"><span data-i18n="footer.copyright">© 2025 TORCH – Korea Young Dental Technician Study. All rights reserved.</span></div>
   </div>
 </footer>
 
 <script src="../js/theme.js"></script>
+<script src="../js/i18n.js"></script>
 <script>
 /* Tab switching */
 document.querySelectorAll('.tab-btn').forEach(btn => {

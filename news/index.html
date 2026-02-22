@@ -20,6 +20,10 @@
       <div class="nav-item"><a href="index.html" class="nav-link active">News</a></div>
       <div class="nav-item"><a href="../contact.html" class="nav-link">Contact</a></div>
     </div>
+    <div class="lang-toggle">
+      <button class="lang-btn active" id="btn-ko" onclick="I18n.setLang('ko')">KOR</button>
+      <button class="lang-btn" id="btn-en" onclick="I18n.setLang('en')">ENG</button>
+    </div>
     <div class="hamburger"><span></span><span></span><span></span></div>
   </div>
 </nav>
@@ -27,14 +31,14 @@
   <a href="../index.html" class="mobile-link">Home</a>
   <a href="index.html" class="mobile-link">News</a>
   <a href="../contact.html" class="mobile-link">Contact</a>
-  <a href="../members/members.html" class="mobile-link">Members 소개</a>
+  <a href="../members/members.html" class="mobile-link" data-i18n="mobile.members">Members 소개</a>
 </div>
 
 <div class="page-header">
   <div class="container">
     <span class="eyebrow">Latest Updates</span>
-    <h1>News & 공지사항</h1>
-    <p>TORCH의 최신 소식, 행사 공지, 회원 활동 소식을 확인하세요.</p>
+    <h1 data-i18n="news.header.h1">News & 공지사항</h1>
+    <p data-i18n="news.header.p">TORCH의 최신 소식, 행사 공지, 회원 활동 소식을 확인하세요.</p>
     <div class="breadcrumb"><a href="../index.html">Home</a><span>/</span><span>News</span></div>
   </div>
 </div>
@@ -42,15 +46,15 @@
 <section class="section section-light">
   <div class="container">
     <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:32px" id="filter-bar">
-      <button class="btn btn-primary btn-sm filter-btn active" data-filter="all">전체</button>
-      <button class="btn btn-dark btn-sm filter-btn" data-filter="공지">공지</button>
-      <button class="btn btn-dark btn-sm filter-btn" data-filter="행사">행사</button>
-      <button class="btn btn-dark btn-sm filter-btn" data-filter="워크샵">워크샵</button>
-      <button class="btn btn-dark btn-sm filter-btn" data-filter="소식">소식</button>
+      <button class="btn btn-primary btn-sm filter-btn active" data-filter="all" data-i18n="news.filter.all">전체</button>
+      <button class="btn btn-dark btn-sm filter-btn" data-filter="공지" data-i18n="news.filter.notice">공지</button>
+      <button class="btn btn-dark btn-sm filter-btn" data-filter="행사" data-i18n="news.filter.event">행사</button>
+      <button class="btn btn-dark btn-sm filter-btn" data-filter="워크샵" data-i18n="news.filter.workshop">워크샵</button>
+      <button class="btn btn-dark btn-sm filter-btn" data-filter="소식" data-i18n="news.filter.news">소식</button>
     </div>
 
     <div id="news-grid" class="news-grid">
-      <div style="grid-column:1/-1;text-align:center;padding:60px;color:var(--text-muted)">불러오는 중…</div>
+      <div style="grid-column:1/-1;text-align:center;padding:60px;color:var(--text-muted)" data-i18n="common.loading">불러오는 중…</div>
     </div>
   </div>
 </section>
@@ -58,12 +62,12 @@
 <footer class="footer">
   <div class="container">
     <div class="footer-grid">
-      <div class="footer-brand"><a href="../index.html" class="nav-logo"><div class="logo-icon">🔥</div>TORCH</a><p style="margin-top:12px">Korea Young Dental Technician Study<br>기술 · 기회 · 보완 · 도전 · 희망</p></div>
+      <div class="footer-brand"><a href="../index.html" class="nav-logo"><div class="logo-icon">🔥</div>TORCH</a><p style="margin-top:12px" data-i18n-html="footer.brand.p">Korea Young Dental Technician Study<br>기술 · 기회 · 보완 · 도전 · 희망</p></div>
       <div class="footer-col"><h4>Pages</h4><ul><li><a href="../about.html">About</a></li><li><a href="../activity/index.html">Activity</a></li><li><a href="../sponsor.html">Sponsor</a></li></ul></div>
       <div class="footer-col"><h4>Registration</h4><ul><li><a href="../registration/study.html">Study Group</a></li><li><a href="../registration/symposium.html">Symposium</a></li><li><a href="../registration/workshop.html">Workshop</a></li></ul></div>
       <div class="footer-col"><h4>Community</h4><ul><li><a href="index.html">News</a></li><li><a href="../contact.html">Contact</a></li></ul></div>
     </div>
-    <div class="footer-bottom"><span>© 2025 TORCH – Korea Young Dental Technician Study. All rights reserved.</span></div>
+    <div class="footer-bottom"><span data-i18n="footer.copyright">© 2025 TORCH – Korea Young Dental Technician Study. All rights reserved.</span></div>
   </div>
 </footer>
 
@@ -142,5 +146,6 @@ function esc(str) {
   }
 })();
 </script>
+<script src="../js/i18n.js"></script>
 </body>
 </html>

@@ -984,3 +984,35 @@ tbody tr:last-child td { border-bottom: none; }
 @media (max-width: 480px) {
   .members-grid { grid-template-columns: 1fr 1fr; }
 }
+
+/* ── Language Toggle ─────────────────────────── */
+.lang-toggle {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: 12px;
+}
+.lang-btn {
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: .8rem;
+  font-weight: 700;
+  cursor: pointer;
+  border: 1.5px solid rgba(255,255,255,.3);
+  background: transparent;
+  color: rgba(255,255,255,.6);
+  transition: all .2s;
+  line-height: 1.4;
+}
+.lang-btn.active {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #fff;
+}
+.lang-btn:hover:not(.active) {
+  border-color: rgba(255,255,255,.7);
+  color: rgba(255,255,255,.9);
+}
+@media (max-width: 768px) {
+  .lang-toggle { margin-left: 8px; }
+}

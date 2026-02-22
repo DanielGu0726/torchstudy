@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
@@ -67,13 +67,17 @@
       <div class="nav-item"><a href="../news/index.html" class="nav-link">News</a></div>
       <div class="nav-item"><a href="../contact.html" class="nav-link">Contact</a></div>
     </div>
+    <div class="lang-toggle">
+      <button class="lang-btn active" id="btn-ko" onclick="I18n.setLang('ko')">KOR</button>
+      <button class="lang-btn" id="btn-en" onclick="I18n.setLang('en')">ENG</button>
+    </div>
     <div class="hamburger"><span></span><span></span><span></span></div>
   </div>
 </nav>
 <div class="mobile-menu">
   <a href="../index.html" class="mobile-link">Home</a>
   <a href="../about.html" class="mobile-link">About</a>
-  <a href="members.html" class="mobile-link">Members 소개</a>
+  <a href="members.html" class="mobile-link" data-i18n="mobile.members">Members 소개</a>
   <a href="../contact.html" class="mobile-link">Contact</a>
 </div>
 
@@ -81,7 +85,7 @@
   <div class="container">
     <span class="eyebrow">Community</span>
     <h1>TORCH Members</h1>
-    <p>TORCH를 함께 만들어가는 사람들을 소개합니다.</p>
+    <p data-i18n="members.header.p">TORCH를 함께 만들어가는 사람들을 소개합니다.</p>
     <div class="breadcrumb"><a href="../index.html">Home</a><span>/</span><span>Members</span></div>
   </div>
 </div>
@@ -91,9 +95,9 @@
 
     <!-- Tabs -->
     <div class="tabs">
-      <button class="tab-btn active" data-tab="president">🔥 회장 인사말</button>
-      <button class="tab-btn" data-tab="alumni">📚 역대 Members</button>
-      <button class="tab-btn" data-tab="current">👥 2026 TORCH Members</button>
+      <button class="tab-btn active" data-tab="president" data-i18n="members.tab.president">🔥 회장 인사말</button>
+      <button class="tab-btn" data-tab="alumni" data-i18n="members.tab.alumni">📚 역대 Members</button>
+      <button class="tab-btn" data-tab="current" data-i18n="members.tab.current">👥 2026 TORCH Members</button>
     </div>
 
     <!-- ── Tab 1: 회장 인사말 ──────────────────────── -->
@@ -122,31 +126,31 @@
     <div id="tab-alumni" class="tab-pane">
       <!-- Sort bar -->
       <div class="sort-bar">
-        <label>정렬:</label>
+        <label data-i18n="members.sort.label">정렬:</label>
         <select id="alumni-sort" onchange="renderAlumni()">
-          <option value="year-desc">연도 (최신순)</option>
-          <option value="year-asc">연도 (오래된순)</option>
-          <option value="name-asc">이름 (가나다순)</option>
-          <option value="workplace-asc">소속 (가나다순)</option>
+          <option value="year-desc" data-i18n="members.sort.year-desc">연도 (최신순)</option>
+          <option value="year-asc" data-i18n="members.sort.year-asc">연도 (오래된순)</option>
+          <option value="name-asc" data-i18n="members.sort.name-asc">이름 (가나다순)</option>
+          <option value="workplace-asc" data-i18n="members.sort.workplace-asc">소속 (가나다순)</option>
         </select>
       </div>
       <div id="alumni-list">
-        <div style="text-align:center;padding:60px;color:var(--text-muted)">불러오는 중…</div>
+        <div style="text-align:center;padding:60px;color:var(--text-muted)" data-i18n="common.loading">불러오는 중…</div>
       </div>
     </div>
 
     <!-- ── Tab 3: 2026 TORCH Members ─────────────────── -->
     <div id="tab-current" class="tab-pane">
       <div class="sort-bar">
-        <label>정렬:</label>
+        <label data-i18n="members.sort.label">정렬:</label>
         <select id="current-sort" onchange="renderCurrent()">
-          <option value="order-asc">기본 순서</option>
-          <option value="name-asc">이름 (가나다순)</option>
-          <option value="workplace-asc">소속 (가나다순)</option>
+          <option value="order-asc" data-i18n="members.sort.order-asc">기본 순서</option>
+          <option value="name-asc" data-i18n="members.sort.name-asc">이름 (가나다순)</option>
+          <option value="workplace-asc" data-i18n="members.sort.workplace-asc">소속 (가나다순)</option>
         </select>
       </div>
       <div id="current-list">
-        <div style="text-align:center;padding:60px;color:var(--text-muted)">불러오는 중…</div>
+        <div style="text-align:center;padding:60px;color:var(--text-muted)" data-i18n="common.loading">불러오는 중…</div>
       </div>
     </div>
 
@@ -167,7 +171,7 @@
     <div class="footer-grid">
       <div class="footer-brand">
         <a href="../index.html" class="nav-logo"><div class="logo-icon">🔥</div>TORCH</a>
-        <p style="margin-top:12px">Korea Young Dental Technician Study<br>기술 · 기회 · 보완 · 도전 · 희망</p>
+        <p style="margin-top:12px" data-i18n-html="footer.brand.p">Korea Young Dental Technician Study<br>기술 · 기회 · 보완 · 도전 · 희망</p>
         <div style="margin-top:16px"><a href="https://www.instagram.com/t_o_r_c_h_study/" target="_blank" class="btn btn-sm" style="background:rgba(255,255,255,.08);color:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.15)">📷 @t_o_r_c_h_study</a></div>
       </div>
       <div class="footer-col"><h4>Pages</h4><ul><li><a href="../about.html">About</a></li><li><a href="../activity/index.html">Activity</a></li><li><a href="../sponsor.html">Sponsor</a></li></ul></div>
@@ -175,7 +179,7 @@
       <div class="footer-col"><h4>Community</h4><ul><li><a href="../news/index.html">News</a></li><li><a href="members.html">Members</a></li><li><a href="../contact.html">Contact</a></li></ul></div>
     </div>
     <div class="footer-bottom">
-      <span>© 2025 TORCH – Korea Young Dental Technician Study. All rights reserved.</span>
+      <span data-i18n="footer.copyright">© 2025 TORCH – Korea Young Dental Technician Study. All rights reserved.</span>
       <div class="social-links">
         <a href="https://www.instagram.com/t_o_r_c_h_study/" target="_blank" class="social-link" title="Instagram">📷</a>
       </div>
@@ -449,5 +453,6 @@ document.addEventListener('keydown', e => {
 /* ── Init ───────────────────────────────────── */
 loadPresident();
 </script>
+<script src="../js/i18n.js"></script>
 </body>
 </html>

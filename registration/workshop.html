@@ -25,21 +25,25 @@
       <div class="nav-item"><a href="../news/index.html" class="nav-link">News</a></div>
       <div class="nav-item"><a href="../contact.html" class="nav-link">Contact</a></div>
     </div>
+    <div class="lang-toggle">
+      <button class="lang-btn active" id="btn-ko" onclick="I18n.setLang('ko')">KOR</button>
+      <button class="lang-btn" id="btn-en" onclick="I18n.setLang('en')">ENG</button>
+    </div>
     <div class="hamburger"><span></span><span></span><span></span></div>
   </div>
 </nav>
 <div class="mobile-menu">
   <a href="../index.html" class="mobile-link">Home</a>
-  <a href="study.html" class="mobile-link">Study 신청</a>
-  <a href="symposium.html" class="mobile-link">Symposium</a>
-  <a href="workshop.html" class="mobile-link">Workshop 신청</a>
+  <a href="study.html" class="mobile-link" data-i18n="mobile.study">Study 신청</a>
+  <a href="symposium.html" class="mobile-link" data-i18n="mobile.symposium.reg">Symposium 신청</a>
+  <a href="workshop.html" class="mobile-link" data-i18n="mobile.workshop">Workshop 신청</a>
 </div>
 
 <div class="page-header">
   <div class="container">
     <span class="eyebrow">Hands-on</span>
     <h1>Workshop</h1>
-    <p>특정 분야를 집중적으로 학습하는 실습 중심 워크샵에 참가하세요.</p>
+    <p data-i18n="reg.ws.header.p">특정 분야를 집중적으로 학습하는 실습 중심 워크샵에 참가하세요.</p>
     <div class="breadcrumb"><a href="../index.html">Home</a><span>/</span><a href="study.html">Registration</a><span>/</span><span>Workshop</span></div>
   </div>
 </div>
@@ -56,10 +60,10 @@
           <div class="ws-meta-row">
             <div class="ws-meta-item" id="ws-date-wrap" style="display:none">📅 <span id="ws-date"></span></div>
             <div class="ws-meta-item" id="ws-loc-wrap" style="display:none">📍 <span id="ws-location"></span></div>
-            <div class="ws-meta-item" id="ws-cap-wrap" style="display:none">👥 정원 <span id="ws-capacity"></span>명</div>
+            <div class="ws-meta-item" id="ws-cap-wrap" style="display:none">👥 <span id="ws-capacity"></span><span data-i18n="reg.ws.cap.suffix">명</span></div>
           </div>
           <div id="ws-topic-wrap" style="display:none;margin-bottom:16px">
-            <strong>주제</strong>
+            <strong data-i18n="reg.ws.topic.label">주제</strong>
             <p id="ws-topic" style="font-size:.9rem;margin-top:4px;color:var(--text-muted)"></p>
           </div>
           <div id="ws-description" style="font-size:.9rem;line-height:1.7;color:var(--text-muted)"></div>
@@ -67,32 +71,32 @@
       </div>
 
       <div class="form-card" style="max-width:100%">
-        <h3 style="margin-bottom:6px">Workshop 신청서</h3>
-        <p style="font-size:.88rem;margin-bottom:24px">아래 양식을 작성하여 신청해 주세요.</p>
+        <h3 style="margin-bottom:6px" data-i18n="reg.ws.form.h3">Workshop 신청서</h3>
+        <p style="font-size:.88rem;margin-bottom:24px" data-i18n="reg.ws.form.p">아래 양식을 작성하여 신청해 주세요.</p>
 
         <div id="form-alert" class="alert"><span class="alert-msg"></span></div>
 
         <form id="workshop-form">
           <div class="form-row">
             <div class="form-group">
-              <label class="required">이름</label>
-              <input class="form-control" name="name" placeholder="홍길동" required>
+              <label class="required" data-i18n="form.name">이름</label>
+              <input class="form-control" name="name" data-i18n-placeholder="form.name.ph" placeholder="홍길동" required>
               <div class="error-msg"></div>
             </div>
             <div class="form-group">
-              <label class="required">연락처</label>
-              <input class="form-control" name="phone" data-validate="phone" placeholder="010-0000-0000" required>
+              <label class="required" data-i18n="form.phone">연락처</label>
+              <input class="form-control" name="phone" data-validate="phone" data-i18n-placeholder="form.phone.ph" placeholder="010-0000-0000" required>
               <div class="error-msg"></div>
             </div>
           </div>
           <div class="form-group">
-            <label class="required">소속</label>
-            <input class="form-control" name="affiliation" placeholder="○○치과기공소 / ○○대학교" required>
+            <label class="required" data-i18n="form.affiliation">소속</label>
+            <input class="form-control" name="affiliation" data-i18n-placeholder="form.affiliation.ph" placeholder="○○치과기공소 / ○○대학교" required>
             <div class="error-msg"></div>
           </div>
           <div class="form-row">
             <div class="form-group">
-              <label class="required">경력</label>
+              <label class="required" data-i18n="form.ws.experience">경력</label>
               <select class="form-control" name="experience" required>
                 <option value="">선택…</option>
                 <option>학생 (재학 중)</option>
@@ -104,13 +108,13 @@
             </div>
           </div>
           <div class="form-group">
-            <label>기대하는 것 (선택)</label>
-            <textarea class="form-control" name="goals" placeholder="배우고 싶은 내용이나 궁금한 점을 적어주세요."></textarea>
+            <label data-i18n="form.goals">기대하는 것 (선택)</label>
+            <textarea class="form-control" name="goals" data-i18n-placeholder="form.goals.ph" placeholder="배우고 싶은 내용이나 궁금한 점을 적어주세요."></textarea>
           </div>
           <div class="form-group">
-            <label class="check-item"><input type="checkbox" required> <span>참가 신청 내용에 동의합니다</span></label>
+            <label class="check-item"><input type="checkbox" required> <span data-i18n="form.ws.consent">참가 신청 내용에 동의합니다</span></label>
           </div>
-          <button type="submit" class="btn btn-primary btn-block btn-lg">Workshop 신청</button>
+          <button type="submit" class="btn btn-primary btn-block btn-lg" data-i18n="reg.ws.submit">Workshop 신청</button>
         </form>
       </div>
     </div>
@@ -121,11 +125,11 @@
 <section id="ws-closed-section" class="section section-light" style="display:none">
   <div class="container" style="text-align:center;padding:80px 16px">
     <div style="font-size:3rem;margin-bottom:20px">🔒</div>
-    <h2 style="margin-bottom:16px">현재 모집 중인 워크샵이 없습니다</h2>
-    <p style="max-width:480px;margin:0 auto 32px;color:var(--text-muted);font-size:1.05rem">새로운 워크샵 일정은 인스타그램과 공식 채널을 통해 공지됩니다.</p>
+    <h2 style="margin-bottom:16px" data-i18n="reg.ws.closed.h2">현재 모집 중인 워크샵이 없습니다</h2>
+    <p style="max-width:480px;margin:0 auto 32px;color:var(--text-muted);font-size:1.05rem" data-i18n="reg.ws.closed.p">새로운 워크샵 일정은 인스타그램과 공식 채널을 통해 공지됩니다.</p>
     <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap">
-      <a href="https://www.instagram.com/t_o_r_c_h_study/" target="_blank" class="btn btn-primary">📷 Instagram 팔로우</a>
-      <a href="../contact.html" class="btn btn-dark">문의하기</a>
+      <a href="https://www.instagram.com/t_o_r_c_h_study/" target="_blank" class="btn btn-primary" data-i18n="reg.study.closed.btn1">📷 Instagram 팔로우</a>
+      <a href="../contact.html" class="btn btn-dark" data-i18n="common.contact">문의하기</a>
     </div>
   </div>
 </section>
@@ -133,12 +137,12 @@
 <footer class="footer">
   <div class="container">
     <div class="footer-grid">
-      <div class="footer-brand"><a href="../index.html" class="nav-logo"><div class="logo-icon">🔥</div>TORCH</a><p style="margin-top:12px">Korea Young Dental Technician Study<br>기술 · 기회 · 보완 · 도전 · 희망</p></div>
+      <div class="footer-brand"><a href="../index.html" class="nav-logo"><div class="logo-icon">🔥</div>TORCH</a><p style="margin-top:12px" data-i18n-html="footer.brand.p">Korea Young Dental Technician Study<br>기술 · 기회 · 보완 · 도전 · 희망</p></div>
       <div class="footer-col"><h4>Pages</h4><ul><li><a href="../about.html">About</a></li><li><a href="../activity/index.html">Activity</a></li><li><a href="../sponsor.html">Sponsor</a></li></ul></div>
       <div class="footer-col"><h4>Registration</h4><ul><li><a href="study.html">Study Group</a></li><li><a href="symposium.html">Symposium</a></li><li><a href="workshop.html">Workshop</a></li></ul></div>
       <div class="footer-col"><h4>Community</h4><ul><li><a href="../news/index.html">News</a></li><li><a href="../contact.html">Contact</a></li></ul></div>
     </div>
-    <div class="footer-bottom"><span>© 2025 TORCH – Korea Young Dental Technician Study. All rights reserved.</span></div>
+    <div class="footer-bottom"><span data-i18n="footer.copyright">© 2025 TORCH – Korea Young Dental Technician Study. All rights reserved.</span></div>
   </div>
 </footer>
 
@@ -210,5 +214,6 @@
   }
 })();
 </script>
+<script src="../js/i18n.js"></script>
 </body>
 </html>

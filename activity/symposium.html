@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
@@ -23,6 +23,10 @@
       <div class="nav-item"><a href="../news/index.html" class="nav-link">News</a></div>
       <div class="nav-item"><a href="../contact.html" class="nav-link">Contact</a></div>
     </div>
+    <div class="lang-toggle">
+      <button class="lang-btn active" id="btn-ko" onclick="I18n.setLang('ko')">KOR</button>
+      <button class="lang-btn" id="btn-en" onclick="I18n.setLang('en')">ENG</button>
+    </div>
     <div class="hamburger"><span></span><span></span><span></span></div>
   </div>
 </nav>
@@ -31,9 +35,9 @@
   <a href="../about.html" class="mobile-link">About</a>
   <a href="index.html" class="mobile-link">Activity</a>
   <a href="symposium.html" class="mobile-link">Symposium</a>
-  <a href="../registration/symposium.html" class="mobile-link">심포지엄 신청</a>
+  <a href="../registration/symposium.html" class="mobile-link" data-i18n="mobile.symposium.reg">심포지엄 신청</a>
   <a href="../contact.html" class="mobile-link">Contact</a>
-  <a href="../members/members.html" class="mobile-link">Members 소개</a>
+  <a href="../members/members.html" class="mobile-link" data-i18n="mobile.members">Members 소개</a>
 </div>
 
 <!-- Hero -->
@@ -42,19 +46,19 @@
   <div class="container" style="position:relative">
     <div class="hero-badge" style="margin:0 auto 24px;width:fit-content">🎤 Annual Symposium</div>
     <h1 style="color:white;margin-bottom:16px">TORCH Symposium <span style="color:var(--primary)">2025</span></h1>
-    <p style="color:rgba(255,255,255,.75);font-size:1.15rem;max-width:580px;margin:0 auto 36px">
+    <p style="color:rgba(255,255,255,.75);font-size:1.15rem;max-width:580px;margin:0 auto 36px" data-i18n-html="sym.hero.p">
       2025년 5월 24일 · 전일 행사<br>
       회원 케이스 발표 · 초청 특강 · 실습 전시 · 네트워킹
     </p>
     <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap">
-      <a href="../registration/symposium.html" class="btn btn-primary btn-lg">참가 신청</a>
-      <a href="#schedule" class="btn btn-outline btn-lg">프로그램 보기</a>
+      <a href="../registration/symposium.html" class="btn btn-primary btn-lg" data-i18n="sym.hero.btn1">참가 신청</a>
+      <a href="#schedule" class="btn btn-outline btn-lg" data-i18n="sym.hero.btn2">프로그램 보기</a>
     </div>
     <div style="display:flex;gap:40px;justify-content:center;margin-top:48px;flex-wrap:wrap">
-      <div style="text-align:center"><div style="font-size:2rem;font-weight:800;color:var(--primary)">10+</div><div style="font-size:.85rem;color:rgba(255,255,255,.6)">케이스 발표</div></div>
-      <div style="text-align:center"><div style="font-size:2rem;font-weight:800;color:var(--primary)">3</div><div style="font-size:.85rem;color:rgba(255,255,255,.6)">초청 강사</div></div>
-      <div style="text-align:center"><div style="font-size:2rem;font-weight:800;color:var(--primary)">100+</div><div style="font-size:.85rem;color:rgba(255,255,255,.6)">참가 예정</div></div>
-      <div style="text-align:center"><div style="font-size:2rem;font-weight:800;color:var(--primary)">1일</div><div style="font-size:.85rem;color:rgba(255,255,255,.6)">전일 행사</div></div>
+      <div style="text-align:center"><div style="font-size:2rem;font-weight:800;color:var(--primary)">10+</div><div style="font-size:.85rem;color:rgba(255,255,255,.6)" data-i18n="sym.stat1">케이스 발표</div></div>
+      <div style="text-align:center"><div style="font-size:2rem;font-weight:800;color:var(--primary)">3</div><div style="font-size:.85rem;color:rgba(255,255,255,.6)" data-i18n="sym.stat2">초청 강사</div></div>
+      <div style="text-align:center"><div style="font-size:2rem;font-weight:800;color:var(--primary)">100+</div><div style="font-size:.85rem;color:rgba(255,255,255,.6)" data-i18n="sym.stat3">참가 예정</div></div>
+      <div style="text-align:center"><div style="font-size:2rem;font-weight:800;color:var(--primary)">1일</div><div style="font-size:.85rem;color:rgba(255,255,255,.6)" data-i18n="sym.stat4">전일 행사</div></div>
     </div>
   </div>
 </div>
@@ -64,47 +68,47 @@
   <div class="container">
     <div class="section-header">
       <span class="eyebrow">Program</span>
-      <h2>심포지엄 프로그램</h2>
+      <h2 data-i18n="sym.schedule.h2">심포지엄 프로그램</h2>
       <div class="divider"></div>
-      <p>케이스 발표, 초청 강연, 네트워킹이 가득한 하루를 함께합니다.</p>
+      <p data-i18n="sym.schedule.p">케이스 발표, 초청 강연, 네트워킹이 가득한 하루를 함께합니다.</p>
     </div>
     <div style="max-width:720px;margin:0 auto">
       <div style="display:flex;flex-direction:column;gap:16px">
         <div class="card" style="display:flex;gap:20px;align-items:flex-start">
           <div style="min-width:80px;font-size:.82rem;font-weight:700;color:var(--primary);padding-top:2px">09:00</div>
-          <div><h4>등록 & 오프닝 커피</h4><p style="font-size:.85rem">참가자 등록, 명찰 수령, 전시 관람 및 자유 네트워킹.</p></div>
+          <div><h4 data-i18n="sym.s1.h4">등록 & 오프닝 커피</h4><p style="font-size:.85rem" data-i18n="sym.s1.p">참가자 등록, 명찰 수령, 전시 관람 및 자유 네트워킹.</p></div>
         </div>
         <div class="card" style="display:flex;gap:20px;align-items:flex-start;border-left:3px solid var(--primary)">
           <div style="min-width:80px;font-size:.82rem;font-weight:700;color:var(--primary);padding-top:2px">09:30</div>
-          <div><h4>오프닝 키노트</h4><p style="font-size:.85rem"><strong>초청 강사</strong> — "디지털 치과기공의 현재와 미래 : 치과기공사가 알아야 할 것들"</p></div>
+          <div><h4 data-i18n="sym.s2.h4">오프닝 키노트</h4><p style="font-size:.85rem" data-i18n-html="sym.s2.p"><strong>초청 강사</strong> — "디지털 치과기공의 현재와 미래 : 치과기공사가 알아야 할 것들"</p></div>
         </div>
         <div class="card" style="display:flex;gap:20px;align-items:flex-start">
           <div style="min-width:80px;font-size:.82rem;font-weight:700;color:var(--primary);padding-top:2px">10:30</div>
-          <div><h4>Session 1 : 고정성 보철 케이스 발표</h4><p style="font-size:.85rem">전치부 심미 보철, 지르코니아 적용 케이스, Full Mouth Rehabilitation 증례 3편 발표.</p></div>
+          <div><h4 data-i18n="sym.s3.h4">Session 1 : 고정성 보철 케이스 발표</h4><p style="font-size:.85rem" data-i18n="sym.s3.p">전치부 심미 보철, 지르코니아 적용 케이스, Full Mouth Rehabilitation 증례 3편 발표.</p></div>
         </div>
         <div class="card" style="display:flex;gap:20px;align-items:flex-start">
           <div style="min-width:80px;font-size:.82rem;font-weight:700;color:var(--primary);padding-top:2px">12:00</div>
-          <div><h4>점심 & 포스터 세션</h4><p style="font-size:.85rem">케이터링 점심 식사와 동시에 회원들의 포스터 발표 진행.</p></div>
+          <div><h4 data-i18n="sym.s4.h4">점심 & 포스터 세션</h4><p style="font-size:.85rem" data-i18n="sym.s4.p">케이터링 점심 식사와 동시에 회원들의 포스터 발표 진행.</p></div>
         </div>
         <div class="card" style="display:flex;gap:20px;align-items:flex-start;border-left:3px solid var(--primary)">
           <div style="min-width:80px;font-size:.82rem;font-weight:700;color:var(--primary);padding-top:2px">13:30</div>
-          <div><h4>초청 특강</h4><p style="font-size:.85rem"><strong>게스트 강사</strong> — "임플란트 보철의 교합 관리 : 임상에서의 핵심 포인트"</p></div>
+          <div><h4 data-i18n="sym.s5.h4">초청 특강</h4><p style="font-size:.85rem" data-i18n-html="sym.s5.p"><strong>게스트 강사</strong> — "임플란트 보철의 교합 관리 : 임상에서의 핵심 포인트"</p></div>
         </div>
         <div class="card" style="display:flex;gap:20px;align-items:flex-start">
           <div style="min-width:80px;font-size:.82rem;font-weight:700;color:var(--primary);padding-top:2px">14:30</div>
-          <div><h4>Session 2 : 디지털 치과기공 & 가철성 보철</h4><p style="font-size:.85rem">CAD/CAM 활용 케이스, 3D 프린팅 의치, 임플란트 오버덴처 증례 3편 발표.</p></div>
+          <div><h4 data-i18n="sym.s6.h4">Session 2 : 디지털 치과기공 & 가철성 보철</h4><p style="font-size:.85rem" data-i18n="sym.s6.p">CAD/CAM 활용 케이스, 3D 프린팅 의치, 임플란트 오버덴처 증례 3편 발표.</p></div>
         </div>
         <div class="card" style="display:flex;gap:20px;align-items:flex-start">
           <div style="min-width:80px;font-size:.82rem;font-weight:700;color:var(--primary);padding-top:2px">16:30</div>
-          <div><h4>패널 토크</h4><p style="font-size:.85rem">"젊은 치과기공사의 커리어 로드맵" — 선배 치과기공사와의 Q&A 토크쇼.</p></div>
+          <div><h4 data-i18n="sym.s7.h4">패널 토크</h4><p style="font-size:.85rem" data-i18n="sym.s7.p">"젊은 치과기공사의 커리어 로드맵" — 선배 치과기공사와의 Q&A 토크쇼.</p></div>
         </div>
         <div class="card" style="display:flex;gap:20px;align-items:flex-start;border-left:3px solid var(--accent)">
           <div style="min-width:80px;font-size:.82rem;font-weight:700;color:var(--accent);padding-top:2px">17:30</div>
-          <div><h4>시상 & 폐회</h4><p style="font-size:.85rem">Best Case Award, Best Poster Award 시상 및 폐회식.</p></div>
+          <div><h4 data-i18n="sym.s8.h4">시상 & 폐회</h4><p style="font-size:.85rem" data-i18n="sym.s8.p">Best Case Award, Best Poster Award 시상 및 폐회식.</p></div>
         </div>
         <div class="card" style="display:flex;gap:20px;align-items:flex-start">
           <div style="min-width:80px;font-size:.82rem;font-weight:700;color:var(--primary);padding-top:2px">18:00</div>
-          <div><h4>네트워킹 리셉션</h4><p style="font-size:.85rem">저녁 식사와 함께하는 자유 네트워킹. 강사진, 스폰서, 동료들과의 교류 시간.</p></div>
+          <div><h4 data-i18n="sym.s9.h4">네트워킹 리셉션</h4><p style="font-size:.85rem" data-i18n="sym.s9.p">저녁 식사와 함께하는 자유 네트워킹. 강사진, 스폰서, 동료들과의 교류 시간.</p></div>
         </div>
       </div>
     </div>
@@ -116,28 +120,28 @@
   <div class="container">
     <div class="section-header">
       <span class="eyebrow">Speakers</span>
-      <h2>초청 강사</h2>
+      <h2 data-i18n="sym.speakers.h2">초청 강사</h2>
       <div class="divider"></div>
-      <p>임상 현장에서 활약하는 전문가들을 초청합니다. (추후 공개 예정)</p>
+      <p data-i18n="sym.speakers.p">임상 현장에서 활약하는 전문가들을 초청합니다. (추후 공개 예정)</p>
     </div>
     <div class="grid-3">
       <div class="card text-center">
         <div class="avatar" style="margin:0 auto 16px;background:linear-gradient(135deg,var(--dark-3),var(--primary))">TBA</div>
-        <h3 style="font-size:1rem">초청 강사 1</h3>
-        <p style="font-size:.82rem;color:var(--primary);font-weight:600;margin-bottom:8px">디지털 치과기공 전문가</p>
-        <p style="font-size:.82rem">디지털 치과기공의 현재와 미래</p>
+        <h3 style="font-size:1rem" data-i18n="sym.speaker1.h3">초청 강사 1</h3>
+        <p style="font-size:.82rem;color:var(--primary);font-weight:600;margin-bottom:8px" data-i18n="sym.speaker1.title">디지털 치과기공 전문가</p>
+        <p style="font-size:.82rem" data-i18n="sym.speaker1.p">디지털 치과기공의 현재와 미래</p>
       </div>
       <div class="card text-center">
         <div class="avatar" style="margin:0 auto 16px;background:linear-gradient(135deg,#27ae60,var(--dark))">TBA</div>
-        <h3 style="font-size:1rem">초청 강사 2</h3>
-        <p style="font-size:.82rem;color:var(--primary);font-weight:600;margin-bottom:8px">임플란트 보철 전문가</p>
-        <p style="font-size:.82rem">임플란트 보철의 교합 관리</p>
+        <h3 style="font-size:1rem" data-i18n="sym.speaker2.h3">초청 강사 2</h3>
+        <p style="font-size:.82rem;color:var(--primary);font-weight:600;margin-bottom:8px" data-i18n="sym.speaker2.title">임플란트 보철 전문가</p>
+        <p style="font-size:.82rem" data-i18n="sym.speaker2.p">임플란트 보철의 교합 관리</p>
       </div>
       <div class="card text-center">
         <div class="avatar" style="margin:0 auto 16px;background:linear-gradient(135deg,var(--accent),var(--primary))">TBA</div>
-        <h3 style="font-size:1rem">패널 강사</h3>
-        <p style="font-size:.82rem;color:var(--primary);font-weight:600;margin-bottom:8px">베테랑 치과기공사</p>
-        <p style="font-size:.82rem">커리어 로드맵 토크</p>
+        <h3 style="font-size:1rem" data-i18n="sym.speaker3.h3">패널 강사</h3>
+        <p style="font-size:.82rem;color:var(--primary);font-weight:600;margin-bottom:8px" data-i18n="sym.speaker3.title">베테랑 치과기공사</p>
+        <p style="font-size:.82rem" data-i18n="sym.speaker3.p">커리어 로드맵 토크</p>
       </div>
     </div>
   </div>
@@ -146,11 +150,11 @@
 <!-- CTA -->
 <section class="section" style="background:linear-gradient(135deg,var(--primary),var(--dark-3));text-align:center">
   <div class="container">
-    <h2 class="text-white" style="margin-bottom:14px">케이스 발표자를 모집합니다</h2>
-    <p style="color:rgba(255,255,255,.8);max-width:520px;margin:0 auto 32px">임상에서 경험한 케이스를 발표하고 싶으신 분들의 지원을 기다립니다.<br>발표 신청 마감: 2025년 4월 15일</p>
+    <h2 class="text-white" style="margin-bottom:14px" data-i18n="sym.cta.h2">케이스 발표자를 모집합니다</h2>
+    <p style="color:rgba(255,255,255,.8);max-width:520px;margin:0 auto 32px" data-i18n-html="sym.cta.p">임상에서 경험한 케이스를 발표하고 싶으신 분들의 지원을 기다립니다.<br>발표 신청 마감: 2025년 4월 15일</p>
     <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap">
-      <a href="../registration/symposium.html" class="btn btn-outline btn-lg">발표 / 참가 신청</a>
-      <a href="../contact.html" class="btn btn-lg" style="background:rgba(255,255,255,.15);color:white;border:none">문의하기</a>
+      <a href="../registration/symposium.html" class="btn btn-outline btn-lg" data-i18n="sym.cta.btn1">발표 / 참가 신청</a>
+      <a href="../contact.html" class="btn btn-lg" style="background:rgba(255,255,255,.15);color:white;border:none" data-i18n="common.contact">문의하기</a>
     </div>
   </div>
 </section>
@@ -158,14 +162,15 @@
 <footer class="footer">
   <div class="container">
     <div class="footer-grid">
-      <div class="footer-brand"><a href="../index.html" class="nav-logo"><div class="logo-icon">🔥</div>TORCH</a><p style="margin-top:12px">Korea Young Dental Technician Study</p></div>
+      <div class="footer-brand"><a href="../index.html" class="nav-logo"><div class="logo-icon">🔥</div>TORCH</a><p style="margin-top:12px" data-i18n-html="footer.brand.p">Korea Young Dental Technician Study<br>기술 · 기회 · 보완 · 도전 · 희망</p></div>
       <div class="footer-col"><h4>Pages</h4><ul><li><a href="../about.html">About</a></li><li><a href="index.html">Activity</a></li><li><a href="symposium.html">Symposium</a></li></ul></div>
       <div class="footer-col"><h4>Registration</h4><ul><li><a href="../registration/study.html">Study Group</a></li><li><a href="../registration/symposium.html">Symposium</a></li><li><a href="../registration/workshop.html">Workshop</a></li></ul></div>
       <div class="footer-col"><h4>Community</h4><ul><li><a href="../news/index.html">News</a></li><li><a href="../contact.html">Contact</a></li></ul></div>
     </div>
-    <div class="footer-bottom"><span>© 2025 TORCH – Korea Young Dental Technician Study. All rights reserved.</span></div>
+    <div class="footer-bottom"><span data-i18n="footer.copyright">© 2025 TORCH – Korea Young Dental Technician Study. All rights reserved.</span></div>
   </div>
 </footer>
 <script src="../js/theme.js"></script>
+<script src="../js/i18n.js"></script>
 </body>
 </html>
