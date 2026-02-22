@@ -137,6 +137,14 @@
 
     <!-- ── Tab 3: 2026 TORCH Members ─────────────────── -->
     <div id="tab-current" class="tab-pane">
+      <div class="sort-bar">
+        <label>정렬:</label>
+        <select id="current-sort" onchange="renderCurrent()">
+          <option value="order-asc">기본 순서</option>
+          <option value="name-asc">이름 (가나다순)</option>
+          <option value="workplace-asc">소속 (가나다순)</option>
+        </select>
+      </div>
       <div id="current-list">
         <div style="text-align:center;padding:60px;color:var(--text-muted)">불러오는 중…</div>
       </div>
@@ -303,6 +311,8 @@ function renderAlumni() {
 }
 
 /* ── 2026 current members ─────────────────── */
+let currentMembersData = [];
+
 async function loadCurrentMembers() {
   const container = document.getElementById('current-list');
   try {
@@ -318,10 +328,29 @@ async function loadCurrentMembers() {
       </div>`;
       return;
     }
-    container.innerHTML = members.map(m => buildMemberCard(m)).join('');
-  } catch {
+    currentMembersData = members;
+    renderCurrent();
+  } catch(e) {
     container.innerHTML = `<div style="text-align:center;padding:60px;color:var(--text-muted)">데이터를 불러올 수 없습니다.</div>`;
   }
+}
+
+function renderCurrent() {
+  const container = document.getElementById('current-list');
+  if (!currentMembersData.length) return;
+
+  const sortKey = document.getElementById('current-sort').value;
+  let sorted = [...currentMembersData];
+
+  if (sortKey === 'name-asc') {
+    sorted.sort((a, b) => (a.name || '').localeCompare(b.name || '', 'ko'));
+  } else if (sortKey === 'workplace-asc') {
+    sorted.sort((a, b) => (a.workplace || '').localeCompare(b.workplace || '', 'ko'));
+  } else {
+    sorted.sort((a, b) => (a.order_num || 0) - (b.order_num || 0));
+  }
+
+  container.innerHTML = sorted.map(m => buildMemberCard(m)).join('');
 }
 
 /* ── Build member card ──────────────────────── */
