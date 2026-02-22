@@ -125,7 +125,7 @@
           : `<div class="sponsor-card-placeholder">🏢</div>`;
         const name = `<div class="sponsor-card-name">${esc(s.name)}</div>`;
         if (s.website) {
-          return `<a href="${esc(s.website)}" target="_blank" rel="noopener" class="sponsor-card-item">${inner}${name}</a>`;
+          return `<a href="${esc(normalizeUrl(s.website))}" target="_blank" rel="noopener" class="sponsor-card-item">${inner}${name}</a>`;
         }
         return `<div class="sponsor-card-item">${inner}${name}</div>`;
       }).join('');
@@ -141,6 +141,10 @@
 
 function esc(str) {
   return (str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function normalizeUrl(url) {
+  if (!url) return '#';
+  return /^https?:\/\//i.test(url) ? url : 'https://' + url;
 }
 </script>
 </body>

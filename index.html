@@ -246,7 +246,7 @@
     <div style="text-align:center;margin-bottom:16px;font-size:.8rem;font-weight:700;letter-spacing:.12em;color:var(--text-muted);text-transform:uppercase">Supported by</div>
   </div>
   <div style="overflow:hidden;position:relative">
-    <div id="sponsor-ticker" style="display:flex;gap:48px;align-items:center;width:max-content;animation:ticker 20s linear infinite"></div>
+    <div id="sponsor-ticker" style="display:flex;gap:48px;align-items:center;width:max-content;animation:ticker 10s linear infinite"></div>
   </div>
 </section>
 <style>
@@ -322,10 +322,10 @@
     const items = [...sponsors, ...sponsors];
     ticker.innerHTML = items.map(s => {
       const inner = s.logo
-        ? `<img src="${s.logo.replace(/"/g,'&quot;')}" alt="${(s.name||'').replace(/"/g,'&quot;')}">`
-        : `<span>${(s.name||'').replace(/&/g,'&amp;').replace(/</g,'&lt;')}</span>`;
+        ? `<img src="${esc(s.logo)}" alt="${esc(s.name)}">`
+        : `<span>${esc(s.name)}</span>`;
       if (s.website) {
-        return `<a href="${s.website.replace(/"/g,'&quot;')}" target="_blank" rel="noopener" class="sponsor-ticker-item">${inner}</a>`;
+        return `<a href="${esc(normalizeUrl(s.website))}" target="_blank" rel="noopener" class="sponsor-ticker-item">${inner}</a>`;
       }
       return `<div class="sponsor-ticker-item">${inner}</div>`;
     }).join('');
@@ -333,6 +333,14 @@
     document.getElementById('sponsor-banner-section').style.display = '';
   } catch {}
 })();
+
+function normalizeUrl(url) {
+  if (!url) return '#';
+  return /^https?:\/\//i.test(url) ? url : 'https://' + url;
+}
+function esc(str) {
+  return (str||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
 </script>
 </body>
 </html>

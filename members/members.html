@@ -6,19 +6,43 @@
   <title>Members – TORCH</title>
   <link rel="stylesheet" href="../css/style.css">
   <style>
-    .member-row-card { display: grid; grid-template-columns: 96px 1fr; gap: 24px; align-items: start; background: var(--white); border-radius: var(--radius-lg); padding: 24px; box-shadow: var(--shadow); border: 1.5px solid var(--border); margin-bottom: 16px; transition: border-color .2s; }
+    /* Card: vertical layout with centered photo */
+    .member-row-card { display: flex; flex-direction: column; align-items: center; background: var(--white); border-radius: var(--radius-lg); padding: 32px 28px; box-shadow: var(--shadow); border: 1.5px solid var(--border); margin-bottom: 16px; transition: border-color .2s; }
     .member-row-card:hover { border-color: var(--primary); }
-    .member-avatar-lg { width: 88px; height: 88px; border-radius: 50%; overflow: hidden; background: var(--primary); display: flex; align-items: center; justify-content: center; font-size: 2rem; font-weight: 700; color: #fff; flex-shrink: 0; }
+
+    /* Avatar: 264px (3× original 88px) */
+    .member-avatar-lg { width: 264px; height: 264px; border-radius: 50%; overflow: hidden; background: var(--primary); display: flex; align-items: center; justify-content: center; font-size: 5rem; font-weight: 700; color: #fff; flex-shrink: 0; margin-bottom: 20px; }
     .member-avatar-lg img { width: 100%; height: 100%; object-fit: cover; }
-    .member-info-name { font-size: 1.05rem; font-weight: 700; margin-bottom: 2px; }
-    .member-info-title { font-size: .82rem; color: var(--primary); font-weight: 600; margin-bottom: 4px; }
-    .member-info-workplace { font-size: .85rem; color: var(--text-muted); margin-bottom: 8px; }
-    .member-info-bio { font-size: .85rem; color: var(--text-muted); line-height: 1.6; }
-    .member-artwork-thumb { width: 100%; max-height: 200px; object-fit: cover; border-radius: var(--radius); margin-top: 12px; }
+
+    /* Info block: full width, left-aligned */
+    .member-card-info { width: 100%; text-align: center; }
+    .member-info-name { font-size: 1.15rem; font-weight: 700; margin-bottom: 4px; }
+    .member-info-title { font-size: .85rem; color: var(--primary); font-weight: 600; margin-bottom: 6px; }
+    .member-info-workplace { font-size: .88rem; color: var(--text-muted); margin-bottom: 12px; }
+
+    /* Bio: preserve newlines & spaces exactly as entered */
+    .member-info-bio { font-size: .88rem; color: var(--text-muted); line-height: 1.75; white-space: pre-line; text-align: left; margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border); }
+
+    /* Artwork: clickable thumbnail */
+    .member-artwork-thumb { width: 100%; max-height: 320px; object-fit: cover; border-radius: var(--radius); margin-top: 16px; cursor: zoom-in; transition: opacity .2s, transform .2s; display: block; }
+    .member-artwork-thumb:hover { opacity: .88; transform: scale(1.01); }
+
+    /* Sort bar */
     .sort-bar { display: flex; align-items: center; gap: 10px; margin-bottom: 24px; flex-wrap: wrap; }
     .sort-bar label { font-size: .85rem; color: var(--text-muted); font-weight: 500; }
     .sort-bar select { padding: 6px 12px; border: 1px solid var(--border); border-radius: 6px; font-size: .85rem; background: var(--white); color: var(--text); }
-    @media(max-width:600px) { .member-row-card { grid-template-columns: 72px 1fr; gap: 16px; } .member-avatar-lg { width: 64px; height: 64px; } }
+
+    /* Mobile */
+    @media(max-width:600px) {
+      .member-avatar-lg { width: 180px; height: 180px; font-size: 3.5rem; }
+    }
+
+    /* ── Lightbox ──────────────────────────── */
+    #artwork-lightbox { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.93); z-index: 9999; align-items: center; justify-content: center; cursor: zoom-out; }
+    #artwork-lightbox.open { display: flex; }
+    #artwork-lightbox img { max-width: 95vw; max-height: 92vh; object-fit: contain; border-radius: 6px; box-shadow: 0 8px 48px rgba(0,0,0,.6); pointer-events: none; }
+    #lightbox-close { position: absolute; top: 20px; right: 28px; color: #fff; font-size: 2.4rem; line-height: 1; cursor: pointer; background: none; border: none; padding: 0; opacity: .8; transition: opacity .15s; }
+    #lightbox-close:hover { opacity: 1; }
   </style>
 </head>
 <body>
@@ -112,6 +136,12 @@
 
   </div>
 </section>
+
+<!-- ── Artwork Lightbox ─────────────────────── -->
+<div id="artwork-lightbox" onclick="closeLightbox()">
+  <button id="lightbox-close" onclick="closeLightbox()" aria-label="닫기">✕</button>
+  <img id="lightbox-img" src="" alt="Artwork">
+</div>
 
 <footer class="footer">
   <div class="container">
@@ -289,17 +319,20 @@ function buildMemberCard(m) {
   const avatar = m.photo
     ? `<img src="${esc(m.photo)}" alt="${esc(m.name)}">`
     : initial;
+
+  // Artwork: click opens lightbox
   const artwork = m.artwork
-    ? `<img src="${esc(m.artwork)}" alt="artwork" class="member-artwork-thumb">`
+    ? `<img src="${esc(m.artwork)}" alt="artwork" class="member-artwork-thumb" onclick="openLightbox(this.src)" title="클릭하면 크게 볼 수 있습니다">`
     : '';
+
   const webpage = m.webpage
-    ? `<div style="margin-top:10px"><a href="${esc(m.webpage)}" target="_blank" rel="noopener" class="btn btn-sm btn-dark" style="font-size:.78rem;padding:5px 12px">🌐 웹사이트</a></div>`
+    ? `<div style="margin-top:14px"><a href="${esc(m.webpage)}" target="_blank" rel="noopener" class="btn btn-sm btn-dark" style="font-size:.78rem;padding:5px 12px">🌐 웹사이트</a></div>`
     : '';
 
   return `
     <div class="member-row-card">
       <div class="member-avatar-lg">${avatar}</div>
-      <div>
+      <div class="member-card-info">
         <div class="member-info-name">${esc(m.name)}</div>
         ${m.title    ? `<div class="member-info-title">${esc(m.title)}</div>` : ''}
         ${m.workplace? `<div class="member-info-workplace">📍 ${esc(m.workplace)}</div>` : ''}
@@ -309,6 +342,19 @@ function buildMemberCard(m) {
       </div>
     </div>`;
 }
+
+/* ── Lightbox ───────────────────────────────── */
+function openLightbox(src) {
+  document.getElementById('lightbox-img').src = src;
+  document.getElementById('artwork-lightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  document.getElementById('artwork-lightbox').classList.remove('open');
+  document.getElementById('lightbox-img').src = '';
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
 
 /* ── Init ───────────────────────────────────── */
 loadPresident();
