@@ -54,11 +54,11 @@
 
 <!-- ── Hero ─────────────────────────────────────── -->
 <section class="hero">
-  <video class="hero-video" autoplay muted loop playsinline>
+  <video autoplay muted loop playsinline style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:0;pointer-events:none">
     <source src="images/hero.mp4" type="video/mp4">
   </video>
-  <div class="hero-video-overlay"></div>
-  <div class="container">
+  <div style="position:absolute;inset:0;z-index:1;background:linear-gradient(135deg,rgba(8,6,20,.72) 0%,rgba(4,14,38,.60) 55%,rgba(15,3,3,.68) 100%)"></div>
+  <div class="container" style="position:relative;z-index:2">
     <div class="hero-content">
       <div class="hero-badge">🔥 Korea Young Dental Technician Study</div>
       <h1>기회를 잡고,<br><span>희망을 향해 도약한다</span></h1>
