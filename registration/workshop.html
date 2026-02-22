@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Workshop Registration – TorchStudy</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<nav class="navbar">
+  <div class="nav-inner">
+    <a href="../index.html" class="nav-logo"><div class="logo-icon">🔥</div>TorchStudy</a>
+    <div class="nav-links">
+      <div class="nav-item"><a href="../index.html" class="nav-link">Home</a></div>
+      <div class="nav-item"><a href="../about.html" class="nav-link">About</a></div>
+      <div class="nav-item"><span class="nav-link">Activity <svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l4 4 4-4"/></svg></span><div class="dropdown"><a href="../activity/index.html">Overview</a><a href="../activity/symposium.html">Symposium</a></div></div>
+      <div class="nav-item"><span class="nav-link active">Registration <svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l4 4 4-4"/></svg></span><div class="dropdown"><a href="study.html">Study Group</a><a href="symposium.html">Symposium</a><a href="workshop.html">Workshop</a></div></div>
+      <div class="nav-item"><a href="../sponsor.html" class="nav-link">Sponsor</a></div>
+      <div class="nav-item"><a href="../news/index.html" class="nav-link">News</a></div>
+      <div class="nav-item"><a href="../contact.html" class="nav-link">Contact</a></div>
+    </div>
+    <div class="nav-cta" style="display:flex;gap:8px"><a href="../members/login.html" class="btn btn-outline btn-sm" data-auth="login">Login</a><a href="../members/profile.html" class="btn btn-primary btn-sm" data-auth="logout" style="display:none">My Page</a></div>
+    <div class="hamburger"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+<div class="mobile-menu">
+  <a href="../index.html" class="mobile-link">Home</a>
+  <a href="study.html" class="mobile-link">Study Registration</a>
+  <a href="symposium.html" class="mobile-link">Symposium Registration</a>
+  <a href="workshop.html" class="mobile-link">Workshop Registration</a>
+</div>
+
+<div class="page-header">
+  <div class="container">
+    <span class="eyebrow">Hands-on Learning</span>
+    <h1>Workshop Registration</h1>
+    <p>Register for our upcoming intensive workshops. Gain practical skills in specialized ML topics.</p>
+    <div class="breadcrumb"><a href="../index.html">Home</a><span>/</span><a href="study.html">Registration</a><span>/</span><span>Workshop</span></div>
+  </div>
+</div>
+
+<section class="section section-light">
+  <div class="container">
+    <!-- Workshop cards -->
+    <div class="section-header">
+      <span class="eyebrow">Upcoming</span>
+      <h2>Available Workshops</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="grid-3" style="margin-bottom:60px">
+      <div class="card" style="border-top:3px solid var(--primary)">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px">
+          <span class="badge badge-success">Open</span>
+          <span style="font-size:.8rem;color:var(--text-muted)">Apr 5, 2025</span>
+        </div>
+        <h3>Fine-Tuning LLMs</h3>
+        <p style="font-size:.85rem;margin:10px 0">LoRA, QLoRA, PEFT techniques for fine-tuning Llama and Mistral models on custom datasets.</p>
+        <div style="font-size:.8rem;color:var(--text-muted);margin-bottom:16px">⏱ Full-day (9AM–5PM) · 30 spots</div>
+        <a href="#register" class="btn btn-primary btn-sm">Register →</a>
+      </div>
+      <div class="card" style="border-top:3px solid var(--dark-3)">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px">
+          <span class="badge badge-success">Open</span>
+          <span style="font-size:.8rem;color:var(--text-muted)">Apr 19, 2025</span>
+        </div>
+        <h3>Diffusion Models from Scratch</h3>
+        <p style="font-size:.85rem;margin:10px 0">Build DDPM and DDIM from scratch with PyTorch. Cover score-based models and latent diffusion.</p>
+        <div style="font-size:.8rem;color:var(--text-muted);margin-bottom:16px">⏱ Half-day (1PM–5PM) · 25 spots</div>
+        <a href="#register" class="btn btn-primary btn-sm">Register →</a>
+      </div>
+      <div class="card" style="border-top:3px solid var(--accent)">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px">
+          <span class="badge badge-warning">Coming Soon</span>
+          <span style="font-size:.8rem;color:var(--text-muted)">May 10, 2025</span>
+        </div>
+        <h3>Production ML Systems</h3>
+        <p style="font-size:.85rem;margin:10px 0">Model serving, optimization with TorchScript & ONNX, deployment on cloud platforms.</p>
+        <div style="font-size:.8rem;color:var(--text-muted);margin-bottom:16px">⏱ Full-day (9AM–5PM) · 20 spots</div>
+        <a href="#register" class="btn btn-dark btn-sm">Notify Me</a>
+      </div>
+    </div>
+
+    <!-- Form -->
+    <div id="register" style="display:grid;grid-template-columns:1fr 1.6fr;gap:40px;align-items:start">
+      <div>
+        <div class="card">
+          <h3 style="margin-bottom:16px">Workshop Info</h3>
+          <div style="display:flex;flex-direction:column;gap:12px">
+            <div class="feature-item"><div class="feature-icon">💻</div><div><h4>Laptop Required</h4><p style="font-size:.85rem">Bring your own laptop with Python & PyTorch installed</p></div></div>
+            <div class="feature-item"><div class="feature-icon">🍱</div><div><h4>Lunch Provided</h4><p style="font-size:.85rem">Catered lunch included for full-day workshops</p></div></div>
+            <div class="feature-item"><div class="feature-icon">📜</div><div><h4>Certificate</h4><p style="font-size:.85rem">Certificate of completion issued to all attendees</p></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-card" style="max-width:100%">
+        <h3 style="margin-bottom:6px">Workshop Registration Form</h3>
+        <p style="font-size:.88rem;margin-bottom:24px">Select your preferred workshop and complete registration.</p>
+
+        <div id="form-alert" class="alert"><span class="alert-msg"></span></div>
+
+        <form id="workshop-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="required">Full Name</label>
+              <input class="form-control" name="name" placeholder="Full Name" required>
+              <div class="error-msg"></div>
+            </div>
+            <div class="form-group">
+              <label class="required">Email</label>
+              <input class="form-control" type="email" name="email" data-validate="email" placeholder="you@example.com" required>
+              <div class="error-msg"></div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="required">Workshop</label>
+            <select class="form-control" name="topic" required>
+              <option value="">Select a workshop…</option>
+              <option>Fine-Tuning LLMs (Apr 5)</option>
+              <option>Diffusion Models from Scratch (Apr 19)</option>
+            </select>
+            <div class="error-msg"></div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="required">Affiliation</label>
+              <input class="form-control" name="affiliation" placeholder="University / Company" required>
+              <div class="error-msg"></div>
+            </div>
+            <div class="form-group">
+              <label class="required">Experience Level</label>
+              <select class="form-control" name="experience" required>
+                <option value="">Select…</option>
+                <option>Beginner</option>
+                <option>Intermediate</option>
+                <option>Advanced</option>
+              </select>
+              <div class="error-msg"></div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>What do you hope to learn? (optional)</label>
+            <textarea class="form-control" name="goals" placeholder="Your learning goals…"></textarea>
+          </div>
+          <div class="form-group">
+            <label class="check-item"><input type="checkbox" required> <label>I will bring my own laptop with PyTorch installed</label></label>
+          </div>
+          <button type="submit" class="btn btn-primary btn-block btn-lg">Register for Workshop</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand"><a href="../index.html" class="nav-logo"><div class="logo-icon">🔥</div>TorchStudy</a><p style="margin-top:12px">A collaborative AI & machine learning study group.</p></div>
+      <div class="footer-col"><h4>Pages</h4><ul><li><a href="../about.html">About</a></li><li><a href="../activity/index.html">Activity</a></li><li><a href="../sponsor.html">Sponsor</a></li></ul></div>
+      <div class="footer-col"><h4>Registration</h4><ul><li><a href="study.html">Study Group</a></li><li><a href="symposium.html">Symposium</a></li><li><a href="workshop.html">Workshop</a></li></ul></div>
+      <div class="footer-col"><h4>Community</h4><ul><li><a href="../news/index.html">News</a></li><li><a href="../members/login.html">Login</a></li><li><a href="../contact.html">Contact</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><span>© 2025 TorchStudy. All rights reserved.</span></div>
+  </div>
+</footer>
+<script src="../js/auth.js"></script>
+<script src="../js/registration.js"></script>
+<script>Registration.attachForm('workshop-form', 'workshop');</script>
+</body>
+</html>

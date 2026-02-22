@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard – TorchStudy</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<nav class="navbar">
+  <div class="nav-inner">
+    <a href="../index.html" class="nav-logo"><div class="logo-icon">🔥</div>TorchStudy</a>
+    <div class="nav-links">
+      <div class="nav-item"><a href="../index.html" class="nav-link">Home</a></div>
+      <div class="nav-item"><a href="profile.html" class="nav-link">My Profile</a></div>
+      <div class="nav-item"><a href="admin.html" class="nav-link active">Admin</a></div>
+    </div>
+    <div class="nav-cta" style="display:flex;gap:8px;align-items:center">
+      <span style="font-size:.85rem;color:rgba(255,255,255,.6)" data-auth="name"></span>
+      <a href="#" class="btn btn-outline btn-sm" data-auth="logout">Logout</a>
+    </div>
+    <div class="hamburger"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+<div class="mobile-menu">
+  <a href="../index.html" class="mobile-link">Home</a>
+  <a href="profile.html" class="mobile-link">My Profile</a>
+  <a href="#" class="mobile-link" data-auth="logout">Logout</a>
+</div>
+
+<div class="page-header">
+  <div class="container">
+    <span class="eyebrow">Administration</span>
+    <h1>Admin Dashboard</h1>
+    <p>Manage registrations, members, and site content.</p>
+  </div>
+</div>
+
+<section class="section section-light">
+  <div class="container">
+    <!-- KPI Row -->
+    <div class="kpi-grid" style="margin-bottom:24px">
+      <div class="kpi-card">
+        <div class="kpi-label">Total Registrations</div>
+        <div class="kpi-value" id="kpi-total">—</div>
+        <div class="kpi-delta">↑ 12% this month</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Study Group</div>
+        <div class="kpi-value" id="kpi-study">—</div>
+        <div class="kpi-delta">↑ 8 new this week</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Symposium</div>
+        <div class="kpi-value" id="kpi-symposium">—</div>
+        <div class="kpi-delta">↑ 5 new this week</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Workshop</div>
+        <div class="kpi-value" id="kpi-workshop">—</div>
+        <div class="kpi-delta">→ Stable</div>
+      </div>
+    </div>
+
+    <!-- Dashboard Grid -->
+    <div class="dashboard-grid">
+      <!-- Sidebar -->
+      <div class="sidebar">
+        <div class="sidebar-title">Dashboard</div>
+        <div class="sidebar-link active" data-panel="panel-overview"><span>📊</span> Overview</div>
+        <div class="sidebar-title" style="margin-top:12px">Registrations</div>
+        <div class="sidebar-link" data-panel="panel-study"><span>📚</span> Study Group</div>
+        <div class="sidebar-link" data-panel="panel-symposium"><span>🎤</span> Symposium</div>
+        <div class="sidebar-link" data-panel="panel-workshop"><span>🛠</span> Workshop</div>
+        <div class="sidebar-title" style="margin-top:12px">Content</div>
+        <div class="sidebar-link" data-panel="panel-news"><span>📰</span> News</div>
+        <div class="sidebar-link" data-panel="panel-settings"><span>⚙️</span> Settings</div>
+      </div>
+
+      <!-- Main -->
+      <div class="main-panel">
+
+        <!-- Overview -->
+        <div id="panel-overview" class="admin-panel">
+          <div class="panel">
+            <div class="panel-header"><h3>Recent Activity</h3><span class="badge badge-info">Live</span></div>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Type</th><th>Name</th><th>Date</th><th>Status</th></tr></thead>
+                <tbody>
+                  <tr><td><span class="badge badge-info">Study</span></td><td>Alice Kim</td><td>2025-02-20</td><td><span class="badge badge-warning">Pending</span></td></tr>
+                  <tr><td><span class="badge badge-info">Symposium</span></td><td>Bob Park</td><td>2025-02-19</td><td><span class="badge badge-success">Approved</span></td></tr>
+                  <tr><td><span class="badge badge-info">Workshop</span></td><td>Carol Lee</td><td>2025-02-18</td><td><span class="badge badge-success">Approved</span></td></tr>
+                  <tr><td><span class="badge badge-info">Study</span></td><td>David Cho</td><td>2025-02-18</td><td><span class="badge badge-warning">Pending</span></td></tr>
+                  <tr><td><span class="badge badge-info">Workshop</span></td><td>Eva Jung</td><td>2025-02-17</td><td><span class="badge badge-danger">Rejected</span></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-header"><h3>Quick Actions</h3></div>
+            <div style="display:flex;gap:12px;flex-wrap:wrap">
+              <button class="btn btn-primary btn-sm" onclick="alert('Export feature (demo)')">📥 Export CSV</button>
+              <button class="btn btn-dark btn-sm" onclick="alert('Email feature (demo)')">✉ Send Newsletter</button>
+              <button class="btn btn-dark btn-sm" onclick="alert('Backup feature (demo)')">💾 Backup Data</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Study -->
+        <div id="panel-study" class="admin-panel" style="display:none">
+          <div class="panel">
+            <div class="panel-header">
+              <h3>Study Group Registrations</h3>
+              <input class="form-control" style="width:200px;font-size:.85rem;padding:7px 12px" placeholder="Search…" data-table="table-study" class="table-search">
+            </div>
+            <div class="table-wrap">
+              <table id="table-study">
+                <thead><tr><th>#</th><th>Name</th><th>Email</th><th>Department</th><th>Date</th><th>Status</th><th>Actions</th></tr></thead>
+                <tbody><tr><td colspan="7" style="text-align:center;padding:32px;color:var(--text-muted)">Loading…</td></tr></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Symposium -->
+        <div id="panel-symposium" class="admin-panel" style="display:none">
+          <div class="panel">
+            <div class="panel-header">
+              <h3>Symposium Registrations</h3>
+              <input class="form-control" style="width:200px;font-size:.85rem;padding:7px 12px" placeholder="Search…" data-table="table-symposium" class="table-search">
+            </div>
+            <div class="table-wrap">
+              <table id="table-symposium">
+                <thead><tr><th>#</th><th>Name</th><th>Email</th><th>Affiliation</th><th>Date</th><th>Status</th><th>Actions</th></tr></thead>
+                <tbody><tr><td colspan="7" style="text-align:center;padding:32px;color:var(--text-muted)">Loading…</td></tr></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Workshop -->
+        <div id="panel-workshop" class="admin-panel" style="display:none">
+          <div class="panel">
+            <div class="panel-header">
+              <h3>Workshop Registrations</h3>
+              <input class="form-control" style="width:200px;font-size:.85rem;padding:7px 12px" placeholder="Search…" data-table="table-workshop" class="table-search">
+            </div>
+            <div class="table-wrap">
+              <table id="table-workshop">
+                <thead><tr><th>#</th><th>Name</th><th>Email</th><th>Topic</th><th>Date</th><th>Status</th><th>Actions</th></tr></thead>
+                <tbody><tr><td colspan="7" style="text-align:center;padding:32px;color:var(--text-muted)">Loading…</td></tr></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- News -->
+        <div id="panel-news" class="admin-panel" style="display:none">
+          <div class="panel">
+            <div class="panel-header"><h3>News Management</h3><button class="btn btn-primary btn-sm" onclick="alert('Add news (demo)')">+ Add Post</button></div>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>#</th><th>Title</th><th>Category</th><th>Date</th><th>Status</th><th>Actions</th></tr></thead>
+                <tbody>
+                  <tr><td>1</td><td>TorchStudy Symposium 2025 Announced</td><td>Event</td><td>2025-01-15</td><td><span class="badge badge-success">Published</span></td><td><button class="btn btn-sm btn-dark">Edit</button></td></tr>
+                  <tr><td>2</td><td>New Workshop Series: LLM Fine-Tuning</td><td>Workshop</td><td>2025-02-01</td><td><span class="badge badge-success">Published</span></td><td><button class="btn btn-sm btn-dark">Edit</button></td></tr>
+                  <tr><td>3</td><td>Spring 2025 Study Group Open</td><td>General</td><td>2025-02-10</td><td><span class="badge badge-warning">Draft</span></td><td><button class="btn btn-sm btn-dark">Edit</button></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Settings -->
+        <div id="panel-settings" class="admin-panel" style="display:none">
+          <div class="panel">
+            <div class="panel-header"><h3>Site Settings</h3></div>
+            <div class="form-group"><label>Site Title</label><input class="form-control" value="TorchStudy"></div>
+            <div class="form-group"><label>Contact Email</label><input class="form-control" value="contact@torchstudy.org" type="email"></div>
+            <div class="form-group"><label>Registration Status</label>
+              <select class="form-control">
+                <option>Open</option>
+                <option>Closed</option>
+                <option>Waitlist Only</option>
+              </select>
+            </div>
+            <div class="form-group"><label>Max Study Group Size</label><input class="form-control" type="number" value="30"></div>
+            <button class="btn btn-primary" onclick="alert('Settings saved (demo)')">Save Settings</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-bottom" style="border-top:1px solid rgba(255,255,255,.08);padding-top:20px"><span>© 2025 TorchStudy Admin Panel</span></div>
+  </div>
+</footer>
+<script src="../js/auth.js"></script>
+<script src="../js/registration.js"></script>
+<script src="../js/admin.js"></script>
+</body>
+</html>

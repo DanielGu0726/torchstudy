@@ -1,0 +1,5 @@
+# Cloudflare Pages redirects
+# Format: source  destination  status_code
+
+# SPA-style fallback (optional - uncomment if needed)
+# /*  /index.html  200

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>News – TorchStudy</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<nav class="navbar">
+  <div class="nav-inner">
+    <a href="../index.html" class="nav-logo"><div class="logo-icon">🔥</div>TorchStudy</a>
+    <div class="nav-links">
+      <div class="nav-item"><a href="../index.html" class="nav-link">Home</a></div>
+      <div class="nav-item"><a href="../about.html" class="nav-link">About</a></div>
+      <div class="nav-item"><span class="nav-link">Activity <svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l4 4 4-4"/></svg></span><div class="dropdown"><a href="../activity/index.html">Overview</a><a href="../activity/symposium.html">Symposium</a></div></div>
+      <div class="nav-item"><span class="nav-link">Registration <svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l4 4 4-4"/></svg></span><div class="dropdown"><a href="../registration/study.html">Study Group</a><a href="../registration/symposium.html">Symposium</a><a href="../registration/workshop.html">Workshop</a></div></div>
+      <div class="nav-item"><a href="../sponsor.html" class="nav-link">Sponsor</a></div>
+      <div class="nav-item"><span class="nav-link active">News <svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l4 4 4-4"/></svg></span><div class="dropdown"><a href="index.html">News & Updates</a><a href="apply.html">Submit News</a></div></div>
+      <div class="nav-item"><a href="../contact.html" class="nav-link">Contact</a></div>
+    </div>
+    <div class="nav-cta" style="display:flex;gap:8px"><a href="../members/login.html" class="btn btn-outline btn-sm" data-auth="login">Login</a><a href="../members/profile.html" class="btn btn-primary btn-sm" data-auth="logout" style="display:none">My Page</a></div>
+    <div class="hamburger"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+<div class="mobile-menu">
+  <a href="../index.html" class="mobile-link">Home</a>
+  <a href="index.html" class="mobile-link">News</a>
+  <a href="apply.html" class="mobile-link">Submit News</a>
+  <a href="../contact.html" class="mobile-link">Contact</a>
+</div>
+
+<div class="page-header">
+  <div class="container">
+    <span class="eyebrow">Latest Updates</span>
+    <h1>News & Announcements</h1>
+    <p>Stay up to date with TorchStudy events, member achievements, and community news.</p>
+    <div class="breadcrumb"><a href="../index.html">Home</a><span>/</span><span>News</span></div>
+  </div>
+</div>
+
+<section class="section section-light">
+  <div class="container">
+    <!-- Filter -->
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:32px">
+      <button class="btn btn-primary btn-sm filter-btn" data-filter="all">All</button>
+      <button class="btn btn-dark btn-sm filter-btn" data-filter="event">Events</button>
+      <button class="btn btn-dark btn-sm filter-btn" data-filter="workshop">Workshops</button>
+      <button class="btn btn-dark btn-sm filter-btn" data-filter="research">Research</button>
+      <button class="btn btn-dark btn-sm filter-btn" data-filter="general">General</button>
+    </div>
+
+    <div class="news-grid">
+      <div class="news-card" data-category="event">
+        <div class="news-thumb">🎤</div>
+        <div class="news-body">
+          <div class="news-meta"><span class="news-tag">Event</span><span class="news-date">Feb 15, 2025</span></div>
+          <h3>TorchStudy Symposium 2025 Officially Announced</h3>
+          <p>We're thrilled to announce our third annual symposium, scheduled for May 20, 2025. Abstract submissions are now open.</p>
+          <a href="../activity/symposium.html" class="btn btn-primary btn-sm mt-2">Learn More →</a>
+        </div>
+      </div>
+      <div class="news-card" data-category="workshop">
+        <div class="news-thumb">🛠️</div>
+        <div class="news-body">
+          <div class="news-meta"><span class="news-tag">Workshop</span><span class="news-date">Feb 1, 2025</span></div>
+          <h3>New Workshop: Fine-Tuning LLMs with LoRA & QLoRA</h3>
+          <p>Registration is now open for our April 5th full-day workshop on fine-tuning large language models for custom tasks.</p>
+          <a href="../registration/workshop.html" class="btn btn-primary btn-sm mt-2">Register →</a>
+        </div>
+      </div>
+      <div class="news-card" data-category="research">
+        <div class="news-thumb">🔬</div>
+        <div class="news-body">
+          <div class="news-meta"><span class="news-tag">Research</span><span class="news-date">Jan 28, 2025</span></div>
+          <h3>Member Paper Accepted at ICLR 2025</h3>
+          <p>Congratulations to Jaeyun Kim and Soyeon Lee, whose paper on efficient attention mechanisms was accepted at ICLR 2025.</p>
+          <a href="#" class="btn btn-primary btn-sm mt-2">Read Paper →</a>
+        </div>
+      </div>
+      <div class="news-card" data-category="general">
+        <div class="news-thumb">📢</div>
+        <div class="news-body">
+          <div class="news-meta"><span class="news-tag">General</span><span class="news-date">Jan 20, 2025</span></div>
+          <h3>Spring 2025 Study Group Applications Now Open</h3>
+          <p>We're accepting applications for the Spring 2025 cohort. Limited to 30 members — apply early to secure your spot.</p>
+          <a href="../registration/study.html" class="btn btn-primary btn-sm mt-2">Apply Now →</a>
+        </div>
+      </div>
+      <div class="news-card" data-category="event">
+        <div class="news-thumb">🏆</div>
+        <div class="news-body">
+          <div class="news-meta"><span class="news-tag">Event</span><span class="news-date">Jan 10, 2025</span></div>
+          <h3>TorchStudy Team Places 2nd in Kaggle Competition</h3>
+          <p>Our team of 4 members placed 2nd in the Kaggle Predict AI Competition, winning ₩500,000 in prize money.</p>
+          <a href="#" class="btn btn-primary btn-sm mt-2">See Results →</a>
+        </div>
+      </div>
+      <div class="news-card" data-category="research">
+        <div class="news-thumb">📄</div>
+        <div class="news-body">
+          <div class="news-meta"><span class="news-tag">Research</span><span class="news-date">Dec 20, 2024</span></div>
+          <h3>2024 Research Retrospective: A Year in Review</h3>
+          <p>Looking back at the 12 research projects, 3 publications, and 6 open-source contributions from TorchStudy in 2024.</p>
+          <a href="#" class="btn btn-primary btn-sm mt-2">Read More →</a>
+        </div>
+      </div>
+    </div>
+
+    <div style="text-align:center;margin-top:48px">
+      <p style="margin-bottom:16px">Want to share news with the community?</p>
+      <a href="apply.html" class="btn btn-primary">Submit an Article</a>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand"><a href="../index.html" class="nav-logo"><div class="logo-icon">🔥</div>TorchStudy</a><p style="margin-top:12px">A collaborative AI & machine learning study group.</p></div>
+      <div class="footer-col"><h4>Pages</h4><ul><li><a href="../about.html">About</a></li><li><a href="../activity/index.html">Activity</a></li><li><a href="../sponsor.html">Sponsor</a></li></ul></div>
+      <div class="footer-col"><h4>Registration</h4><ul><li><a href="../registration/study.html">Study Group</a></li><li><a href="../registration/symposium.html">Symposium</a></li><li><a href="../registration/workshop.html">Workshop</a></li></ul></div>
+      <div class="footer-col"><h4>Community</h4><ul><li><a href="index.html">News</a></li><li><a href="../members/login.html">Login</a></li><li><a href="../contact.html">Contact</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><span>© 2025 TorchStudy. All rights reserved.</span></div>
+  </div>
+</footer>
+<script src="../js/auth.js"></script>
+<script>
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.filter-btn').forEach(b => { b.className = 'btn btn-dark btn-sm filter-btn'; });
+      this.className = 'btn btn-primary btn-sm filter-btn';
+      const filter = this.dataset.filter;
+      document.querySelectorAll('.news-card').forEach(card => {
+        card.style.display = filter === 'all' || card.dataset.category === filter ? '' : 'none';
+      });
+    });
+  });
+</script>
+</body>
+</html>

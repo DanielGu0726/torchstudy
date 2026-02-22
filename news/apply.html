@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Submit News – TorchStudy</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<nav class="navbar">
+  <div class="nav-inner">
+    <a href="../index.html" class="nav-logo"><div class="logo-icon">🔥</div>TorchStudy</a>
+    <div class="nav-links">
+      <div class="nav-item"><a href="../index.html" class="nav-link">Home</a></div>
+      <div class="nav-item"><a href="../about.html" class="nav-link">About</a></div>
+      <div class="nav-item"><span class="nav-link active">News <svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l4 4 4-4"/></svg></span><div class="dropdown"><a href="index.html">News & Updates</a><a href="apply.html">Submit News</a></div></div>
+      <div class="nav-item"><a href="../contact.html" class="nav-link">Contact</a></div>
+    </div>
+    <div class="nav-cta" style="display:flex;gap:8px"><a href="../members/login.html" class="btn btn-outline btn-sm" data-auth="login">Login</a><a href="../members/profile.html" class="btn btn-primary btn-sm" data-auth="logout" style="display:none">My Page</a></div>
+    <div class="hamburger"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+<div class="mobile-menu">
+  <a href="../index.html" class="mobile-link">Home</a>
+  <a href="index.html" class="mobile-link">News</a>
+  <a href="apply.html" class="mobile-link">Submit News</a>
+</div>
+
+<div class="page-header">
+  <div class="container">
+    <span class="eyebrow">Community</span>
+    <h1>Submit News</h1>
+    <p>Share your research, achievements, or community updates with TorchStudy members.</p>
+    <div class="breadcrumb"><a href="../index.html">Home</a><span>/</span><a href="index.html">News</a><span>/</span><span>Submit</span></div>
+  </div>
+</div>
+
+<section class="section section-light">
+  <div class="container">
+    <div style="display:grid;grid-template-columns:1fr 1.6fr;gap:40px;align-items:start">
+      <div>
+        <div class="card">
+          <h3 style="margin-bottom:16px">Submission Guidelines</h3>
+          <div style="display:flex;flex-direction:column;gap:14px">
+            <div class="feature-item"><div class="feature-icon">✅</div><div><h4>What We Accept</h4><p style="font-size:.85rem">Paper acceptances, awards, project launches, event announcements, job opportunities</p></div></div>
+            <div class="feature-item"><div class="feature-icon">⏱</div><div><h4>Review Time</h4><p style="font-size:.85rem">Submissions are reviewed within 3–5 business days by our admin team</p></div></div>
+            <div class="feature-item"><div class="feature-icon">✏️</div><div><h4>Editing</h4><p style="font-size:.85rem">We may lightly edit submissions for grammar, clarity, and formatting</p></div></div>
+            <div class="feature-item"><div class="feature-icon">❌</div><div><h4>Not Accepted</h4><p style="font-size:.85rem">Promotional content, unverified claims, or content unrelated to AI/ML</p></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-card" style="max-width:100%">
+        <h3 style="margin-bottom:6px">News Submission Form</h3>
+        <p style="font-size:.88rem;margin-bottom:24px">Fill in the details below. We'll review and publish approved submissions.</p>
+
+        <div id="form-alert" class="alert"><span class="alert-msg"></span></div>
+
+        <form id="news-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="required">Your Name</label>
+              <input class="form-control" name="name" placeholder="Full Name" required>
+              <div class="error-msg"></div>
+            </div>
+            <div class="form-group">
+              <label class="required">Email</label>
+              <input class="form-control" type="email" name="email" data-validate="email" placeholder="you@example.com" required>
+              <div class="error-msg"></div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="required">Article Title</label>
+            <input class="form-control" name="title" placeholder="A descriptive title for your news item" required>
+            <div class="error-msg"></div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="required">Category</label>
+              <select class="form-control" name="category" required>
+                <option value="">Select…</option>
+                <option>Event</option>
+                <option>Research / Publication</option>
+                <option>Workshop</option>
+                <option>Award / Achievement</option>
+                <option>Job / Internship Opportunity</option>
+                <option>General</option>
+              </select>
+              <div class="error-msg"></div>
+            </div>
+            <div class="form-group">
+              <label>Related Link (optional)</label>
+              <input class="form-control" name="link" type="url" placeholder="https://…">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="required">Summary <span style="font-weight:400;color:var(--text-muted)">(1–3 sentences)</span></label>
+            <textarea class="form-control" name="summary" rows="3" placeholder="Briefly describe the news…" required></textarea>
+            <div class="error-msg"></div>
+          </div>
+          <div class="form-group">
+            <label>Full Article (optional)</label>
+            <textarea class="form-control" name="content" rows="6" placeholder="Write the full article content here. Markdown is supported."></textarea>
+          </div>
+          <div class="form-group">
+            <label class="check-item"><input type="checkbox" required> <label>I confirm that this content is accurate and relevant to the TorchStudy community</label></label>
+          </div>
+          <button type="submit" class="btn btn-primary btn-block btn-lg">Submit for Review</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand"><a href="../index.html" class="nav-logo"><div class="logo-icon">🔥</div>TorchStudy</a><p style="margin-top:12px">A collaborative AI & machine learning study group.</p></div>
+      <div class="footer-col"><h4>Pages</h4><ul><li><a href="../about.html">About</a></li><li><a href="../activity/index.html">Activity</a></li><li><a href="../sponsor.html">Sponsor</a></li></ul></div>
+      <div class="footer-col"><h4>Registration</h4><ul><li><a href="../registration/study.html">Study Group</a></li><li><a href="../registration/symposium.html">Symposium</a></li><li><a href="../registration/workshop.html">Workshop</a></li></ul></div>
+      <div class="footer-col"><h4>Community</h4><ul><li><a href="index.html">News</a></li><li><a href="../members/login.html">Login</a></li><li><a href="../contact.html">Contact</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><span>© 2025 TorchStudy. All rights reserved.</span></div>
+  </div>
+</footer>
+<script src="../js/auth.js"></script>
+<script src="../js/registration.js"></script>
+<script>
+  document.getElementById('news-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    if (!Registration.validateForm(this)) {
+      Registration.showAlert('danger', 'Please fix the errors above.');
+      return;
+    }
+    this.reset();
+    Registration.showAlert('success', '✅ Submission received! We will review it within 3–5 business days.');
+  });
+</script>
+</body>
+</html>

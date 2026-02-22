@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Activity – TorchStudy</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<nav class="navbar">
+  <div class="nav-inner">
+    <a href="../index.html" class="nav-logo"><div class="logo-icon">🔥</div>TorchStudy</a>
+    <div class="nav-links">
+      <div class="nav-item"><a href="../index.html" class="nav-link">Home</a></div>
+      <div class="nav-item"><a href="../about.html" class="nav-link">About</a></div>
+      <div class="nav-item">
+        <span class="nav-link active">Activity <svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l4 4 4-4"/></svg></span>
+        <div class="dropdown"><a href="index.html">Overview</a><a href="symposium.html">Symposium</a></div>
+      </div>
+      <div class="nav-item">
+        <span class="nav-link">Registration <svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l4 4 4-4"/></svg></span>
+        <div class="dropdown"><a href="../registration/study.html">Study Group</a><a href="../registration/symposium.html">Symposium</a><a href="../registration/workshop.html">Workshop</a></div>
+      </div>
+      <div class="nav-item"><a href="../sponsor.html" class="nav-link">Sponsor</a></div>
+      <div class="nav-item"><a href="../news/index.html" class="nav-link">News</a></div>
+      <div class="nav-item"><a href="../contact.html" class="nav-link">Contact</a></div>
+    </div>
+    <div class="nav-cta" style="display:flex;gap:8px">
+      <a href="../members/login.html" class="btn btn-outline btn-sm" data-auth="login">Login</a>
+      <a href="../members/profile.html" class="btn btn-primary btn-sm" data-auth="logout" style="display:none">My Page</a>
+    </div>
+    <div class="hamburger"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+<div class="mobile-menu">
+  <a href="../index.html" class="mobile-link">Home</a>
+  <a href="../about.html" class="mobile-link">About</a>
+  <a href="index.html" class="mobile-link">Activity Overview</a>
+  <a href="symposium.html" class="mobile-link">Symposium</a>
+  <a href="../registration/study.html" class="mobile-link">Study Registration</a>
+  <a href="../sponsor.html" class="mobile-link">Sponsor</a>
+  <a href="../contact.html" class="mobile-link">Contact</a>
+</div>
+
+<div class="page-header">
+  <div class="container">
+    <span class="eyebrow">What We Do</span>
+    <h1>Our Activities</h1>
+    <p>From weekly study sessions to international symposiums — there's always something happening at TorchStudy.</p>
+    <div class="breadcrumb"><a href="../index.html">Home</a><span>/</span><span>Activity</span></div>
+  </div>
+</div>
+
+<!-- Programs -->
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="eyebrow">Programs</span>
+      <h2>Core Activity Programs</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="grid-3">
+      <div class="card">
+        <div class="card-icon">📚</div>
+        <h3>Weekly Study Sessions</h3>
+        <p>Every Thursday, 7–9 PM. We work through ML papers, implement models, and discuss concepts in a structured but informal setting.</p>
+        <ul style="margin-top:16px;display:flex;flex-direction:column;gap:8px">
+          <li style="font-size:.85rem;color:var(--text-muted)">📅 Every Thursday</li>
+          <li style="font-size:.85rem;color:var(--text-muted)">⏱ 2 hours</li>
+          <li style="font-size:.85rem;color:var(--text-muted)">📍 Hybrid (In-person + Zoom)</li>
+        </ul>
+        <a href="../registration/study.html" class="btn btn-primary btn-sm mt-3">Join Session</a>
+      </div>
+      <div class="card">
+        <div class="card-icon">🛠️</div>
+        <h3>Workshops</h3>
+        <p>Intensive half-day or full-day workshops on specialized topics — computer vision, NLP, reinforcement learning, and more.</p>
+        <ul style="margin-top:16px;display:flex;flex-direction:column;gap:8px">
+          <li style="font-size:.85rem;color:var(--text-muted)">📅 Monthly</li>
+          <li style="font-size:.85rem;color:var(--text-muted)">⏱ 4–8 hours</li>
+          <li style="font-size:.85rem;color:var(--text-muted)">📍 On-campus</li>
+        </ul>
+        <a href="../registration/workshop.html" class="btn btn-primary btn-sm mt-3">Register</a>
+      </div>
+      <div class="card">
+        <div class="card-icon">🎤</div>
+        <h3>Annual Symposium</h3>
+        <p>Our flagship annual event featuring research presentations, invited keynotes, poster sessions, and a networking reception.</p>
+        <ul style="margin-top:16px;display:flex;flex-direction:column;gap:8px">
+          <li style="font-size:.85rem;color:var(--text-muted)">📅 Annually (May)</li>
+          <li style="font-size:.85rem;color:var(--text-muted)">⏱ Full day</li>
+          <li style="font-size:.85rem;color:var(--text-muted)">📍 University Auditorium</li>
+        </ul>
+        <a href="symposium.html" class="btn btn-primary btn-sm mt-3">Learn More</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Study Curriculum -->
+<section class="section section-light">
+  <div class="container">
+    <div class="section-header">
+      <span class="eyebrow">Curriculum</span>
+      <h2>Study Session Topics</h2>
+      <div class="divider"></div>
+      <p>Our weekly sessions follow a rolling curriculum. Here's a snapshot of recent and upcoming topics.</p>
+    </div>
+
+    <!-- Tabs -->
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="tab-past">Past Sessions</button>
+      <button class="tab-btn" data-tab="tab-upcoming">Upcoming</button>
+      <button class="tab-btn" data-tab="tab-resources">Resources</button>
+    </div>
+
+    <div id="tab-past" class="tab-pane active">
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>#</th><th>Date</th><th>Topic</th><th>Presenter</th><th>Materials</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>Jan 9</td><td>Attention Mechanisms & Transformers</td><td>Jaeyun Kim</td><td><span class="badge badge-success">Slides</span></td></tr>
+            <tr><td>2</td><td>Jan 16</td><td>Vision Transformers (ViT)</td><td>Soyeon Lee</td><td><span class="badge badge-success">Slides</span></td></tr>
+            <tr><td>3</td><td>Jan 23</td><td>Diffusion Models – DDPM Paper</td><td>Minjun Park</td><td><span class="badge badge-success">Slides</span></td></tr>
+            <tr><td>4</td><td>Feb 6</td><td>RLHF & Constitutional AI</td><td>Hyunwoo Jung</td><td><span class="badge badge-success">Slides</span></td></tr>
+            <tr><td>5</td><td>Feb 13</td><td>Mixture of Experts (MoE)</td><td>Jaeyun Kim</td><td><span class="badge badge-warning">Recording</span></td></tr>
+            <tr><td>6</td><td>Feb 20</td><td>Flash Attention Internals</td><td>Soyeon Lee</td><td><span class="badge badge-warning">Recording</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div id="tab-upcoming" class="tab-pane">
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>#</th><th>Date</th><th>Topic</th><th>Format</th><th>Register</th></tr></thead>
+          <tbody>
+            <tr><td>7</td><td>Mar 6</td><td>KV Cache Optimization</td><td>Discussion</td><td><a href="../registration/study.html" class="btn btn-primary btn-sm">Register</a></td></tr>
+            <tr><td>8</td><td>Mar 13</td><td>Transformer Architecture Deep Dive</td><td>Lecture</td><td><a href="../registration/study.html" class="btn btn-primary btn-sm">Register</a></td></tr>
+            <tr><td>9</td><td>Mar 20</td><td>LoRA & Parameter-Efficient Fine-Tuning</td><td>Hands-on</td><td><a href="../registration/study.html" class="btn btn-primary btn-sm">Register</a></td></tr>
+            <tr><td>10</td><td>Apr 3</td><td>Multimodal Models – GPT-4V, LLaVA</td><td>Discussion</td><td><a href="../registration/study.html" class="btn btn-primary btn-sm">Register</a></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div id="tab-resources" class="tab-pane">
+      <div class="grid-3">
+        <div class="card"><div class="card-icon">📄</div><h3>Paper List</h3><p>Curated reading list of must-read AI/ML papers organized by topic and difficulty.</p><a href="#" class="btn btn-dark btn-sm mt-2">View List</a></div>
+        <div class="card"><div class="card-icon">💻</div><h3>Code Repository</h3><p>All session implementations on GitHub — clean, well-commented PyTorch code.</p><a href="#" class="btn btn-dark btn-sm mt-2">GitHub</a></div>
+        <div class="card"><div class="card-icon">🎥</div><h3>Recordings</h3><p>Missed a session? Access our archive of recorded study sessions and workshops.</p><a href="#" class="btn btn-dark btn-sm mt-2">Watch</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Project Showcase -->
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="eyebrow">Projects</span>
+      <h2>Member Projects</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="grid-3">
+      <div class="card"><div class="card-icon" style="font-size:1.8rem">🖼️</div><h3>Medical Image Segmentation</h3><p>U-Net based model for detecting tumors in MRI scans, achieving 94% Dice score on the BTCV dataset.</p><div style="margin-top:16px;display:flex;gap:8px"><span class="badge badge-info">PyTorch</span><span class="badge badge-info">Medical AI</span></div></div>
+      <div class="card"><div class="card-icon" style="font-size:1.8rem">💬</div><h3>Korean Legal QA System</h3><p>RAG-based question answering system for Korean legal documents using fine-tuned LLM.</p><div style="margin-top:16px;display:flex;gap:8px"><span class="badge badge-info">LLM</span><span class="badge badge-info">RAG</span></div></div>
+      <div class="card"><div class="card-icon" style="font-size:1.8rem">🎵</div><h3>Music Generation with Diffusion</h3><p>Latent diffusion model for generating piano music from text prompts, inspired by AudioLDM.</p><div style="margin-top:16px;display:flex;gap:8px"><span class="badge badge-info">Diffusion</span><span class="badge badge-info">Audio</span></div></div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand"><a href="../index.html" class="nav-logo"><div class="logo-icon">🔥</div>TorchStudy</a><p style="margin-top:12px">A collaborative AI & machine learning study group.</p></div>
+      <div class="footer-col"><h4>Pages</h4><ul><li><a href="../about.html">About</a></li><li><a href="index.html">Activity</a></li><li><a href="symposium.html">Symposium</a></li></ul></div>
+      <div class="footer-col"><h4>Registration</h4><ul><li><a href="../registration/study.html">Study Group</a></li><li><a href="../registration/symposium.html">Symposium</a></li><li><a href="../registration/workshop.html">Workshop</a></li></ul></div>
+      <div class="footer-col"><h4>Community</h4><ul><li><a href="../news/index.html">News</a></li><li><a href="../members/login.html">Login</a></li><li><a href="../contact.html">Contact</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><span>© 2025 TorchStudy. All rights reserved.</span></div>
+  </div>
+</footer>
+<script src="../js/auth.js"></script>
+<script>
+  // Tabs
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById(btn.dataset.tab).classList.add('active');
+    });
+  });
+</script>
+</body>
+</html>

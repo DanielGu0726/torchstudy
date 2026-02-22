@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Symposium Registration – TorchStudy</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<nav class="navbar">
+  <div class="nav-inner">
+    <a href="../index.html" class="nav-logo"><div class="logo-icon">🔥</div>TorchStudy</a>
+    <div class="nav-links">
+      <div class="nav-item"><a href="../index.html" class="nav-link">Home</a></div>
+      <div class="nav-item"><a href="../about.html" class="nav-link">About</a></div>
+      <div class="nav-item"><span class="nav-link">Activity <svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l4 4 4-4"/></svg></span><div class="dropdown"><a href="../activity/index.html">Overview</a><a href="../activity/symposium.html">Symposium</a></div></div>
+      <div class="nav-item"><span class="nav-link active">Registration <svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l4 4 4-4"/></svg></span><div class="dropdown"><a href="study.html">Study Group</a><a href="symposium.html">Symposium</a><a href="workshop.html">Workshop</a></div></div>
+      <div class="nav-item"><a href="../sponsor.html" class="nav-link">Sponsor</a></div>
+      <div class="nav-item"><a href="../news/index.html" class="nav-link">News</a></div>
+      <div class="nav-item"><a href="../contact.html" class="nav-link">Contact</a></div>
+    </div>
+    <div class="nav-cta" style="display:flex;gap:8px"><a href="../members/login.html" class="btn btn-outline btn-sm" data-auth="login">Login</a><a href="../members/profile.html" class="btn btn-primary btn-sm" data-auth="logout" style="display:none">My Page</a></div>
+    <div class="hamburger"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+<div class="mobile-menu">
+  <a href="../index.html" class="mobile-link">Home</a>
+  <a href="study.html" class="mobile-link">Study Registration</a>
+  <a href="symposium.html" class="mobile-link">Symposium Registration</a>
+  <a href="workshop.html" class="mobile-link">Workshop Registration</a>
+</div>
+
+<div class="page-header">
+  <div class="container">
+    <span class="eyebrow">Annual Event</span>
+    <h1>Symposium Registration</h1>
+    <p>Register to attend or present at the TorchStudy Symposium 2025 — May 20, 2025.</p>
+    <div class="breadcrumb"><a href="../index.html">Home</a><span>/</span><a href="study.html">Registration</a><span>/</span><span>Symposium</span></div>
+  </div>
+</div>
+
+<section class="section section-light">
+  <div class="container">
+    <div style="display:grid;grid-template-columns:1fr 1.6fr;gap:40px;align-items:start">
+      <div>
+        <div class="card">
+          <h3 style="margin-bottom:20px">Registration Options</h3>
+          <div style="display:flex;flex-direction:column;gap:16px">
+            <div style="padding:16px;border:1.5px solid var(--primary);border-radius:var(--radius);background:rgba(232,65,24,.04)">
+              <h4 style="color:var(--primary)">Attendee</h4>
+              <p style="font-size:.85rem;margin:6px 0">Access to all sessions, lunch, and networking reception.</p>
+              <strong>Free (Members) / ₩10,000 (Guests)</strong>
+            </div>
+            <div style="padding:16px;border:1.5px solid var(--border);border-radius:var(--radius)">
+              <h4>Presenter</h4>
+              <p style="font-size:.85rem;margin:6px 0">Submit a talk or poster. Includes attendee access.</p>
+              <strong>Free for all</strong>
+            </div>
+          </div>
+          <hr class="form-divider">
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <div style="display:flex;justify-content:space-between;font-size:.88rem"><span style="color:var(--text-muted)">Date</span><strong>May 20, 2025</strong></div>
+            <div style="display:flex;justify-content:space-between;font-size:.88rem"><span style="color:var(--text-muted)">Venue</span><strong>University Auditorium</strong></div>
+            <div style="display:flex;justify-content:space-between;font-size:.88rem"><span style="color:var(--text-muted)">Abstract Deadline</span><strong style="color:var(--danger)">Apr 15, 2025</strong></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-card" style="max-width:100%">
+        <h3 style="margin-bottom:6px">Register for Symposium</h3>
+        <p style="font-size:.88rem;margin-bottom:24px">Complete the form below. Abstract submission is optional for attendees.</p>
+
+        <div id="form-alert" class="alert"><span class="alert-msg"></span></div>
+
+        <form id="symposium-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="required">Full Name</label>
+              <input class="form-control" name="name" placeholder="Full Name" required>
+              <div class="error-msg"></div>
+            </div>
+            <div class="form-group">
+              <label class="required">Email</label>
+              <input class="form-control" type="email" name="email" data-validate="email" placeholder="you@example.com" required>
+              <div class="error-msg"></div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="required">Affiliation</label>
+              <input class="form-control" name="affiliation" placeholder="University / Company" required>
+              <div class="error-msg"></div>
+            </div>
+            <div class="form-group">
+              <label class="required">Registration Type</label>
+              <select class="form-control" name="regType" id="regType" required>
+                <option value="">Select…</option>
+                <option value="attendee">Attendee only</option>
+                <option value="presenter-talk">Presenter (Talk)</option>
+                <option value="presenter-poster">Presenter (Poster)</option>
+              </select>
+              <div class="error-msg"></div>
+            </div>
+          </div>
+          <div id="abstract-section" style="display:none">
+            <div class="form-group">
+              <label>Presentation Title</label>
+              <input class="form-control" name="presentationTitle" placeholder="Title of your talk or poster">
+            </div>
+            <div class="form-group">
+              <label>Abstract <span style="font-weight:400;color:var(--text-muted)">(200–500 words)</span></label>
+              <textarea class="form-control" name="abstract" rows="5" placeholder="Describe your research…"></textarea>
+            </div>
+            <div class="form-group">
+              <label>Research Area</label>
+              <select class="form-control" name="researchArea">
+                <option value="">Select…</option>
+                <option>NLP / Language Models</option>
+                <option>Computer Vision</option>
+                <option>Generative AI</option>
+                <option>Reinforcement Learning</option>
+                <option>AI Safety & Ethics</option>
+                <option>Efficient ML / Hardware</option>
+                <option>Other</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Dietary Requirements (optional)</label>
+            <select class="form-control" name="dietary">
+              <option value="">No restrictions</option>
+              <option>Vegetarian</option>
+              <option>Vegan</option>
+              <option>Halal</option>
+              <option>Gluten-free</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="check-item"><input type="checkbox" required> <label>I confirm my attendance and agree to the <a href="#">event policies</a></label></label>
+          </div>
+          <button type="submit" class="btn btn-primary btn-block btn-lg">Complete Registration</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand"><a href="../index.html" class="nav-logo"><div class="logo-icon">🔥</div>TorchStudy</a><p style="margin-top:12px">A collaborative AI & machine learning study group.</p></div>
+      <div class="footer-col"><h4>Pages</h4><ul><li><a href="../about.html">About</a></li><li><a href="../activity/index.html">Activity</a></li><li><a href="../sponsor.html">Sponsor</a></li></ul></div>
+      <div class="footer-col"><h4>Registration</h4><ul><li><a href="study.html">Study Group</a></li><li><a href="symposium.html">Symposium</a></li><li><a href="workshop.html">Workshop</a></li></ul></div>
+      <div class="footer-col"><h4>Community</h4><ul><li><a href="../news/index.html">News</a></li><li><a href="../members/login.html">Login</a></li><li><a href="../contact.html">Contact</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><span>© 2025 TorchStudy. All rights reserved.</span></div>
+  </div>
+</footer>
+<script src="../js/auth.js"></script>
+<script src="../js/registration.js"></script>
+<script>
+  Registration.attachForm('symposium-form', 'symposium');
+  document.getElementById('regType').addEventListener('change', function() {
+    document.getElementById('abstract-section').style.display =
+      this.value.startsWith('presenter') ? 'block' : 'none';
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Study Group Registration – TorchStudy</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<nav class="navbar">
+  <div class="nav-inner">
+    <a href="../index.html" class="nav-logo"><div class="logo-icon">🔥</div>TorchStudy</a>
+    <div class="nav-links">
+      <div class="nav-item"><a href="../index.html" class="nav-link">Home</a></div>
+      <div class="nav-item"><a href="../about.html" class="nav-link">About</a></div>
+      <div class="nav-item"><span class="nav-link">Activity <svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l4 4 4-4"/></svg></span><div class="dropdown"><a href="../activity/index.html">Overview</a><a href="../activity/symposium.html">Symposium</a></div></div>
+      <div class="nav-item"><span class="nav-link active">Registration <svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l4 4 4-4"/></svg></span><div class="dropdown"><a href="study.html">Study Group</a><a href="symposium.html">Symposium</a><a href="workshop.html">Workshop</a></div></div>
+      <div class="nav-item"><a href="../sponsor.html" class="nav-link">Sponsor</a></div>
+      <div class="nav-item"><a href="../news/index.html" class="nav-link">News</a></div>
+      <div class="nav-item"><a href="../contact.html" class="nav-link">Contact</a></div>
+    </div>
+    <div class="nav-cta" style="display:flex;gap:8px"><a href="../members/login.html" class="btn btn-outline btn-sm" data-auth="login">Login</a><a href="../members/profile.html" class="btn btn-primary btn-sm" data-auth="logout" style="display:none">My Page</a></div>
+    <div class="hamburger"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+<div class="mobile-menu">
+  <a href="../index.html" class="mobile-link">Home</a>
+  <a href="study.html" class="mobile-link">Study Registration</a>
+  <a href="symposium.html" class="mobile-link">Symposium Registration</a>
+  <a href="workshop.html" class="mobile-link">Workshop Registration</a>
+</div>
+
+<div class="page-header">
+  <div class="container">
+    <span class="eyebrow">Join Us</span>
+    <h1>Study Group Registration</h1>
+    <p>Apply to join our weekly study sessions. We accept applications on a rolling basis.</p>
+    <div class="breadcrumb"><a href="../index.html">Home</a><span>/</span><a href="study.html">Registration</a><span>/</span><span>Study Group</span></div>
+  </div>
+</div>
+
+<section class="section section-light">
+  <div class="container">
+    <div style="display:grid;grid-template-columns:1fr 1.6fr;gap:40px;align-items:start">
+      <!-- Info -->
+      <div>
+        <div class="card">
+          <h3 style="margin-bottom:20px">What to Expect</h3>
+          <div class="feature-list">
+            <div class="feature-item"><div class="feature-icon">📅</div><div><h4>Every Thursday</h4><p style="font-size:.85rem">7:00 – 9:00 PM, hybrid format</p></div></div>
+            <div class="feature-item"><div class="feature-icon">📚</div><div><h4>Structured Curriculum</h4><p style="font-size:.85rem">From PyTorch basics to cutting-edge papers</p></div></div>
+            <div class="feature-item"><div class="feature-icon">💻</div><div><h4>Hands-on Coding</h4><p style="font-size:.85rem">Every session includes practical implementation</p></div></div>
+            <div class="feature-item"><div class="feature-icon">🤝</div><div><h4>Community Access</h4><p style="font-size:.85rem">Discord, resources, and member profile</p></div></div>
+          </div>
+          <hr class="form-divider">
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <div style="display:flex;justify-content:space-between;font-size:.88rem"><span style="color:var(--text-muted)">Session Fee</span><strong>Free</strong></div>
+            <div style="display:flex;justify-content:space-between;font-size:.88rem"><span style="color:var(--text-muted)">Open Spots</span><strong style="color:var(--success)">12 remaining</strong></div>
+            <div style="display:flex;justify-content:space-between;font-size:.88rem"><span style="color:var(--text-muted)">Semester</span><strong>Spring 2025</strong></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Form -->
+      <div class="form-card" style="max-width:100%">
+        <h3 style="margin-bottom:6px">Application Form</h3>
+        <p style="font-size:.88rem;margin-bottom:24px">Fill in your details below. We'll confirm your spot within 2 business days.</p>
+
+        <div id="form-alert" class="alert"><span class="alert-msg"></span></div>
+
+        <form id="study-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="required">First Name</label>
+              <input class="form-control" name="firstName" placeholder="John" required>
+              <div class="error-msg"></div>
+            </div>
+            <div class="form-group">
+              <label class="required">Last Name</label>
+              <input class="form-control" name="lastName" placeholder="Doe" required>
+              <div class="error-msg"></div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="required">Email Address</label>
+            <input class="form-control" type="email" name="email" data-validate="email" placeholder="you@university.edu" required>
+            <div class="error-msg"></div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="required">Department / Major</label>
+              <input class="form-control" name="department" placeholder="Computer Science" required>
+              <div class="error-msg"></div>
+            </div>
+            <div class="form-group">
+              <label class="required">Academic Level</label>
+              <select class="form-control" name="level" required>
+                <option value="">Select…</option>
+                <option>Undergraduate (1–2yr)</option>
+                <option>Undergraduate (3–4yr)</option>
+                <option>Master's Student</option>
+                <option>PhD Student</option>
+                <option>Postdoc / Faculty</option>
+                <option>Industry Professional</option>
+              </select>
+              <div class="error-msg"></div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="required">PyTorch / ML Experience Level</label>
+            <select class="form-control" name="experience" required>
+              <option value="">Select…</option>
+              <option>Beginner – little or no experience</option>
+              <option>Intermediate – built a few models</option>
+              <option>Advanced – research / production experience</option>
+            </select>
+            <div class="error-msg"></div>
+          </div>
+          <div class="form-group">
+            <label>Topics of Interest</label>
+            <div class="check-group">
+              <label class="check-item"><input type="checkbox" name="topics" value="nlp"> <label>NLP & Language Models</label></label>
+              <label class="check-item"><input type="checkbox" name="topics" value="cv"> <label>Computer Vision</label></label>
+              <label class="check-item"><input type="checkbox" name="topics" value="rl"> <label>Reinforcement Learning</label></label>
+              <label class="check-item"><input type="checkbox" name="topics" value="gen"> <label>Generative AI</label></label>
+              <label class="check-item"><input type="checkbox" name="topics" value="other"> <label>Other / General ML</label></label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Motivation (optional)</label>
+            <textarea class="form-control" name="motivation" placeholder="Why do you want to join TorchStudy?"></textarea>
+          </div>
+          <div class="form-group">
+            <label class="check-item"><input type="checkbox" required> <label>I agree to the <a href="#">Terms & Conditions</a></label></label>
+          </div>
+          <button type="submit" class="btn btn-primary btn-block btn-lg">Submit Application</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand"><a href="../index.html" class="nav-logo"><div class="logo-icon">🔥</div>TorchStudy</a><p style="margin-top:12px">A collaborative AI & machine learning study group.</p></div>
+      <div class="footer-col"><h4>Pages</h4><ul><li><a href="../about.html">About</a></li><li><a href="../activity/index.html">Activity</a></li><li><a href="../sponsor.html">Sponsor</a></li></ul></div>
+      <div class="footer-col"><h4>Registration</h4><ul><li><a href="study.html">Study Group</a></li><li><a href="symposium.html">Symposium</a></li><li><a href="workshop.html">Workshop</a></li></ul></div>
+      <div class="footer-col"><h4>Community</h4><ul><li><a href="../news/index.html">News</a></li><li><a href="../members/login.html">Login</a></li><li><a href="../contact.html">Contact</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><span>© 2025 TorchStudy. All rights reserved.</span></div>
+  </div>
+</footer>
+<script src="../js/auth.js"></script>
+<script src="../js/registration.js"></script>
+<script>Registration.attachForm('study-form', 'study');</script>
+</body>
+</html>

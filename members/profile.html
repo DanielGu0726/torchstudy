@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Profile – TorchStudy</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<nav class="navbar">
+  <div class="nav-inner">
+    <a href="../index.html" class="nav-logo"><div class="logo-icon">🔥</div>TorchStudy</a>
+    <div class="nav-links">
+      <div class="nav-item"><a href="../index.html" class="nav-link">Home</a></div>
+      <div class="nav-item"><a href="../about.html" class="nav-link">About</a></div>
+      <div class="nav-item"><span class="nav-link">Activity <svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l4 4 4-4"/></svg></span><div class="dropdown"><a href="../activity/index.html">Overview</a><a href="../activity/symposium.html">Symposium</a></div></div>
+      <div class="nav-item"><a href="../news/index.html" class="nav-link">News</a></div>
+      <div class="nav-item"><a href="../members/admin.html" class="nav-link" data-auth="admin">Admin</a></div>
+    </div>
+    <div class="nav-cta" style="display:flex;gap:8px">
+      <a href="#" class="btn btn-outline btn-sm" data-auth="logout">Logout</a>
+    </div>
+    <div class="hamburger"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+<div class="mobile-menu">
+  <a href="../index.html" class="mobile-link">Home</a>
+  <a href="../activity/index.html" class="mobile-link">Activity</a>
+  <a href="admin.html" class="mobile-link" data-auth="admin">Admin</a>
+  <a href="#" class="mobile-link" data-auth="logout">Logout</a>
+</div>
+
+<div class="page-header">
+  <div class="container">
+    <span class="eyebrow">Members</span>
+    <h1>My Profile</h1>
+    <p>View and update your TorchStudy member profile.</p>
+  </div>
+</div>
+
+<section class="section section-light">
+  <div class="container">
+    <div class="profile-grid">
+      <!-- Profile Card -->
+      <div class="profile-card">
+        <div class="avatar"><span id="avatar-initial">?</span></div>
+        <div class="profile-name" id="profile-name">Loading…</div>
+        <div class="profile-role" id="profile-role"></div>
+        <hr class="form-divider">
+        <div class="profile-meta">
+          <div class="profile-meta-item"><span>✉</span><span id="profile-email">—</span></div>
+          <div class="profile-meta-item"><span>🏛</span><span id="profile-dept">—</span></div>
+          <div class="profile-meta-item"><span>📅</span><span>Joined: <span id="profile-joined">—</span></span></div>
+          <div class="profile-meta-item"><span>📝</span><span>Registrations: <strong id="reg-count">0</strong></span></div>
+        </div>
+        <hr class="form-divider">
+        <a href="admin.html" class="btn btn-dark btn-sm btn-block" data-auth="admin" style="display:none">⚙ Admin Dashboard</a>
+        <a href="#" class="btn btn-outline btn-sm btn-block" data-auth="logout" style="margin-top:8px;color:var(--danger);border-color:var(--danger)">Logout</a>
+      </div>
+
+      <!-- Edit Panel -->
+      <div>
+        <div class="panel">
+          <div class="panel-header">
+            <h3>Edit Profile</h3>
+          </div>
+          <div id="profile-alert" class="alert alert-success"><span class="alert-msg">Profile updated successfully!</span></div>
+
+          <form id="edit-form">
+            <div class="form-row">
+              <div class="form-group">
+                <label>Full Name</label>
+                <input class="form-control" id="edit-name" placeholder="Your name">
+              </div>
+              <div class="form-group">
+                <label>Email</label>
+                <input class="form-control" id="edit-email" type="email" disabled style="background:var(--light);cursor:not-allowed">
+                <div class="form-hint">Email cannot be changed.</div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Department / Affiliation</label>
+              <input class="form-control" id="edit-dept" placeholder="Department or company">
+            </div>
+            <div class="form-group">
+              <label>Bio (optional)</label>
+              <textarea class="form-control" placeholder="Tell the community about yourself and your research interests…"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+          </form>
+        </div>
+
+        <div class="panel mt-3">
+          <div class="panel-header"><h3>My Registrations</h3></div>
+          <div id="reg-list">
+            <p style="color:var(--text-muted);font-size:.9rem">No registrations yet. <a href="../registration/study.html">Register for a session →</a></p>
+          </div>
+          <hr class="form-divider">
+          <div style="display:flex;gap:12px;flex-wrap:wrap">
+            <a href="../registration/study.html" class="btn btn-dark btn-sm">+ Study Group</a>
+            <a href="../registration/symposium.html" class="btn btn-dark btn-sm">+ Symposium</a>
+            <a href="../registration/workshop.html" class="btn btn-dark btn-sm">+ Workshop</a>
+          </div>
+        </div>
+
+        <div class="panel mt-3">
+          <div class="panel-header"><h3>Change Password</h3></div>
+          <div class="form-group">
+            <label>Current Password</label>
+            <input class="form-control" type="password" placeholder="••••••••">
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>New Password</label>
+              <input class="form-control" type="password" placeholder="••••••••">
+            </div>
+            <div class="form-group">
+              <label>Confirm New Password</label>
+              <input class="form-control" type="password" placeholder="••••••••">
+            </div>
+          </div>
+          <button class="btn btn-dark btn-sm" onclick="alert('Password change is not available in demo mode.')">Update Password</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand"><a href="../index.html" class="nav-logo"><div class="logo-icon">🔥</div>TorchStudy</a><p style="margin-top:12px">A collaborative AI & machine learning study group.</p></div>
+      <div class="footer-col"><h4>Pages</h4><ul><li><a href="../about.html">About</a></li><li><a href="../activity/index.html">Activity</a></li><li><a href="../sponsor.html">Sponsor</a></li></ul></div>
+      <div class="footer-col"><h4>Registration</h4><ul><li><a href="../registration/study.html">Study Group</a></li><li><a href="../registration/symposium.html">Symposium</a></li><li><a href="../registration/workshop.html">Workshop</a></li></ul></div>
+      <div class="footer-col"><h4>Community</h4><ul><li><a href="../news/index.html">News</a></li><li><a href="../contact.html">Contact</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><span>© 2025 TorchStudy. All rights reserved.</span></div>
+  </div>
+</footer>
+<script src="../js/auth.js"></script>
+<script src="../js/profile.js"></script>
+</body>
+</html>

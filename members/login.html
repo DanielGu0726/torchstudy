@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login – TorchStudy</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body style="background:var(--light);min-height:100vh;display:flex;flex-direction:column">
+<nav class="navbar">
+  <div class="nav-inner">
+    <a href="../index.html" class="nav-logo"><div class="logo-icon">🔥</div>TorchStudy</a>
+    <div class="nav-links">
+      <div class="nav-item"><a href="../index.html" class="nav-link">Home</a></div>
+      <div class="nav-item"><a href="../about.html" class="nav-link">About</a></div>
+      <div class="nav-item"><a href="../contact.html" class="nav-link">Contact</a></div>
+    </div>
+    <div class="hamburger"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+<div class="mobile-menu">
+  <a href="../index.html" class="mobile-link">Home</a>
+  <a href="../about.html" class="mobile-link">About</a>
+  <a href="../contact.html" class="mobile-link">Contact</a>
+</div>
+
+<div style="flex:1;display:flex;align-items:center;justify-content:center;padding:40px 16px">
+  <div style="width:100%;max-width:440px">
+    <div style="text-align:center;margin-bottom:32px">
+      <a href="../index.html" class="nav-logo" style="justify-content:center;margin-bottom:16px;font-size:1.5rem">
+        <div class="logo-icon" style="width:44px;height:44px;font-size:1.3rem">🔥</div>
+        TorchStudy
+      </a>
+      <h2>Welcome back</h2>
+      <p style="font-size:.9rem">Sign in to your member account</p>
+    </div>
+
+    <div class="form-card" style="max-width:100%">
+      <div id="form-alert" class="alert"><span class="alert-msg"></span></div>
+
+      <form id="login-form">
+        <div class="form-group">
+          <label class="required">Email Address</label>
+          <input class="form-control" type="email" id="login-email" placeholder="you@example.com" required>
+          <div class="error-msg"></div>
+        </div>
+        <div class="form-group">
+          <label class="required">Password</label>
+          <div style="position:relative">
+            <input class="form-control" type="password" id="login-password" placeholder="••••••••" required style="padding-right:44px">
+            <button type="button" id="toggle-pw" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:1rem;color:var(--text-muted)">👁</button>
+          </div>
+          <div class="error-msg"></div>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px">
+          <label class="check-item"><input type="checkbox" id="remember"> <label style="font-size:.85rem">Remember me</label></label>
+          <a href="#" style="font-size:.85rem">Forgot password?</a>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block btn-lg">Sign In</button>
+      </form>
+
+      <hr class="form-divider">
+      <div style="text-align:center">
+        <p style="font-size:.88rem">Don't have an account? <a href="../registration/study.html">Apply to join</a></p>
+      </div>
+
+      <div style="margin-top:20px;padding:14px;background:var(--light);border-radius:var(--radius);font-size:.82rem;color:var(--text-muted)">
+        <strong>Demo accounts:</strong><br>
+        Admin: admin@torchstudy.org / admin1234<br>
+        Member: user@torchstudy.org / user1234
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="../js/auth.js"></script>
+<script>
+  // Redirect if already logged in
+  if (Auth.isLoggedIn()) window.location.href = '../members/profile.html';
+
+  document.getElementById('login-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const email    = document.getElementById('login-email').value.trim();
+    const password = document.getElementById('login-password').value;
+    const result   = Auth.login(email, password);
+    const alert    = document.getElementById('form-alert');
+
+    if (result.ok) {
+      alert.className = 'alert alert-success show';
+      alert.querySelector('.alert-msg').textContent = `Welcome back, ${result.user.name}! Redirecting…`;
+      setTimeout(() => window.location.href = '../members/profile.html', 1000);
+    } else {
+      alert.className = 'alert alert-danger show';
+      alert.querySelector('.alert-msg').textContent = result.message;
+    }
+  });
+
+  document.getElementById('toggle-pw').addEventListener('click', function() {
+    const pw = document.getElementById('login-password');
+    pw.type = pw.type === 'password' ? 'text' : 'password';
+  });
+</script>
+</body>
+</html>

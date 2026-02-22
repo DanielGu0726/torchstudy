@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TorchStudy – AI & Machine Learning Study Group</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ── Navbar ───────────────────────────────────── -->
+<nav class="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <div class="logo-icon">🔥</div>
+      TorchStudy
+    </a>
+    <div class="nav-links">
+      <div class="nav-item"><a href="index.html" class="nav-link active">Home</a></div>
+      <div class="nav-item"><a href="about.html" class="nav-link">About</a></div>
+      <div class="nav-item">
+        <span class="nav-link">Activity <svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l4 4 4-4"/></svg></span>
+        <div class="dropdown">
+          <a href="activity/index.html">Overview</a>
+          <a href="activity/symposium.html">Symposium</a>
+        </div>
+      </div>
+      <div class="nav-item">
+        <span class="nav-link">Registration <svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l4 4 4-4"/></svg></span>
+        <div class="dropdown">
+          <a href="registration/study.html">Study Group</a>
+          <a href="registration/symposium.html">Symposium</a>
+          <a href="registration/workshop.html">Workshop</a>
+        </div>
+      </div>
+      <div class="nav-item"><a href="sponsor.html" class="nav-link">Sponsor</a></div>
+      <div class="nav-item">
+        <span class="nav-link">News <svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l4 4 4-4"/></svg></span>
+        <div class="dropdown">
+          <a href="news/index.html">News & Updates</a>
+          <a href="news/apply.html">Submit News</a>
+        </div>
+      </div>
+      <div class="nav-item"><a href="contact.html" class="nav-link">Contact</a></div>
+      <div class="nav-item"><a href="members/profile.html" class="nav-link" data-auth="name" style="display:none"></a></div>
+    </div>
+    <div class="nav-cta" style="display:flex;gap:8px;align-items:center">
+      <a href="members/login.html" class="btn btn-outline btn-sm" data-auth="login">Login</a>
+      <a href="members/profile.html" class="btn btn-primary btn-sm" data-auth="logout" style="display:none">My Page</a>
+    </div>
+    <div class="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu">
+  <a href="index.html" class="mobile-link">Home</a>
+  <a href="about.html" class="mobile-link">About</a>
+  <div class="mobile-section">Activity</div>
+  <a href="activity/index.html" class="mobile-link">Overview</a>
+  <a href="activity/symposium.html" class="mobile-link">Symposium</a>
+  <div class="mobile-section">Registration</div>
+  <a href="registration/study.html" class="mobile-link">Study Group</a>
+  <a href="registration/symposium.html" class="mobile-link">Symposium</a>
+  <a href="registration/workshop.html" class="mobile-link">Workshop</a>
+  <a href="sponsor.html" class="mobile-link">Sponsor</a>
+  <a href="news/index.html" class="mobile-link">News</a>
+  <a href="contact.html" class="mobile-link">Contact</a>
+  <a href="members/login.html" class="btn btn-primary" data-auth="login">Login</a>
+</div>
+
+<!-- ── Hero ─────────────────────────────────────── -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-badge">🔥 Passionate about AI & Deep Learning</div>
+      <h1>Learn Together,<br><span>Grow Together</span></h1>
+      <p>TorchStudy is a collaborative research and study group focused on PyTorch, deep learning, and modern AI. Join us to accelerate your learning journey.</p>
+      <div class="hero-buttons">
+        <a href="registration/study.html" class="btn btn-primary btn-lg">Join the Group</a>
+        <a href="about.html" class="btn btn-outline btn-lg">Learn More</a>
+      </div>
+    </div>
+  </div>
+  <div class="hero-decoration"></div>
+</section>
+
+<!-- ── Stats ─────────────────────────────────────── -->
+<div class="stats-bar">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-item"><div class="num">120+</div><div class="label">Active Members</div></div>
+      <div class="stat-item"><div class="num">48</div><div class="label">Study Sessions</div></div>
+      <div class="stat-item"><div class="num">12</div><div class="label">Research Projects</div></div>
+      <div class="stat-item"><div class="num">3</div><div class="label">Annual Symposiums</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ── What We Do ─────────────────────────────────── -->
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="eyebrow">What We Do</span>
+      <h2>A Space to Learn, Research & Connect</h2>
+      <div class="divider"></div>
+      <p>We bring together students, researchers, and engineers passionate about machine learning and AI to share knowledge and grow together.</p>
+    </div>
+    <div class="grid-3">
+      <div class="card">
+        <div class="card-icon">📚</div>
+        <h3>Weekly Study Sessions</h3>
+        <p>Regular meetings covering PyTorch fundamentals, paper readings, and hands-on coding projects in a collaborative environment.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🎤</div>
+        <h3>Annual Symposium</h3>
+        <p>A flagship event where members present research, invite guest speakers, and showcase projects to the broader AI community.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🛠️</div>
+        <h3>Hands-on Workshops</h3>
+        <p>Intensive workshops on specialized topics — from computer vision to NLP — with practical exercises and expert guidance.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🤝</div>
+        <h3>Networking</h3>
+        <p>Connect with peers, alumni, and industry professionals through our events, mentorship programs, and online community.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🔬</div>
+        <h3>Research Projects</h3>
+        <p>Collaborate on original research projects, contribute to open-source, and publish findings in academic venues.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🏆</div>
+        <h3>Competitions</h3>
+        <p>Participate in Kaggle competitions, hackathons, and internal challenges to sharpen your skills and win prizes.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── About strip ────────────────────────────────── -->
+<section class="section section-dark">
+  <div class="container">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center">
+      <div>
+        <span class="eyebrow" style="color:var(--primary)">About TorchStudy</span>
+        <h2 class="text-white" style="margin:12px 0 20px">Built by Learners, for Learners</h2>
+        <p style="margin-bottom:24px">Founded in 2022, TorchStudy started as a small group of graduate students passionate about PyTorch and deep learning. Today we are a thriving community with members across academia and industry.</p>
+        <a href="about.html" class="btn btn-primary">Our Story →</a>
+      </div>
+      <div class="feature-list">
+        <div class="feature-item">
+          <div class="feature-icon">✓</div>
+          <div><h4 class="text-white">Open to Everyone</h4><p>Undergrads, grad students, and professionals are all welcome.</p></div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">✓</div>
+          <div><h4 class="text-white">Curriculum-Driven</h4><p>Structured roadmaps from beginner to advanced ML topics.</p></div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">✓</div>
+          <div><h4 class="text-white">Research Focused</h4><p>Emphasis on understanding papers and implementing novel ideas.</p></div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">✓</div>
+          <div><h4 class="text-white">Industry Connections</h4><p>Regular talks and mentorship from AI professionals.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Upcoming ───────────────────────────────────── -->
+<section class="section section-light">
+  <div class="container">
+    <div class="section-header">
+      <span class="eyebrow">Calendar</span>
+      <h2>Upcoming Events</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="grid-3">
+      <div class="card">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
+          <div style="background:var(--primary);color:white;border-radius:8px;padding:8px 14px;text-align:center;min-width:56px">
+            <div style="font-size:.7rem;font-weight:700;text-transform:uppercase">Mar</div>
+            <div style="font-size:1.5rem;font-weight:800;line-height:1">14</div>
+          </div>
+          <div><div class="news-tag">Study</div><h4 style="margin-top:4px">Transformer Architecture Deep Dive</h4></div>
+        </div>
+        <p style="font-size:.88rem">A comprehensive walkthrough of attention mechanisms and the transformer model from scratch using PyTorch.</p>
+        <a href="registration/study.html" class="btn btn-primary btn-sm" style="margin-top:16px">Register</a>
+      </div>
+      <div class="card">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
+          <div style="background:var(--dark-3);color:white;border-radius:8px;padding:8px 14px;text-align:center;min-width:56px">
+            <div style="font-size:.7rem;font-weight:700;text-transform:uppercase">Apr</div>
+            <div style="font-size:1.5rem;font-weight:800;line-height:1">5</div>
+          </div>
+          <div><div class="news-tag">Workshop</div><h4 style="margin-top:4px">Fine-Tuning LLMs Workshop</h4></div>
+        </div>
+        <p style="font-size:.88rem">Hands-on workshop covering LoRA, QLoRA, and PEFT techniques for fine-tuning large language models.</p>
+        <a href="registration/workshop.html" class="btn btn-primary btn-sm" style="margin-top:16px">Register</a>
+      </div>
+      <div class="card">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
+          <div style="background:var(--accent);color:white;border-radius:8px;padding:8px 14px;text-align:center;min-width:56px">
+            <div style="font-size:.7rem;font-weight:700;text-transform:uppercase">May</div>
+            <div style="font-size:1.5rem;font-weight:800;line-height:1">20</div>
+          </div>
+          <div><div class="news-tag" style="background:rgba(245,166,35,.1);color:var(--accent)">Symposium</div><h4 style="margin-top:4px">TorchStudy Symposium 2025</h4></div>
+        </div>
+        <p style="font-size:.88rem">Our annual flagship symposium featuring member presentations, invited talks, and a networking reception.</p>
+        <a href="registration/symposium.html" class="btn btn-primary btn-sm" style="margin-top:16px">Register</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA ───────────────────────────────────────── -->
+<section class="section" style="background:linear-gradient(135deg,var(--primary),var(--dark-3));text-align:center">
+  <div class="container">
+    <h2 class="text-white" style="margin-bottom:14px">Ready to Join TorchStudy?</h2>
+    <p style="color:rgba(255,255,255,.8);max-width:480px;margin:0 auto 32px;font-size:1.05rem">Applications are open for the Spring 2025 cohort. Limited spots available.</p>
+    <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap">
+      <a href="registration/study.html" class="btn btn-outline btn-lg">Apply Now</a>
+      <a href="contact.html" class="btn btn-lg" style="background:rgba(255,255,255,.15);color:white;border-color:transparent">Get in Touch</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── Footer ────────────────────────────────────── -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="nav-logo" style="text-decoration:none">
+          <div class="logo-icon">🔥</div> TorchStudy
+        </a>
+        <p style="margin-top:12px">A collaborative AI & machine learning study group for students, researchers, and professionals.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Pages</h4>
+        <ul>
+          <li><a href="about.html">About</a></li>
+          <li><a href="activity/index.html">Activity</a></li>
+          <li><a href="activity/symposium.html">Symposium</a></li>
+          <li><a href="sponsor.html">Sponsor</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Registration</h4>
+        <ul>
+          <li><a href="registration/study.html">Study Group</a></li>
+          <li><a href="registration/symposium.html">Symposium</a></li>
+          <li><a href="registration/workshop.html">Workshop</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Community</h4>
+        <ul>
+          <li><a href="news/index.html">News</a></li>
+          <li><a href="members/login.html">Member Login</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 TorchStudy. All rights reserved.</span>
+      <div class="social-links">
+        <a href="#" class="social-link" title="GitHub">⌥</a>
+        <a href="#" class="social-link" title="Twitter">𝕏</a>
+        <a href="#" class="social-link" title="Discord">◈</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="js/auth.js"></script>
+</body>
+</html>
