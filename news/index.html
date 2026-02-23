@@ -67,11 +67,23 @@
       <button class="btn btn-dark btn-sm filter-btn" data-filter="소식" data-i18n="news.filter.news">소식</button>
     </div>
 
-    <div id="news-grid" class="news-grid">
-      <div style="grid-column:1/-1;text-align:center;padding:60px;color:var(--text-muted)" data-i18n="common.loading">불러오는 중…</div>
+    <div id="news-list" class="news-list">
+      <div style="text-align:center;padding:60px;color:var(--text-muted)" data-i18n="common.loading">불러오는 중…</div>
     </div>
   </div>
 </section>
+
+<!-- News Detail Modal -->
+<div id="news-modal" class="news-modal">
+  <div class="news-modal-content">
+    <button class="news-modal-close" onclick="closeNewsModal()">×</button>
+    <div class="news-modal-header">
+      <div class="news-meta" id="modal-meta"></div>
+      <h2 id="modal-title" style="margin-top:12px"></h2>
+    </div>
+    <div class="news-modal-body" id="modal-body"></div>
+  </div>
+</div>
 
 <footer class="footer">
   <div class="container">
@@ -103,13 +115,13 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
 });
 
 function renderNews() {
-  const grid = document.getElementById('news-grid');
+  const list = document.getElementById('news-list');
   const filtered = currentFilter === 'all'
     ? allNews
     : allNews.filter(n => n.category === currentFilter);
 
   if (!filtered.length) {
-    grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:60px;color:var(--text-muted)">
+    list.innerHTML = `<div style="text-align:center;padding:60px;color:var(--text-muted)">
       <div style="font-size:3rem;margin-bottom:16px">📭</div>
       <p>공지사항이 없습니다.</p>
     </div>`;
@@ -117,25 +129,69 @@ function renderNews() {
   }
 
   const catIcon = { '공지': '📢', '행사': '🎤', '워크샵': '🛠️', '소식': '📸' };
-  grid.innerHTML = filtered.map(n => `
-    <div class="news-card" data-category="${esc(n.category)}">
-      <div class="news-thumb">${catIcon[n.category] || '📌'}</div>
-      <div class="news-body">
+  list.innerHTML = filtered.map((n, idx) => `
+    <div class="news-item" onclick="openNewsModal(${idx})">
+      <div class="news-icon">${catIcon[n.category] || '📌'}</div>
+      <div class="news-content">
         <div class="news-meta">
           <span class="news-tag">${esc(n.category)}</span>
           <span class="news-date">${formatDate(n.created_at)}</span>
         </div>
         <h3>${esc(n.title)}</h3>
-        <p>${esc(n.content)}</p>
+        <p>${truncate(n.content, 100)}</p>
       </div>
+      <div class="news-arrow">→</div>
     </div>
   `).join('');
 }
+
+function openNewsModal(index) {
+  const filtered = currentFilter === 'all'
+    ? allNews
+    : allNews.filter(n => n.category === currentFilter);
+  const news = filtered[index];
+  if (!news) return;
+
+  const catIcon = { '공지': '📢', '행사': '🎤', '워크샵': '🛠️', '소식': '📸' };
+  document.getElementById('modal-meta').innerHTML = `
+    <span class="news-tag">${esc(news.category)}</span>
+    <span class="news-date">${formatDate(news.created_at)}</span>
+  `;
+  document.getElementById('modal-title').textContent = news.title;
+  document.getElementById('modal-body').innerHTML = `<p>${esc(news.content)}</p>`;
+
+  const modal = document.getElementById('news-modal');
+  modal.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeNewsModal() {
+  const modal = document.getElementById('news-modal');
+  modal.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// Close modal on outside click
+document.getElementById('news-modal').addEventListener('click', function(e) {
+  if (e.target === this) closeNewsModal();
+});
+
+// Close modal on ESC key
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape' && document.getElementById('news-modal').classList.contains('open')) {
+    closeNewsModal();
+  }
+});
 
 function formatDate(iso) {
   if (!iso) return '';
   const d = new Date(iso);
   return `${d.getFullYear()}년 ${d.getMonth()+1}월 ${d.getDate()}일`;
+}
+
+function truncate(str, len) {
+  if (!str) return '';
+  return str.length > len ? str.substring(0, len) + '...' : str;
 }
 
 function esc(str) {
@@ -151,8 +207,8 @@ function esc(str) {
     allNews = news || [];
     renderNews();
   } catch {
-    document.getElementById('news-grid').innerHTML = `
-      <div style="grid-column:1/-1;text-align:center;padding:60px;color:var(--text-muted)">
+    document.getElementById('news-list').innerHTML = `
+      <div style="text-align:center;padding:60px;color:var(--text-muted)">
         <p>공지사항을 불러올 수 없습니다.</p>
         <p style="font-size:.85rem;margin-top:8px">Instagram에서 최신 소식을 확인하세요.</p>
         <a href="https://www.instagram.com/t_o_r_c_h_study/" target="_blank" class="btn btn-primary" style="margin-top:16px">📷 @t_o_r_c_h_study</a>
