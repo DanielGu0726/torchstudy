@@ -30,9 +30,20 @@
     }
   });
 
-  // Close menu when clicking a link
+  // Close menu when clicking a link (but not dropdown toggle)
   mobileMenu.querySelectorAll('.mobile-link').forEach(link => {
     link.addEventListener('click', closeMenu);
+  });
+
+  // Mobile dropdown toggle
+  const dropdownToggles = mobileMenu.querySelectorAll('.mobile-dropdown-toggle');
+  dropdownToggles.forEach(toggle => {
+    toggle.addEventListener('click', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      const dropdown = this.closest('.mobile-dropdown');
+      dropdown.classList.toggle('open');
+    });
   });
 
   // Close menu when clicking outside

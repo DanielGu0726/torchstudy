@@ -651,6 +651,44 @@ tbody tr:last-child td { border-bottom: none; }
 .mobile-section { font-size: .75rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.3); padding: 16px 16px 4px; }
 .mobile-menu .btn { margin: 16px 16px 0; }
 
+/* Mobile submenu */
+.mobile-dropdown {
+  display: flex; flex-direction: column;
+}
+.mobile-dropdown-toggle {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 13px 16px;
+  color: rgba(255,255,255,.85); font-size: .95rem; font-weight: 500;
+  border-radius: var(--radius);
+  transition: background var(--transition);
+  cursor: pointer;
+}
+.mobile-dropdown-toggle:hover { background: rgba(255,255,255,.08); color: var(--white); }
+.mobile-dropdown-toggle svg {
+  width: 14px; height: 14px;
+  transition: transform var(--transition);
+}
+.mobile-dropdown.open .mobile-dropdown-toggle svg {
+  transform: rotate(180deg);
+}
+.mobile-submenu {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+.mobile-dropdown.open .mobile-submenu {
+  max-height: 300px;
+}
+.mobile-submenu .mobile-link {
+  padding-left: 36px;
+  font-size: .9rem;
+  background: rgba(0,0,0,.15);
+  margin-top: 2px;
+}
+.mobile-submenu .mobile-link:hover {
+  background: rgba(255,255,255,.12);
+}
+
 /* ── About section grid ─────────────────────────── */
 .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
 .about-left { display: flex; gap: 28px; align-items: center; }
