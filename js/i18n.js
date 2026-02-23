@@ -281,8 +281,11 @@ const I18n = (() => {
       /* ── Members ──────────────────────────── */
       'members.header.p':           'TORCH를 함께 만들어가는 사람들을 소개합니다.',
       'members.tab.president':      '🔥 회장 인사말',
+      'members.tab.past-presidents': '👑 역대 회장',
       'members.tab.alumni':         '📚 역대 Members',
       'members.tab.current':        '👥 2026 TORCH Members',
+      'members.past-presidents.empty': '역대 회장 정보를 준비 중입니다.',
+      'members.past-presidents.error': '역대 회장 정보를 불러올 수 없습니다.',
       'members.sort.label':         '정렬:',
       'members.sort.year-desc':     '연도 (최신순)',
       'members.sort.year-asc':      '연도 (오래된순)',
@@ -600,8 +603,11 @@ const I18n = (() => {
       /* ── Members ──────────────────────────── */
       'members.header.p':           'Meet the people who make TORCH together.',
       'members.tab.president':      '🔥 President\'s Message',
+      'members.tab.past-presidents': '👑 Past Presidents',
       'members.tab.alumni':         '📚 Alumni Members',
       'members.tab.current':        '👥 2026 TORCH Members',
+      'members.past-presidents.empty': 'Past presidents information is being prepared.',
+      'members.past-presidents.error': 'Unable to load past presidents information.',
       'members.sort.label':         'Sort:',
       'members.sort.year-desc':     'Year (Newest)',
       'members.sort.year-asc':      'Year (Oldest)',

@@ -299,8 +299,9 @@ async function loadPastPresidents() {
     if (!presidents || !presidents.length) {
       container.innerHTML = `<div style="text-align:center;padding:60px;color:var(--text-muted);grid-column:1/-1">
         <div style="font-size:3rem;margin-bottom:16px">👑</div>
-        <p>역대 회장 정보를 준비 중입니다.</p>
+        <p data-i18n="members.past-presidents.empty">역대 회장 정보를 준비 중입니다.</p>
       </div>`;
+      applyLang(localStorage.getItem('lang') || 'ko');
       return;
     }
 
@@ -329,8 +330,9 @@ async function loadPastPresidents() {
   } catch {
     container.innerHTML = `<div style="text-align:center;padding:60px;color:var(--text-muted);grid-column:1/-1">
       <div style="font-size:3rem;margin-bottom:16px">👑</div>
-      <p>역대 회장 정보를 불러올 수 없습니다.</p>
+      <p data-i18n="members.past-presidents.error">역대 회장 정보를 불러올 수 없습니다.</p>
     </div>`;
+    applyLang(localStorage.getItem('lang') || 'ko');
   }
 }
 
