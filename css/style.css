@@ -1270,7 +1270,8 @@ tbody tr:last-child td { border-bottom: none; }
   background: rgba(255,255,255,.08);
 }
 @media (max-width: 768px) {
-  .lang-toggle { display: none; }
-  .nav-controls { display: none; }
+  .lang-toggle { display: none !important; }
+  .nav-controls { display: none !important; }
   .hamburger { order: 3; }
+  .mobile-toggles { display: none !important; }
 }
