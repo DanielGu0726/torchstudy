@@ -392,6 +392,17 @@ function renderAlumni() {
     return;
   }
 
+  // If year filter is selected, show only that year group
+  if (yearFilter) {
+    container.innerHTML = `
+      <div class="year-group">
+        <div class="year-label">${esc(yearFilter)} Members</div>
+        ${sorted.map(m => buildMemberCard(m)).join('')}
+      </div>
+    `;
+    return;
+  }
+
   // Group by year (supporting comma-separated years like "2023, 2024")
   const byYear = {};
   sorted.forEach(m => {
