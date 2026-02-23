@@ -15,7 +15,7 @@ const I18n = (() => {
 
       /* Footer */
       'footer.brand.p':             'Korea Young Dental Technician Study<br>기술 · 기회 · 보완 · 도전 · 희망',
-      'footer.copyright':           '© 2022 TORCH – Korea Young Dental Technician Study. All rights reserved.',
+      'footer.copyright':           '© 2018 TORCH – Korea Young Dental Technician Study. All rights reserved.',
 
       /* Common */
       'common.contact':             '문의하기',
@@ -79,16 +79,16 @@ const I18n = (() => {
       'about.mission.c4.h4':        '디지털 전환',
       'about.mission.c4.p':         '아날로그와 디지털을 함께 이해하는 균형 있는 치과기공사를 지향합니다.',
       'about.timeline.h2':          'TORCH의 발자취',
-      'about.tl1.date':             '2022년 창립',
+      'about.tl1.date':             '2018년 11월 17일',
       'about.tl1.title':            'TORCH 창립',
-      'about.tl1.p':                "뜻이 맞는 젊은 치과기공사 몇 명이 모여 자발적 학습 모임을 시작했습니다. 첫 번째 스터디 주제는 '전치부 세라믹 수복의 색조 재현'이었습니다.",
-      'about.tl2.date':             '2022년 하반기',
+      'about.tl1.p':                "뜻이 맞는 젊은 치과기공사들이 모여 자발적 학습 모임 TORCH를 창립했습니다. 첫 번째 스터디 주제는 '전치부 세라믹 수복의 색조 재현'이었습니다.",
+      'about.tl2.date':             '2019년',
       'about.tl2.title':            '공개 스터디 첫 개최',
       'about.tl2.p':                'SNS를 통해 첫 공개 스터디를 모집하여 30여 명이 참가했고, TORCH의 이름이 치과기공 커뮤니티에 알려지기 시작했습니다.',
-      'about.tl3.date':             '2023년',
+      'about.tl3.date':             '2021년',
       'about.tl3.title':            '제1회 TORCH 심포지엄',
       'about.tl3.p':                '회원들의 임상 케이스 발표와 초청 강사의 특별 강연으로 구성된 첫 번째 심포지엄을 성공적으로 개최했습니다.',
-      'about.tl4.date':             '2024년',
+      'about.tl4.date':             '2023년',
       'about.tl4.title':            '워크샵 프로그램 론칭',
       'about.tl4.p':                'CAD/CAM 실습, 교합 세미나, 임플란트 보철 워크샵 등 다양한 실습 중심 프로그램을 정기적으로 운영하기 시작했습니다.',
       'about.tl5.date':             '2025년 – 현재',
@@ -330,7 +330,7 @@ const I18n = (() => {
 
       /* Footer */
       'footer.brand.p':             'Korea Young Dental Technician Study<br>Technology · Opportunity · Redeem · Challenge · Hope',
-      'footer.copyright':           '© 2022 TORCH – Korea Young Dental Technician Study. All rights reserved.',
+      'footer.copyright':           '© 2018 TORCH – Korea Young Dental Technician Study. All rights reserved.',
 
       /* Common */
       'common.contact':             'Contact',
@@ -394,16 +394,16 @@ const I18n = (() => {
       'about.mission.c4.h4':        'Digital Transition',
       'about.mission.c4.p':         'We aim to develop well-rounded dental technicians who understand both analog and digital.',
       'about.timeline.h2':          'Our Journey',
-      'about.tl1.date':             'Founded 2022',
+      'about.tl1.date':             'November 17, 2018',
       'about.tl1.title':            'TORCH Founded',
-      'about.tl1.p':                "A few like-minded young dental technicians gathered to start a voluntary study group. The first study topic was \"Color Reproduction in Anterior Ceramic Restorations.\"",
-      'about.tl2.date':             '2022 H2',
+      'about.tl1.p':                "Like-minded young dental technicians gathered to establish TORCH, a voluntary study group. The first study topic was \"Color Reproduction in Anterior Ceramic Restorations.\"",
+      'about.tl2.date':             '2019',
       'about.tl2.title':            'First Public Study',
       'about.tl2.p':                'Through social media, we recruited our first public study with over 30 participants, and TORCH began to become known in the dental technician community.',
-      'about.tl3.date':             '2023',
+      'about.tl3.date':             '2021',
       'about.tl3.title':            '1st TORCH Symposium',
       'about.tl3.p':                "We successfully held our first symposium featuring members' clinical case presentations and a special lecture by an invited speaker.",
-      'about.tl4.date':             '2024',
+      'about.tl4.date':             '2023',
       'about.tl4.title':            'Workshop Program Launch',
       'about.tl4.p':                'We began regularly operating hands-on focused programs including CAD/CAM practice, occlusion seminars, and implant prosthetics workshops.',
       'about.tl5.date':             '2025 – Present',
