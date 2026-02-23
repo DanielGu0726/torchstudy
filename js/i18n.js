@@ -15,7 +15,7 @@ const I18n = (() => {
 
       /* Footer */
       'footer.brand.p':             'Korea Young Dental Technician Study<br>기술 · 기회 · 보완 · 도전 · 희망',
-      'footer.copyright':           '© 2025 TORCH – Korea Young Dental Technician Study. All rights reserved.',
+      'footer.copyright':           '© 2018 TORCH – Korea Young Dental Technician Study. All rights reserved.',
 
       /* Common */
       'common.contact':             '문의하기',
@@ -331,7 +331,7 @@ const I18n = (() => {
 
       /* Footer */
       'footer.brand.p':             'Korea Young Dental Technician Study<br>Technology · Opportunity · Redeem · Challenge · Hope',
-      'footer.copyright':           '© 2025 TORCH – Korea Young Dental Technician Study. All rights reserved.',
+      'footer.copyright':           '© 2018 TORCH – Korea Young Dental Technician Study. All rights reserved.',
 
       /* Common */
       'common.contact':             'Contact',
