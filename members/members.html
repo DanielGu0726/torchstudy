@@ -303,12 +303,17 @@ function renderAlumni() {
     sorted.sort((a, b) => (a.workplace || '').localeCompare(b.workplace || '', 'ko'));
   }
 
-  // Group by year
+  // Group by year (supporting comma-separated years like "2023, 2024")
   const byYear = {};
   sorted.forEach(m => {
-    const y = m.year || '기타';
-    if (!byYear[y]) byYear[y] = [];
-    byYear[y].push(m);
+    const yearStr = m.year || '기타';
+    // Split by comma and trim whitespace to support multiple years
+    const years = yearStr.toString().split(',').map(y => y.trim());
+
+    years.forEach(y => {
+      if (!byYear[y]) byYear[y] = [];
+      byYear[y].push(m);
+    });
   });
 
   // Year order depends on sort
