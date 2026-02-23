@@ -664,11 +664,17 @@ const I18n = (() => {
       if (dict[key] !== undefined) el.placeholder = dict[key];
     });
 
-    // Update toggle button active state
+    // Update toggle button active state (desktop)
     const btnKo = document.getElementById('btn-ko');
     const btnEn = document.getElementById('btn-en');
     if (btnKo) btnKo.classList.toggle('active', lang === 'ko');
     if (btnEn) btnEn.classList.toggle('active', lang === 'en');
+
+    // Update toggle button active state (mobile)
+    const mobileBtnKo = document.getElementById('mobile-btn-ko');
+    const mobileBtnEn = document.getElementById('mobile-btn-en');
+    if (mobileBtnKo) mobileBtnKo.classList.toggle('active', lang === 'ko');
+    if (mobileBtnEn) mobileBtnEn.classList.toggle('active', lang === 'en');
 
     // Update html lang attribute
     document.documentElement.lang = lang === 'en' ? 'en' : 'ko';
