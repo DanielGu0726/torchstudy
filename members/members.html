@@ -110,6 +110,7 @@
     <!-- Tabs -->
     <div class="tabs">
       <button class="tab-btn active" data-tab="president" data-i18n="members.tab.president">🔥 회장 인사말</button>
+      <button class="tab-btn" data-tab="past-presidents" data-i18n="members.tab.past-presidents">👑 역대 회장</button>
       <button class="tab-btn" data-tab="alumni" data-i18n="members.tab.alumni">📚 역대 Members</button>
       <button class="tab-btn" data-tab="current" data-i18n="members.tab.current">👥 2026 TORCH Members</button>
     </div>
@@ -136,7 +137,14 @@
       </div>
     </div>
 
-    <!-- ── Tab 2: 역대 Members ──────────────────────── -->
+    <!-- ── Tab 2: 역대 회장 ──────────────────────── -->
+    <div id="tab-past-presidents" class="tab-pane">
+      <div id="past-presidents-list" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:24px">
+        <div style="text-align:center;padding:60px;color:var(--text-muted);grid-column:1/-1" data-i18n="common.loading">불러오는 중…</div>
+      </div>
+    </div>
+
+    <!-- ── Tab 3: 역대 Members ──────────────────────── -->
     <div id="tab-alumni" class="tab-pane">
       <!-- Sort bar -->
       <div class="sort-bar">
@@ -153,7 +161,7 @@
       </div>
     </div>
 
-    <!-- ── Tab 3: 2026 TORCH Members ─────────────────── -->
+    <!-- ── Tab 4: 2026 TORCH Members ─────────────────── -->
     <div id="tab-current" class="tab-pane">
       <div class="sort-bar">
         <label data-i18n="members.sort.label">정렬:</label>
@@ -204,7 +212,7 @@
 <script src="../js/theme.js"></script>
 <script>
 /* ── Tab switching ─────────────────────────── */
-let alumniLoaded = false, currentLoaded = false;
+let alumniLoaded = false, currentLoaded = false, pastPresidentsLoaded = false;
 
 document.querySelectorAll('.tab-btn').forEach(btn => {
   btn.addEventListener('click', function() {
@@ -213,6 +221,10 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
     this.classList.add('active');
     document.getElementById('tab-' + this.dataset.tab).classList.add('active');
 
+    if (this.dataset.tab === 'past-presidents' && !pastPresidentsLoaded) {
+      loadPastPresidents();
+      pastPresidentsLoaded = true;
+    }
     if (this.dataset.tab === 'alumni' && !alumniLoaded) {
       loadAllMembers();
       alumniLoaded = true;
@@ -260,6 +272,52 @@ TORCH는 <strong>T</strong>echnology(기술), <strong>O</strong>pportunity(기�
     }
   } catch {
     // keep default fallback text
+  }
+}
+
+/* ── Past Presidents (역대 회장) ──────────────── */
+async function loadPastPresidents() {
+  const container = document.getElementById('past-presidents-list');
+  try {
+    const res = await fetch('/api/past-presidents');
+    if (!res.ok) throw new Error();
+    const { presidents } = await res.json();
+
+    if (!presidents || !presidents.length) {
+      container.innerHTML = `<div style="text-align:center;padding:60px;color:var(--text-muted);grid-column:1/-1">
+        <div style="font-size:3rem;margin-bottom:16px">👑</div>
+        <p>역대 회장 정보를 준비 중입니다.</p>
+      </div>`;
+      return;
+    }
+
+    container.innerHTML = presidents.map(p => {
+      const initial = (p.name || '?').replace(/\s/g, '')[0] || '?';
+      const avatar = p.photo
+        ? `<img src="${esc(p.photo)}" alt="${esc(p.name)}" style="width:100%;height:100%;object-fit:cover">`
+        : initial;
+
+      const period = p.year_start && p.year_end
+        ? `${p.year_start} - ${p.year_end}`
+        : '';
+
+      return `
+        <div class="card" style="text-align:center;padding:28px">
+          <div style="width:120px;height:120px;border-radius:50%;overflow:hidden;background:var(--primary);display:flex;align-items:center;justify-content:center;font-size:3rem;font-weight:700;color:#fff;margin:0 auto 16px;border:3px solid var(--primary)">
+            ${avatar}
+          </div>
+          <div style="font-size:1.3rem;font-weight:700;color:var(--primary);margin-bottom:4px">${esc(p.term || '제' + p.order_num + '대')}</div>
+          <h3 style="font-size:1.1rem;margin-bottom:6px">${esc(p.name)}</h3>
+          <p style="font-size:.88rem;color:var(--text-muted);margin-bottom:8px">${esc(p.title)}</p>
+          ${period ? `<p style="font-size:.82rem;color:var(--text-muted)">${esc(period)}</p>` : ''}
+        </div>
+      `;
+    }).join('');
+  } catch {
+    container.innerHTML = `<div style="text-align:center;padding:60px;color:var(--text-muted);grid-column:1/-1">
+      <div style="font-size:3rem;margin-bottom:16px">👑</div>
+      <p>역대 회장 정보를 불러올 수 없습니다.</p>
+    </div>`;
   }
 }
 

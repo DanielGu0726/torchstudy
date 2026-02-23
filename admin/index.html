@@ -85,6 +85,7 @@
         <div class="sidebar-link" data-panel="panel-activity">🎯 Activity 관리</div>
         <div class="sidebar-link" data-panel="panel-members">👥 Members 관리</div>
         <div class="sidebar-link" data-panel="panel-president">👑 회장 인사말</div>
+        <div class="sidebar-link" data-panel="panel-past-presidents">👑 역대 회장</div>
         <div class="sidebar-link" data-panel="panel-news">📰 News 관리</div>
         <div class="sidebar-link" data-panel="panel-sponsors">🤝 Sponsor 관리</div>
         <div class="sidebar-link" data-panel="panel-messages">💬 메시지함</div>
@@ -266,6 +267,22 @@
           </div>
         </div>
 
+        <!-- ── Panel: Past Presidents ── -->
+        <div id="panel-past-presidents" class="admin-panel">
+          <div class="panel">
+            <div class="panel-header">
+              <h3>역대 회장 관리</h3>
+              <button class="btn btn-primary btn-sm" onclick="openModal('past-president')">+ 추가</button>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>#</th><th>대수</th><th>이름</th><th>직함</th><th>재임기간</th><th>순서</th><th>활성</th><th>관리</th></tr></thead>
+                <tbody id="past-presidents-tbody"><tr><td colspan="8" style="text-align:center;padding:24px;color:var(--text-muted)">불러오는 중…</td></tr></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
         <!-- ── Panel: News ── -->
         <div id="panel-news" class="admin-panel">
           <div class="panel">
@@ -389,6 +406,7 @@ const panelLoaders = {
   'panel-activity':      ()=>{ loadCards(); loadSessions(); },
   'panel-members':       ()=>{ loadMembersAdmin(); },
   'panel-president':     ()=>{ loadPresident(); },
+  'panel-past-presidents': ()=>{ loadPastPresidents(); },
   'panel-news':          ()=>{ loadNewsAdmin(); },
   'panel-sponsors':      ()=>{ loadSponsors(); },
   'panel-messages':      ()=>{ loadMessages(); },
@@ -715,6 +733,42 @@ async function delMember(id){
 }
 
 /* ══════════════════════════════════════════
+   PAST PRESIDENTS
+══════════════════════════════════════════ */
+async function loadPastPresidents(){
+  const res=await fetch('/api/admin/past-presidents').catch(()=>null);
+  if(!res||!res.ok) return;
+  const {presidents}=await res.json();
+  const tbody=document.getElementById('past-presidents-tbody');
+  if(!presidents||!presidents.length){
+    tbody.innerHTML='<tr><td colspan="8" style="text-align:center;padding:24px;color:var(--text-muted)">역대 회장 없음</td></tr>';
+    return;
+  }
+  presidents.forEach(p => { _store['pp_'+p.id] = p; });
+  tbody.innerHTML=presidents.map((p,i)=>`
+    <tr>
+      <td>${i+1}</td>
+      <td>${esc(p.term||'제'+p.order_num+'대')}</td>
+      <td>${esc(p.name)}</td>
+      <td style="font-size:.82rem">${esc(p.title)}</td>
+      <td style="font-size:.82rem">${esc(p.year_start||'')}-${esc(p.year_end||'')}</td>
+      <td>${p.order_num}</td>
+      <td>${p.active?'✅':'—'}</td>
+      <td><div class="table-actions">
+        <button onclick="editPastPresident(${p.id})">✏️</button>
+        <button onclick="delPastPresident(${p.id})" style="color:var(--danger)">🗑</button>
+      </div></td>
+    </tr>
+  `).join('');
+}
+
+async function delPastPresident(id){
+  if(!confirm('삭제하시겠습니까?')) return;
+  await fetch('/api/admin/past-presidents?id='+id,{method:'DELETE'});
+  toast('삭제됨'); loadPastPresidents();
+}
+
+/* ══════════════════════════════════════════
    NEWS
 ══════════════════════════════════════════ */
 async function loadNewsAdmin(){
@@ -1019,6 +1073,27 @@ function openModal(type, data=null){
     document.getElementById('m-news-img-input').addEventListener('change',function(){
       resizeImage(this.files[0],900,1200,(b64)=>{ document.getElementById('m-news-img').value=b64; });
     });
+  } else if(type==='past-president'){
+    title.textContent=(data?'역대 회장 수정':'역대 회장 추가');
+    body.innerHTML=`
+      <div class="form-inline">
+        <div class="form-group"><label>대수 (예: 제1대)</label><input class="form-control" id="m-term" value="${esc(data?.term||'')}"></div>
+        <div class="form-group"><label>순서</label><input class="form-control" id="m-order_num" type="number" value="${data?.order_num||0}"></div>
+      </div>
+      <div class="form-inline">
+        <div class="form-group"><label>이름</label><input class="form-control" id="m-name" value="${esc(data?.name||'')}"></div>
+        <div class="form-group"><label>직함</label><input class="form-control" id="m-title" value="${esc(data?.title||'')}"></div>
+      </div>
+      <div class="form-inline">
+        <div class="form-group"><label>재임 시작</label><input class="form-control" id="m-year_start" placeholder="2018" value="${esc(data?.year_start||'')}"></div>
+        <div class="form-group"><label>재임 종료</label><input class="form-control" id="m-year_end" placeholder="2019" value="${esc(data?.year_end||'')}"></div>
+      </div>
+      <div class="form-group"><label>프로필 사진</label><input type="file" accept="image/*" id="m-pp-photo-input" style="display:block;margin-top:6px"><input type="hidden" id="m-photo" value="${esc(data?.photo||'')}">
+        ${data?.photo?`<img src="${esc(data.photo)}" class="img-preview" style="border-radius:50%;width:100px;height:100px;object-fit:cover">`:''}
+      </div>`;
+    document.getElementById('m-pp-photo-input').addEventListener('change',function(){
+      resizeImage(this.files[0],400,400,(b64)=>{ document.getElementById('m-photo').value=b64; });
+    });
   } else if(type==='sponsor'){
     title.textContent=(data?'후원사 수정':'후원사 추가');
     body.innerHTML=`
@@ -1061,6 +1136,10 @@ async function modalSave(){
     body={ title:val('m-title'),content:val('m-content'),category:val('m-category'),image:val('m-news-img'),popup:document.getElementById('m-popup').checked,published:document.getElementById('m-published').checked };
     if(isEdit){ body.id=data.id; url='/api/admin/news'; method='PATCH'; }
     else{ url='/api/admin/news'; method='POST'; }
+  } else if(modalType==='past-president'){
+    body={ term:val('m-term'),name:val('m-name'),title:val('m-title'),year_start:val('m-year_start'),year_end:val('m-year_end'),order_num:parseInt(val('m-order_num'))||0,photo:val('m-photo') };
+    if(isEdit){ body.id=data.id; url='/api/admin/past-presidents'; method='PATCH'; }
+    else{ url='/api/admin/past-presidents'; method='POST'; }
   } else if(modalType==='sponsor'){
     body={ name:val('m-name'),website:val('m-website'),order_num:parseInt(val('m-order_num'))||0,logo:val('m-logo') };
     if(isEdit){ body.id=data.id; url='/api/admin/sponsors'; method='PATCH'; }
@@ -1071,7 +1150,7 @@ async function modalSave(){
   if(res.ok){
     toast(isEdit?'수정됨':'추가됨');
     closeModal();
-    const reloader={card:()=>loadCards(),session:()=>loadSessions(),member:()=>loadMembersAdmin(),news:()=>loadNewsAdmin(),sponsor:()=>loadSponsors()};
+    const reloader={card:()=>loadCards(),session:()=>loadSessions(),member:()=>loadMembersAdmin(),'past-president':()=>loadPastPresidents(),news:()=>loadNewsAdmin(),sponsor:()=>loadSponsors()};
     if(reloader[modalType]) reloader[modalType]();
   } else {
     toast('저장 실패','error');
@@ -1083,6 +1162,7 @@ function val(id){ const el=document.getElementById(id); return el?el.value:''; }
 function editCard(id)   { openModal('card',    _store['c_' +id]); }
 function editSession(id){ openModal('session', _store['s_' +id]); }
 function editMember(id) { openModal('member',  _store['m_' +id]); }
+function editPastPresident(id){ openModal('past-president', _store['pp_'+id]); }
 function editNews(id)   { openModal('news',    _store['n_' +id]); }
 function editSponsor(id){ openModal('sponsor', _store['sp_'+id]); }
 
