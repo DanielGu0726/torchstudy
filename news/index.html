@@ -129,8 +129,8 @@ function renderNews() {
   }
 
   const catIcon = { '공지': '📢', '행사': '🎤', '워크샵': '🛠️', '소식': '📸' };
-  list.innerHTML = filtered.map((n, idx) => `
-    <div class="news-item" onclick="openNewsModal(${idx})">
+  list.innerHTML = filtered.map((n) => `
+    <div class="news-item" data-news-id="${n.id}">
       <div class="news-icon">${catIcon[n.category] || '📌'}</div>
       <div class="news-content">
         <div class="news-meta">
@@ -143,13 +143,18 @@ function renderNews() {
       <div class="news-arrow">→</div>
     </div>
   `).join('');
+
+  // Add click event listeners
+  document.querySelectorAll('.news-item').forEach(item => {
+    item.addEventListener('click', function() {
+      const newsId = parseInt(this.dataset.newsId);
+      openNewsModal(newsId);
+    });
+  });
 }
 
-function openNewsModal(index) {
-  const filtered = currentFilter === 'all'
-    ? allNews
-    : allNews.filter(n => n.category === currentFilter);
-  const news = filtered[index];
+function openNewsModal(newsId) {
+  const news = allNews.find(n => n.id === newsId);
   if (!news) return;
 
   const catIcon = { '공지': '📢', '행사': '🎤', '워크샵': '🛠️', '소식': '📸' };
@@ -158,7 +163,15 @@ function openNewsModal(index) {
     <span class="news-date">${formatDate(news.created_at)}</span>
   `;
   document.getElementById('modal-title').textContent = news.title;
-  document.getElementById('modal-body').innerHTML = `<p>${esc(news.content)}</p>`;
+
+  // Build modal body with image and content
+  let bodyHTML = '';
+  if (news.image) {
+    bodyHTML += `<img src="${esc(news.image)}" alt="${esc(news.title)}" style="width:100%;border-radius:8px;margin-bottom:20px">`;
+  }
+  bodyHTML += `<p style="white-space:pre-wrap;line-height:1.8">${esc(news.content)}</p>`;
+
+  document.getElementById('modal-body').innerHTML = bodyHTML;
 
   const modal = document.getElementById('news-modal');
   modal.classList.add('open');
