@@ -490,6 +490,14 @@ function parseArtworks(raw) {
   } catch { return [raw]; }
 }
 
+function ensureProtocol(url) {
+  if (!url) return '';
+  // Already has protocol
+  if (url.match(/^https?:\/\//i)) return url;
+  // Add https://
+  return 'https://' + url;
+}
+
 function buildMemberCard(m) {
   const initial = (m.name || '?').replace(/\s/g, '')[0] || '?';
   const avatar = m.photo
@@ -497,7 +505,7 @@ function buildMemberCard(m) {
     : initial;
 
   const webpage = m.webpage
-    ? `<div style="margin-top:14px"><a href="${esc(m.webpage)}" target="_blank" rel="noopener" class="btn btn-sm btn-dark" style="font-size:.78rem;padding:5px 12px" onclick="event.stopPropagation()">🌐 웹사이트</a></div>`
+    ? `<div style="margin-top:14px"><a href="${esc(ensureProtocol(m.webpage))}" target="_blank" rel="noopener" class="btn btn-sm btn-dark" style="font-size:.78rem;padding:5px 12px" onclick="event.stopPropagation()">🌐 웹사이트</a></div>`
     : '';
 
   const artworks = parseArtworks(m.artwork);
